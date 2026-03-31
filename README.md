@@ -52,30 +52,4 @@
 - **Responsive UI** + Reusable Component Packages (Ultimo)
 
 ## 📁 Repository Structure
-TicTacToang/
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── models/
-│   │   ├── repositories/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   └── utils/
-│   └── ...
-├── frontend/
-│   ├── src/
-│   │   ├── components/     (package structure - Ultimo)
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── utils/
-│   └── ...
-├── docs/
-│   ├── architecture/
-│   ├── diagrams/
-│   ├── ERD/
-│   └── sequence-diagrams/
-├── reports/
-└── README.md
+
