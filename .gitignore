@@ -14,3 +14,11 @@ build/
 # Operating System files
 .DS_Store
 Thumbs.db
+
+# --- Security & Credentials ---
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
