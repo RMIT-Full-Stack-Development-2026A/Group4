@@ -13,7 +13,7 @@
 
 | No. | Name                  | Student ID   | GitHub Username     | Main Responsibility                  |
 |-----|-----------------------|--------------|---------------------|--------------------------------------|
-| 1   | Du Lam Quan           | s4099918    | @yourusername       | Architecture & Auth Lead             |
+| 1   | Du Lam Quan           | s4099918    | quan-du      | Architecture & Auth Lead             |
 | 2   | Hung La Tran          | s4123461    | @yourusername       | Game & UI/UX Lead                    |
 | 3   | Son Nguyen Hoang      | s3990627    | HoangSon0810        | Online & Deployment Lead             |
 
