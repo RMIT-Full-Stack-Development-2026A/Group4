@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js Build Output
+.next/
+out/
+build/
+
+# Operating System files
+.DS_Store
+Thumbs.db
