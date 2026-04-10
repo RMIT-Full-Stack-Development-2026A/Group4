@@ -49,7 +49,7 @@ export const isEmailValid = ( req, res, next ) => {
     // Calling next middleware:
     next();
 };
-
+// Ensuring username is valid"
 export const isUsernameValid = ( req, res, next ) => {
     // Extracting username from frontend: 
     const { username } = req.body;
