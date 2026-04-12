@@ -1,5 +1,5 @@
 // Importing dependencies: 
-import AppError from "../shared/error.middleware";
+import AppError from "../shared/AppError";
 
 // Handing errors relating to authentication:
 // User not found: 
