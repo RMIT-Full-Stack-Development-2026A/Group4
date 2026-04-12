@@ -24,7 +24,6 @@ export const isPasswordStrong = (req, res, next) => {
     // Calling the next middleware if everything is good.
     next();
 };
-
 // Check that email is valid:
 export const isEmailValid = ( req, res, next ) => {
     // Extracting data from request:
