@@ -3,26 +3,21 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
-
 // Importing queries: 
 import { createUser, findUserBasedOnEmail } from './auth.repository';
-
 // Importing DTO:
 import { tokenDTO } from './authDTO';
-
 // importing error messages: 
 import { invalidCredentialsError, userNotFoundError } from './auth.error';
-
 // Registering: 
 export const register = async () => {
     try {
-        
+             
     }
     catch (err) {
         console.error(err)
     }
 }
-
 // Logging in: 
 export const loginService = async ( email, password ) => {
     try {
@@ -46,8 +41,7 @@ export const loginService = async ( email, password ) => {
          );
          // Returning payload:
         return { token: token, user: payload }
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
         throw err;
     }
