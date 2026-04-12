@@ -31,6 +31,16 @@ export class missingCredentialsError extends AppError {
         super(401, message);
     }
 }
+export class matchingPasswordError extends AppError {
+    constructor (message = 'Passwords must match') {
+        super(401, message);
+    }
+}
+export class ErrorCreatingNewUser extends AppError {
+    constructor ( message = 'Error creating new user! Please try again later...') {
+        super(501, message)
+    }
+}
 
 
 

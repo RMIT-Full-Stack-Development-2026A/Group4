@@ -8,14 +8,37 @@ import { createUser, findUserBasedOnEmail } from './auth.repository';
 // Importing DTO:
 import { tokenDTO } from './authDTO';
 // importing error messages: 
-import { invalidCredentialsError, userNotFoundError } from './auth.error';
+import { ErrorCreatingNewUser, invalidCredentialsError, userNotFoundError } from './auth.error';
 // Registering: 
-export const register = async () => {
+export const registerService = async (username, email, password, confirmPassword, country) => {
     try {
-             
+        // Perform validation:
+        if (password !== confirmPassword) {
+            throw new matchingPasswordError();
+        }
+        // Hash password:
+        const hashed = await bcrypt.hash( password, 10 );
+        // create new user: 
+        const user = await createUser(username, email, hashed, country);
+        if (!user) {
+            throw new ErrorCreatingNewUser();
+        }
+        // Creating token based on user
+        const payload = new tokenDTO(user);
+        const token = jwt.sign(
+            { ...payload },
+            process.env.JWT_SECRET,
+            { expiresIn: '7d' },
+        )
+        return { 
+            token: token, 
+            message: 'Successfully created user', 
+            user: payload 
+        };
     }
     catch (err) {
-        console.error(err)
+        console.error(err);
+        throw err;
     }
 }
 // Logging in: 
