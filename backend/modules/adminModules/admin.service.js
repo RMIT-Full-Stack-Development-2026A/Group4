@@ -5,20 +5,14 @@ import {
     accountStatusRedundantError
 } from './admin.error';
 
-export const getAllPlayersList = async () => {
-    try {
+export const AdminService = {
+
+    getAllPlayersList: async () => {
         const players = await AdminRepository.fetchAllPlayers();
         return players;
-    }
-    catch (err) {
-        console.error(`[Admin Service Error]: ${err.message}`);
-        throw err;
-    }
-};
+    },
 
-export const togglePlayerStatus = async (targetPlayerId, newStatus) => {
-    try {
-
+    changeActiveStatus: async (targetPlayerId, newStatus) => {
         // verify player existence
         const account = await AdminRepository.findAccountById(targetPlayerId); 
         
@@ -37,9 +31,6 @@ export const togglePlayerStatus = async (targetPlayerId, newStatus) => {
         }
 
         // update
-        return await AdminRepository.updateAccountStatus(targetPlayerId, newStatus);
-    }
-    catch (err) {
-        throw err; 
+        return await AdminRepository.updateActiveStatus(targetPlayerId, newStatus);
     }
 };

@@ -26,8 +26,8 @@ export const AdminRepository = {
         });
     },
 
-    // activate/deactivate player account
-    async updateAccountStatus(userId, newStatus) {
+    // update player account status
+    async updateActiveStatus(userId, newStatus) {
         return await Account.findByIdAndUpdate(
             userId, 
             { isActive: newStatus }, 

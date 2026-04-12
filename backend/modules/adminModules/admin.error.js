@@ -1,4 +1,4 @@
-import AppError from "../shared/error.middleware";
+import AppError from "../shared/AppError";
 
 // prevent 
 export class adminProtectionError extends AppError {
