@@ -7,7 +7,10 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true, required: true },
     hashedPassword: { type: String, required: true },
     userRole: { type: String, enum: ['PLAYER', 'ADMIN'] }, 
-    premiumStatus: { enum: ['DEACTIVATED', 'NOT_PURCHASED', 'ACTIVE']},
+    premiumStatus: {
+        type: String,
+        enum: ['DEACTIVATED', 'NOT_PURCHASED', 'ACTIVE'],
+        default: 'NOT_PURCHASED'},
     country: { type: String }, 
     walletBalance: { type: Number, default: 0 },
     logoUrl : { type: String, default: ''},
