@@ -15,11 +15,11 @@ export default function UserBox({username, avatarUrl}) {
             </div>
 
             <div className="flex-1 min-w-0 flex-col">
-                <div className="truncate text-base font-bold text-white font-baloo">
+                <div className="truncate text-base font-bold text-white">
                     {username}
                 </div>
-                <div className="text-[10px] tracking-wider text-gray-300 uppercase"> 
-                    Click to see profile 
+                <div className="text-[10px] tracking-wider text-gray-300"> 
+                    Click to see Profile 
                 </div>
             </div>
         </Link>
