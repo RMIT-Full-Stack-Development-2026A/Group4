@@ -1,1 +1,13 @@
-@import 'tailwindcss'
+/* import main font */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;700&display=swap');
+@import 'tailwindcss';
+
+@utility table-head-cell {
+  padding-inline: --spacing(6);
+  padding-block: --spacing(5);
+}
+
+@utility table-body-cell {
+  padding-inline: --spacing(6);
+  padding-block: --spacing(4);
+}
