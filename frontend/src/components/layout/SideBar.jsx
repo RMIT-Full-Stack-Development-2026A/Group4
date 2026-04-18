@@ -6,7 +6,7 @@ import SideBarNav from "./SideBarNav";
 
 export const Sidebar = ({}) => {
     return (
-        <div className="w-[18vw] min-w-50 max-w-75 h-screen shrink-0 flex flex-col 
+        <div className="w-[18vw] min-w-50 max-w-75 h-dvh shrink-0 flex flex-col 
                         border-r border-gray-300 font-baloo">
         
             {/* Logo */}
@@ -14,7 +14,7 @@ export const Sidebar = ({}) => {
                 <Logo size="medium" />
             </div>
 
-            <div className="bg-[#cd5253] flex-1 flex flex-col justify-between overflow-y-auto">
+            <div className="bg-[#cd5253] flex-1 flex flex-col min-h-0">
                 
                 {/* Navigation */}
                 <SideBarNav />
