@@ -5,7 +5,7 @@ const userProfileSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     country: { type: String, required: true },
     avatarUrl: { type: String, default: null },
-    wallet_balance: { type: Number, default: 0.00, min: 0 },
+    wallet_balance: { type: Number, default: 0, min: 0 },
     isPremium: { type: Boolean, default: false },
     premiumExpiryDate: { type: Date, default: null }
 });

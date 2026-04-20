@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Importing dependencies:
 import React from 'react'
 // React router dom:
@@ -8,6 +9,11 @@ import Signup from './modules/authentication/Signup/components/Signup'
 import Home from './modules/home/component/Home'
 import NavBar from './modules/utils/navbar/NavBar'
 import SubscriptionContainer from './modules/subscription/components/SubscriptionContainer'
+=======
+import { useState } from 'react'
+
+// import './App.css'
+>>>>>>> origin/main
 
 const App = () => {
   return (
