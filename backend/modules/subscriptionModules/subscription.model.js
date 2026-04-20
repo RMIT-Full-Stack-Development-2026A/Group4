@@ -9,14 +9,19 @@ const subscriptionSchema = new mongoose.Schema({
     },
     purchasedTime: {
         type: Date,
-        required: true,
+    },
+    subscriptionStatus: {
+        type: String,
+        enum: ['active', 'cancelled', 'expired'],
+        default: 'active'
     },
     price: {
         type: Number,
         required: true,
     },
     paymentMethod: {
-        enum: [],
+        type: String,
+        enum: ['credit_card', 'paypal', 'bank_transfer'],
         required: true,
     }
 });
