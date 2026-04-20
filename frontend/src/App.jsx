@@ -13,7 +13,11 @@ import SubscriptionContainer from './modules/subscription/components/Subscriptio
 import { useState } from 'react'
 
 // import './App.css'
+<<<<<<< Updated upstream
 >>>>>>> origin/main
+=======
+>>>>>>> 081d144c4c878dfd1a594f3e4f159c5c39e83e46
+>>>>>>> Stashed changes
 
 const App = () => {
   return (
