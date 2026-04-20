@@ -35,6 +35,7 @@ const Login = () => {
         navigate('/home')
       }
       catch (err) {
+        console.error(err);
         setErrorMessage('Connection error! Unable to log in.')
       }
     }

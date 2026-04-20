@@ -1,36 +1,40 @@
 // Importing dependencies:
-import Subscription from './subscription.model'
-
+import Subscription from './subscription.model';
 // Basic queries for subscription:
-// Creating subscription
+// Creating subscription:
 export const createSubscription = async ( userId, paymentMethod ) => {
     return Subscription.create({
-        userId: userId,
+        userId,
         price: 10,
         purchasedTime: Date.now(),
         paymentMethod: paymentMethod,
     });
-}
+};
 // Deleting subscription:
 export const deleteSubscription = async ( subscriptionId ) => {
-    return Subscription.findByIdAndDelete({ id: subscriptionId });
-}
+    Subscription.findByIdAndDelete(subscriptionId);
+};
 // Updating subscription:
 export const updateSubscription = async ( subscriptionId, updateInfo ) => {
     return Subscription.findByIdAndUpdate(
-        { id: subscriptionId, },
-        { status: updateInfo },
-        {
-            new: true,
-            runValidators: true,
-        }
-    )
-}
-// Finding existing subscription
+        subscriptionId,
+        updateInfo,
+        { new: true, runValidators: true}
+    );
+};
+// Updating subscription status:
+export const updateSubscriptionStatus = async ( subscriptionId, newSubscriptionStatus ) => {
+    return Subscription.findByIdAndUpdate(
+        subscriptionId,
+        newSubscriptionStatus,
+        { new: true, runValidators: true },
+    );
+};
+// Finding existing subscription: 
 export const findSubscription = async ( subscriptionId ) => {
-    return Subscription.findById({ id: subscriptionId })
-}
-// Finding a user's subscription
+    return Subscription.findById( subscriptionId ).lean();
+};
+// Finding a user's subscription:
 export const findUserSubscription = async ( userId ) => {
-    return Subscription.findOne({ userId: userId });
-}
+    return Subscription.findOne({ userId }).lean();
+};

@@ -17,9 +17,13 @@ app.use(cors({
 
 // Importing database:
 import connectDb from './pool/db.js';
-
 // Connect to database: 
 connectDb();
+
+// Importing route:
+import subscriptionRoute from './modules/subscriptionModules/subscription.route.js';
+// Setting routes: 
+app.use( '/subscription', subscriptionRoute );
 
 // Listening on port: 
 app.listen(port,()=>{
