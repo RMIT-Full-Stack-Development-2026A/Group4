@@ -3,6 +3,7 @@ import SubscriptionInfo from './SubscriptionInfo'
 import { useState, useEffect } from 'react'
 
 const SubscriptionContainer = () => {
+    // Defining component states: 
     const [subscriptions, setSubscriptions] = useState([]);
     // Fetching all plans from backend:
     const getSubscriptionPlans = async () => {
@@ -13,21 +14,27 @@ const SubscriptionContainer = () => {
         const data = await res.json();
         setSubscriptions(data);
     }
-    // Populating states with subscription plans
+    // Populating state with subscription plans:
     useEffect(()=>{
         // Getting plans from backend:
         getSubscriptionPlans;
     }, [subscriptions])
+    // handling purchase: 
     const handlePurchase = async () => {
-        const response = await fetch('http://localhost:3000/payment/check-out-page', {
+        const response = await fetch('/payment/create-payment-intent', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify( {priceId: 'price_1TM1Us84EVoDubNDMkyLreC6' }),
+            body: JSON.stringify({
+                priceId: 'price_1TM1Us84EVoDubNDMkyLreC6',
+                playerId: userId,
+            }),
         }); 
-        // Creating a payment session;
+        // Creating a payment session:
         const session = await response.json();
-        // Redirecting user to url
-        window.location.href = session.url;
+        if (session.url) {
+            // Redirecting user to url
+            window.location.href = session.url;
+        }
     }
     return (
         <div>

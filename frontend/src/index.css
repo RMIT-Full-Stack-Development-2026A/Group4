@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /* import main font */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;700&display=swap');
 @import 'tailwindcss';
@@ -13,8 +11,3 @@
   padding-inline: --spacing(6);
   padding-block: --spacing(4);
 }
-<<<<<<< Updated upstream
->>>>>>> origin/main
-=======
->>>>>>> 081d144c4c878dfd1a594f3e4f159c5c39e83e46
->>>>>>> Stashed changes

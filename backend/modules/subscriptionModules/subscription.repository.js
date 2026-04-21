@@ -1,5 +1,5 @@
 // Importing dependencies:
-import Subscription from './subscription.model';
+import Subscription from './subscription.model.js';
 // Basic queries for subscription:
 // Creating subscription:
 export const createSubscription = async ( userId, paymentMethod ) => {

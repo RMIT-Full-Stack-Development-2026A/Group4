@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     hashedPassword: { type: String, required: true },
     userRole: { type: String, enum: ['PLAYER', 'ADMIN'], default: 'PLAYER' },
     isActive: { type: Boolean, default: true },
+    country: {type: String, required: true},
     failedAttempts: { type: Number, default: 0 },
     lockUntil: { type: Date, default: null }
 })

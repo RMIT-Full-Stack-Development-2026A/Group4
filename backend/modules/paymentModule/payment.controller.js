@@ -1,5 +1,5 @@
 // Importing dependencies: 
-import { createStripeSession } from './payment.service';
+import { createStripeSession } from './payment.service.js';
 
 // Payment controller:
 export const paymentController = async ( req, res ) => {

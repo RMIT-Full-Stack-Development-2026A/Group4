@@ -1,9 +1,8 @@
 // Importing dependencies: 
-import { findUserBasedOnEmail } from "./auth.repository";
 import bcrypt from 'bcrypt';
 // Import error messages:
-import {invalidCredentialsError, userNotFoundError, missingCredentialsError} from './auth.error'
-import {loginService, registerService} from './auth.service'
+import { invalidCredentialsError, userNotFoundError, missingCredentialsError } from './auth.error.js'
+import {loginService, registerService} from './auth.service.js'
 // Called at the route
 export const AuthController = {
     async registerController (req, res, next) {

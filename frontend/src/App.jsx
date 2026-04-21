@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Importing dependencies:
 import React from 'react'
 // React router dom:
@@ -9,15 +8,7 @@ import Signup from './modules/authentication/Signup/components/Signup'
 import Home from './modules/home/component/Home'
 import NavBar from './modules/utils/navbar/NavBar'
 import SubscriptionContainer from './modules/subscription/components/SubscriptionContainer'
-=======
 import { useState } from 'react'
-
-// import './App.css'
-<<<<<<< Updated upstream
->>>>>>> origin/main
-=======
->>>>>>> 081d144c4c878dfd1a594f3e4f159c5c39e83e46
->>>>>>> Stashed changes
 
 const App = () => {
   return (
