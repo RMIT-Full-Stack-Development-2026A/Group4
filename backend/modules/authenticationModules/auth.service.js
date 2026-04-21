@@ -4,11 +4,11 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 // Importing queries: 
-import { createUser, findUserBasedOnEmail } from './auth.repository';
+import { findByEmail } from './account.repository.js';
 // Importing DTO:
-import { tokenDTO } from './authDTO';
+import { tokenDTO } from './authDTO.js';
 // importing error messages: 
-import { ErrorCreatingNewUser, invalidCredentialsError, userNotFoundError } from './auth.error';
+import { matchingPasswordError, ErrorCreatingNewUser, invalidCredentialsError, userNotFoundError } from './auth.error.js';
 // Registering: 
 export const registerService = async (username, email, password, confirmPassword, country) => {
     try {
@@ -45,7 +45,7 @@ export const registerService = async (username, email, password, confirmPassword
 export const loginService = async ( email, password ) => {
     try {
         // Find user based on email: 
-        const user = await findUserBasedOnEmail(email);
+        const user = await findByEmail(email);
         if (!user) {
             throw new userNotFoundError(); // User not found error
         }

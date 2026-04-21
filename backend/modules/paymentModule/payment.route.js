@@ -1,9 +1,9 @@
 // Importing library:
 import express from 'express';
 const paymentRoutes = express.Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+import stripe from '../shared/stripe.js';
 // Importing dependencies:
-import { paymentController } from './payment.controller'
+import { paymentController } from './payment.controller.js'
 
 // Post for stripe:
 paymentRoutes.post('/create-payment-intent', paymentController );

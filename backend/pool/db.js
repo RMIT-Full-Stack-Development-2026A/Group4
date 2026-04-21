@@ -1,6 +1,5 @@
 // Configuration for database: 
 import mongoose from 'mongoose';
-
 // Note: Removed dotenv.config() from here because it's 
 // already called in index.js. No need to call it twice!
 

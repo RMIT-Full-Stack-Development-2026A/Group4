@@ -1,13 +1,11 @@
 // Defining a subscription route
 import express from 'express';
-const subscriptionRoute = express();
+const SubscriptionRoute = express.Router();
 // Importing middlewares and controllers: 
-import {} from ''
 // Defining routes:
+SubscriptionRoute.get('/', () => {
+    console.log("Hello");
+})
 // New entry to payment history: 
-subscriptionRoute.post('/history', );
-subscriptionRoute.get('/:subscriptionId', );
-subscriptionRoute.delete('/');
-subscriptionRoute.put('/');
 
-export default subscriptionRoute;
+export default SubscriptionRoute;

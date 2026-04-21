@@ -1,7 +1,7 @@
 // Importing dependencies and repository queries:
-import { createSubscription, updateSubscription, deleteSubscription, findSubscription, findUserSubscription } from './subscription.repository';
-import { findExistingUser } from '../userModules/user.services';
-import { subscriptionDTO } from './subscription.dto';
+import { createSubscription, updateSubscription, deleteSubscription, findSubscription, findUserSubscription } from './subscription.repository.js';
+import { findExistingUser } from '../userModules/user.services.js';
+import { subscriptionDTO } from './subscription.dto.js';
 // Cancelling subscription:
 export const purchaseSubscription = async ( userId, amount, paymentMethod ) => {
     try {

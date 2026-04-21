@@ -1,5 +1,5 @@
 // Importing dependencies: 
-import AppError from "../shared/AppError";
+import AppError from "../shared/AppError.js";
 
 // Handing errors relating to authentication:
 // User not found: 
