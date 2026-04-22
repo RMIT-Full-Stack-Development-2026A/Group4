@@ -1,16 +1,15 @@
 
 import Profile from "./profile.model";
 
-
-export const createProfile = async (profileData) => 
-    Profile.create(profileData);
+export const createProfile = async ( profileData ) => 
+    Profile.create( profileData );
 
 export const findProfileByUserId = async (userId) => 
-    Profile.findOne({user_id: userId});
+    Profile.findOne({ user_id: userId });
 
 export const updateProfile = (userId, updateData) => 
     Profile.findOneAndUpdate(
-        {user_id: userId},
+        { user_id: userId },
         updateData,
         {new: true}
     );
