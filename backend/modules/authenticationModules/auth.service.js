@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 // Importing queries: 
-import { findByEmail } from './account.repository.js';
+import { findByEmail } from '../accountModules/account.repository.js';
 // Importing DTO:
 import { tokenDTO } from './authDTO.js';
 // importing error messages: 
