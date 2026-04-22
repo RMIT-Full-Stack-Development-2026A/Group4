@@ -1,26 +1,16 @@
 // Importing dependencies:
 import React from 'react'
 // React router dom:
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-// Importing routes
-import Login from './modules/authentication/Login/components/Login'
-import Signup from './modules/authentication/Signup/components/Signup'
-import Home from './modules/home/component/Home'
-import NavBar from './modules/utils/navbar/NavBar'
-import SubscriptionContainer from './modules/subscription/components/SubscriptionContainer'
+import { RouterProvider } from 'react-router-dom'
+import router from './route/AppRouter'
+// Import user context:
+
+// States: 
 import { useState } from 'react'
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <NavBar/>
-      <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/subscription' element={<SubscriptionContainer/>} />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   )
 }
 

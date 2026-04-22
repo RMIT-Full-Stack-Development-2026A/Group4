@@ -18,13 +18,13 @@ export class invalidCredentialsError extends AppError {
 export class userIsDeactivatedError extends AppError {
     constructor ( message='This account is deactivated!' ) {
         super(403, message);
-    }
+    }l
 }
 // Log in time out => more than 5 log in attempts: 
 export class loginTimeOutError extends AppError {
     constructor ( message = 'Exceeded the allowed login attempts!' ) {
         super(429, message);
-    }
+    };
 }
 export class missingCredentialsError extends AppError {
     constructor( message='Missing credentials!' ) {
@@ -36,10 +36,10 @@ export class matchingPasswordError extends AppError {
         super(401, message);
     }
 }
-export class ErrorCreatingNewUser extends AppError {
+export class errorCreatingNewUser extends AppError {
     constructor ( message = 'Error creating new user! Please try again later...') {
         super(501, message)
-    }
+    }   
 }
 
 

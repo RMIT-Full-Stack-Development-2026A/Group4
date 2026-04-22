@@ -1,8 +1,10 @@
+// Importing Link from react router
 import { Link } from 'react-router-dom';
-// need link update
-import defaultAvatar from ''
 
-export default function UserBox({username, avatarUrl}) {
+// Importing default avatar picture:
+
+
+const  UserBox = ({username, avatarUrl}) => {
     return (
         <Link to="/profile" 
               className="flex w-full items-center gap-3 bg-[#0a1b4d] p-4">
@@ -25,3 +27,5 @@ export default function UserBox({username, avatarUrl}) {
         </Link>
     )  
 }
+
+export default UserBox;

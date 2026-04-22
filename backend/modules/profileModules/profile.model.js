@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 // Defining schema for user profile
 const userProfileSchema = new mongoose.Schema({
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Account', required: true },
     country: { type: String, required: true },
     avatarUrl: { type: String, default: null },
     wallet_balance: { type: Number, default: 0, min: 0 },
@@ -11,7 +11,7 @@ const userProfileSchema = new mongoose.Schema({
 });
 
 // Defining model for user profile
-const Profile = mongoose.model('UserProfile', userProfileSchema);
+const Profile = mongoose.model('Profile', userProfileSchema);
 
 // Export
 export default Profile;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const CollapsibleBox = ({ title, children }) => {
+const CollapsibleBox = ({ title, children }) => {
 
     const [isOpen, setIsOpen] = useState(true);
 
@@ -24,4 +24,6 @@ export const CollapsibleBox = ({ title, children }) => {
         </div>
     );
 };
+
+export default CollapsibleBox 
 

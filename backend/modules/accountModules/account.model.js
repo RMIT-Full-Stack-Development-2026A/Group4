@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 // Defining schema for user
-const userSchema = new mongoose.Schema({
+const accountSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     hashedPassword: { type: String, required: true },
@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
 })
 
 // Defining model for user account
-const Account = mongoose.model('User', userSchema);
+const Account = mongoose.model('Account', accountSchema);
 
 // Export
 export default Account;

@@ -9,7 +9,7 @@ import { AuthController } from './auth.controller.js';
 // Signing up:  
 AuthRouter.post( '/signup', isEmailValid, isPasswordStrong, isUsernameValid, AuthController.registerController )
 // Logging in:
-AuthRouter.post( '/login', isEmailValid, AuthController.loginController )
+AuthRouter.post( '/login', isEmailValid, AuthController.loginController );
 
 // Export:
 export default AuthRouter;
