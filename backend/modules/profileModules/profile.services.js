@@ -3,7 +3,12 @@ import accountRepository from '../authenticationModules/account.repository.js';
 import bcrypt from 'bcryptjs';
 
 //GET profile
+export const createNewProfile = async () => {
+    
+};
+
 export const getProfile = async (userId) => {
+    // Ensuring account and profile exist
     const account = await accountRepository.findById(userId);
     const profile = await profileRepository.findProfileByUserId(userId);
 

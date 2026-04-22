@@ -8,9 +8,13 @@ export const findByUsername = async( username ) => {
     return await Account.findOne({ username });
 }
 
-export const createUser = async (userDTO) => {
+export const createAccount = async ( accountInput ) => {
+    const { username, email, hashedPassword, country } = accountInput;
     return await Account.create({
-        userDTO
+        username,
+        email,
+        hashedPassword,
+        country,
     })
 }
  

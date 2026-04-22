@@ -8,7 +8,8 @@ import { findByEmail } from '../accountModules/account.repository.js';
 // Importing DTO:
 import { tokenDTO } from './authDTO.js';
 // importing error messages: 
-import { matchingPasswordError, ErrorCreatingNewUser, invalidCredentialsError, userNotFoundError } from './auth.error.js';
+import { matchingPasswordError, errorCreatingNewUser, invalidCredentialsError, userNotFoundError } from './auth.error.js';
+import { creatingNewAccount } from '../accountModules/account.services.js';
 // Registering: 
 export const registerService = async (username, email, password, confirmPassword, country) => {
     try {
@@ -17,11 +18,19 @@ export const registerService = async (username, email, password, confirmPassword
             throw new matchingPasswordError();
         }
         // Hash password:
-        const hashed = await bcrypt.hash( password, 10 );
+        const hashedPassword = await bcrypt.hash( password, 10 );
+        // Creating new input: 
+        const accountInput = {
+            username,
+            email,
+            hashedPassword,
+            country,
+        }
         // create new user: 
-        const user = await createUser(username, email, hashed, country);
+        const user = await creatingNewAccount(accountInput);
+        // Throwing error if something is wrong: 
         if (!user) {
-            throw new ErrorCreatingNewUser();
+            throw new errorCreatingNewUser();
         }
         // Creating token based on user
         const payload = new tokenDTO(user);

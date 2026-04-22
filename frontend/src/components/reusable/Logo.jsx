@@ -1,5 +1,5 @@
 // need some more refinement
-export default function Logo({size}) {
+export const Logo = ({size}) => {
     const imgSize = size === "large" ? "max-w-[80px]" : 
                     size === "medium" ? "max-w-[60px]" : "max-w-[40px]";
 
@@ -24,3 +24,5 @@ export default function Logo({size}) {
         </div>
     )
 }
+
+export default Logo

@@ -12,14 +12,14 @@ const Login = () => {
     })
     const [errorMessage, setErrorMessage] = useState('');
     const [loginAttempt, setLoginAttempt] = useState(0);
-    const [isLocked, setIsLocked] =useState(false);
+    const [isLocked, setIsLocked] = useState(false);
     // Functions:
     const submitLoginForm = async (e) => {
       e.preventDefault(); // Prevent form reload
       if (isLocked) return; // Ensure log in attempts are still valid
       try {
         // calling backend:
-        const res = await fetch('https://localhost:4000/auth/login', {
+        const res = await fetch('http://localhost:3000/auth/login', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(loginInput),

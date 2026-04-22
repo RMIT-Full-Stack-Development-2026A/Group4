@@ -1,10 +1,10 @@
-import Logo from "./reusable/Logo";
-import { CollapsibleBox } from "./reusable/CollapsibleBox";
+import  Logo  from "../reusable/Logo";
+import  CollapsibleBox  from "../reusable/CollapsibleBox";
 import UserBox from "./UserBox";
 import { Link } from "react-router-dom";
 import SideBarNav from "./SideBarNav";
 
-export const Sidebar = ({}) => {
+const SideBar = ({}) => {
     return (
         <div className="w-[18vw] min-w-50 max-w-75 h-dvh shrink-0 flex flex-col 
                         border-r border-gray-300 font-baloo">
@@ -34,3 +34,5 @@ export const Sidebar = ({}) => {
         </div>
     );
 };
+
+export default SideBar
