@@ -1,6 +1,6 @@
 // import data models
 import Account from "../authenticationModules/account.model";
-import Profile from "../userModules/profile.model";
+import Profile from "../accountModules/account.model";
 
 export const AdminRepository = {
     // get player info
