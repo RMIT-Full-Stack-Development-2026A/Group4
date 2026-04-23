@@ -1,23 +1,36 @@
 export default function PlayerRow({player, playerDispatch}) {
-    // for code readability
-    function banPlayer() {
-        playerDispatch({
-            type: "UPDATE_STATUS",
-            payload: {
-                targetID: player.id,
-                newStatus: false,
-            },
-        });
+    async function banPlayer() {
+        if (player.isActive) {
+            try {
+                // call to update backend
+                await AdminService.updatePlayerStatus(player.id, false);
+
+                // update UI
+                playerDispatch({
+                    type: "UPDATE_STATUS",
+                    payload: { targetID: player.id, newStatus: false },
+                });
+            } catch (err) {
+                alert("Failed to ban player: " + err.message);
+            }
+        }
     }
 
-    function unbanPlayer() {
-        playerDispatch({
-            type: "UPDATE_STATUS",
-            payload: {
-                targetID: player.id,
-                newStatus: true,
-            },
-        });
+    async function unbanPlayer() {
+        if (!player.isActive) {
+            try {
+                // call to update backend
+                await AdminService.updatePlayerStatus(player.id, true);
+
+                // update UI
+                playerDispatch({
+                    type: "UPDATE_STATUS",
+                    payload: { targetID: player.id, newStatus: true },
+                });
+            } catch (err) {
+                alert("Failed to unban player: " + err.message);
+            }
+        }
     }
     return (
         <tr>

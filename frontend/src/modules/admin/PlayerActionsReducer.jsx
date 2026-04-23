@@ -1,4 +1,3 @@
-import AdminService from "./AdminService"
 
 const PlayerActionsReducer = (players, action) => {
     switch (action.type) {

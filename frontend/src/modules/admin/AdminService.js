@@ -15,7 +15,7 @@ const AdminService = {
             }
         } catch (error) {
             console.error("AdminService Fetch Error:", error);
-            throw error; // Let the Hook/Page handle the error message
+            throw error;
         }
     },
 
@@ -24,7 +24,7 @@ const AdminService = {
 
             const response = await httpHelper.patch(
                 ADMIN_ENDPOINTS.UPDATE_STATUS(userId), 
-                { isActive: status } // Send the "Flipped" status
+                { isActive: status }
             );
 
             if (response.status === 200) {
