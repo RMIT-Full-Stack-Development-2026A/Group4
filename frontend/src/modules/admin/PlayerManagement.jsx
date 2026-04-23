@@ -1,5 +1,17 @@
 import PlayerRow from "./PlayerRow"
+import AdminService from "./AdminService"
+import PlayerActionsReducer from "./PlayerActionsReducer"
+import { useReducer, useEffect } from "react"
+
 export default function PlayerManagement() {
+    const [players, dispatch] = useReducer(PlayerActionsReducer, [])
+    useEffect(() =>{
+        AdminService.fetchAllPlayers()
+        .then(players => dispatch({ type: "LOAD_PLAYERS", payload: players}))
+        .catch(err => console.error("Failed to load: ", err))
+    }, [])
+    
+
     return (
         <div className="flex-1 flex-col bg-gray-200 p-8 overflow-y-auto">
             <h1 className="font-baloo font-bold text-black mb-8">
@@ -17,7 +29,12 @@ export default function PlayerManagement() {
                         </tr>
                     </thead>
                     <tbody>
-
+                        {players.map(player => 
+                          <PlayerRow 
+                            key={player.id} 
+                            player={player} 
+                            playerDispatch={dispatch}
+                          />)}
                     </tbody>
                 </table>    
             </div>

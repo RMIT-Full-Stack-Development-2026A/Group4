@@ -4,25 +4,22 @@ import Profile from "../userModules/profile.model";
 
 export const AdminRepository = {
     // get player info
-    async fetchAllPlayers() {
-        // get player accounts info
+     async fetchAllPlayers() {
+        // Get the account info
         const accounts = await Account.find({ userRole: 'PLAYER' })
                                       .select('email username isActive')
                                       .lean();
 
-        // get matching player profiles                              
+        // Get the profile info
         const playerIds = accounts.map(acc => acc._id);
         const profiles = await Profile.find({ user_id: { $in: playerIds }})
                                       .select('user_id isPremium') 
-                                      .lean()
+                                      .lean();
 
-        // merge accounts and profiles                                      
+        // Merge and return account and profile info to the Service
         return accounts.map(acc => {
             const prof = profiles.find(p => p.user_id.toString() === acc._id.toString());
-            return {
-                ...acc,
-                premium: prof?.isPremium || false
-            };
+            return { acc, prof };
         });
     },
 

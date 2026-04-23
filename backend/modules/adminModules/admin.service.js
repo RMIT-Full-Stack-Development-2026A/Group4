@@ -8,8 +8,10 @@ import {
 export const AdminService = {
 
     getAllPlayersList: async () => {
-        const players = await AdminRepository.fetchAllPlayers();
-        return players;
+        const rawData = await AdminRepository.fetchAllPlayers();
+        // turn raw data to dto
+        const dtoList = rawData.map(data => new AdminPlayerDTO(data.acc, data.prof));
+        return dtoList;
     },
 
     changeActiveStatus: async (targetPlayerId, newStatus) => {

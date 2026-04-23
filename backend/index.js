@@ -11,6 +11,7 @@ import SubscriptionRoute  from './modules/subscriptionModules/subscription.route
 import paymentRoutes from './modules/paymentModule/payment.route.js';
 import AuthRouter from './modules/authenticationModules/auth.route.js';
 import IndexRouter from './modules/shared/index.route.js';
+import AdminRouter from './modules/adminModules/admin.route.js';
 // Configuration:
 const app = express();
 const port = process.env.PORT
@@ -28,6 +29,7 @@ app.use(express.json()) // Enable json formatting
 app.use('/', IndexRouter);
 app.use('/subscription', SubscriptionRoute );
 app.use('/auth', AuthRouter);
+app.use('/admin', AdminRouter)
 // Error Handler
 app.use(ErrorHandler);
 // Listening on port: 
