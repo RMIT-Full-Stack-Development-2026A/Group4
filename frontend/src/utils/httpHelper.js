@@ -1,4 +1,4 @@
-class HttpHelper {
+export class HttpHelper {
     constructor(apiUrl) {
         this.apiUrl = apiUrl
     }

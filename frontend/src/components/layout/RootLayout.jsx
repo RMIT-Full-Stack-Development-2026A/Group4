@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 const RootLayout = () => {
   return (
-    <div>
+    <div className='m-10'>
         <PublicNavBar />
         <main>
             <Outlet />

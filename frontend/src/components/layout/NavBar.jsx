@@ -1,30 +1,42 @@
+// Importing dependencies: 
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/UserContext'
-import Logout from '../reusable/Logout';
 import { useState } from 'react';
+// Importing components
+import LoginButton from '../reusable/LoginButton';
+import SignupButton from '../reusable/SignupButton';
+import Logout from '../reusable/Logout';
+import DropDownMenu from './DropDownMenu';
 
+// Component
 const NavBar = () => {
     const {user, updateUserInfo} = useAuth();
     const [dropDown, setDropDown] = useState(false);
+    // Toggle dropdown:
+    const toggleDropDown = () => {
+      setDropDown(!dropDown);
+    }
     return (
       <nav>
         {
             user 
             ? 
-            <div>
-             {user.username}
-              <Link to='/profile'>
+            <div className='flex align-center justify-between'>
+              <Link to='/lobby'>TicTacToang</Link>
+
+              <div className='cursor-pointer' onClick={toggleDropDown}>
+                <img></img>
+                {user.username}
                 <div>
-                  <img></img>
+                  { dropDown ? <DropDownMenu />:  <></> }
                 </div>
-              </Link>
-              <Logout />
+              </div>
             </div>
             : 
             <div>
-              <Link to='/login'>Log in</Link>
-              <Link to='/signup'>Sign up</Link>
+              <LoginButton />
+              <SignupButton />
             </div>
         }
       </nav>
