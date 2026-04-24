@@ -1,15 +1,19 @@
 // Importing dependencies: 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../../context/UserContext';
 // Login form:
 const Login = () => {
+    // Auth Context:
+    const { updateUserInfo } = useAuth();
     // States and hooks: 
     const navigate = useNavigate();
     const [loginInput, setLoginInput] = useState({
       email: '',
       password: ''
     })
+    const [loggedOutTime, setLoggedOutTime] = useState(60);
     const [errorMessage, setErrorMessage] = useState('');
     const [loginAttempt, setLoginAttempt] = useState(0);
     const [isLocked, setIsLocked] = useState(false);
@@ -32,7 +36,8 @@ const Login = () => {
           return;
         }
         // putting token into cookie and redirecting user
-        navigate('/home')
+        updateUserInfo(data.user);
+        navigate('/lobby')
       }
       catch (err) {
         console.error(err);
@@ -47,27 +52,39 @@ const Login = () => {
         [name]: value,
       }))
     };
-    // Log in attempts;
+    // Countdown timer:
+    useEffect(()=>{
+      let interval = null;
+      if (isLocked && loginAttempt > 0) {
+        // reduce every second: 
+        interval = setInterval(()=>{
+          setLoggedOutTime((prev) => prev-1);
+        }, 1000);
+      }
+      // Checking if 60 seconds have passed
+      else if (loggedOutTime === 0) {
+        setIsLocked(false);
+        setLoginAttempt(0);
+        setErrorMessage('');
+      }
+      // returning to terminate the previous interval
+      return () => {
+        if (interval) clearInterval(interval);
+      }
+    }, [isLocked, loggedOutTime])
+    // Log in attempts:
     const handleLoginAttempts = () => {
       setLoginAttempt((prev)=>{
         const nextAttempt = prev + 1;
-        // checking if log in attempts are exceeded:
         if (nextAttempt > 5) {
-          setIsLocked(true),
-          setErrorMessage('Too many attempts. Try again in 60 seconds.');
-          // 60 seconds time out:
-          setTimeout(()=>{
-            setIsLocked(false);
-            setLoginAttempt(0);
-            setErrorMessage('');
-          }, 60000);
+          setIsLocked(true);
         }
-        // Returning attempt
         return nextAttempt;
       })
     }
+    // Returning JSX:
     return (
-      <div>
+      <div className='text-red-500'>
           <form onSubmit={submitLoginForm}>
               <h1>Log in!</h1>
               <div>
@@ -80,7 +97,7 @@ const Login = () => {
               </div>
               <button disabled={isLocked} type='submit'>{ !isLocked ? 'Log In' : 'Locked' }</button>
           </form>
-          <div>{errorMessage}</div>
+          <div>{ loginAttempt === 0 ? '' : ( loginAttempt < 6 ? `Invalid Credentials! ${loginAttempt} / 5 attempts remaining` : `Please try again in ${loggedOutTime} seconds...`)}</div>
           <p>Don't have an account? Sign up <Link to='/signup'>here</Link></p>
       </div>
     )

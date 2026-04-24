@@ -1,7 +1,7 @@
-import { AdminService } from "./admin.service";
+import { AdminService } from "./admin.service.js";
 
-export const AdminController = {
-
+const AdminController = {
+    // Getting all players
     getAllPlayers: async (req, res, next) => {
         try {
             // get the list from service
@@ -18,7 +18,7 @@ export const AdminController = {
             next(err); 
         }
     },
-
+    // Activating/deactivating account
     toggleAccountStatus: async (req, res, next) => {
         try {
             // extract the ID and the new status
@@ -39,3 +39,5 @@ export const AdminController = {
         }
     }
 };
+
+export default AdminController

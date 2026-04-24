@@ -1,13 +1,18 @@
+// Importing dependencies:
 import {Router} from 'express';
 
-// import controller and middleware
-import { AdminController } from './admin.controller';
-import { isAdmin, validateToggleInput } from './admin.middleware';
+// Import controller and middleware:
+import  AdminController from '../adminModules/admin.controller.js';
+import { isAdmin, validateToggleInput } from './admin.middleware.js';
 
+// Creating a router:
 const AdminRouter = Router();
   
-// get all players
+// DEFINING ROUTES:
+// Getting all players
 AdminRouter.get('/players', isAdmin, AdminController.getAllPlayers)
-// activate/deactivate player
+// Activating/Deactivating a player
 AdminRouter.post('/players/:id', isAdmin, validateToggleInput, AdminController.toggleAccountStatus)
+
+// Exporting router:
 export default AdminRouter;

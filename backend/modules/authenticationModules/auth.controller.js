@@ -1,5 +1,6 @@
 // Importing dependencies: 
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 // Import error messages:
 import { invalidCredentialsError, userNotFoundError, missingCredentialsError } from './auth.error.js'
 import {loginService, registerService} from './auth.service.js'
@@ -61,6 +62,40 @@ export const AuthController = {
         }
         catch (err) {
             next(err);
+        }
+    },
+    logOut (req, res)  {
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'lax',
+        })
+        res.status(200).json({message: 'Logged out!'})
+    }
+    ,
+    // Fetching for cookie
+    checkCookie (req, res)  {
+        // Optional chaining incase cookie doesn't exist
+        const token = req.cookies?.token;
+        if (!token) {
+            return res.status(401).json({
+                message: 'No token found'
+            })
+        }
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            return res.status(200).json({
+                user: {
+                    id: decoded.id,
+                    username: user.username,
+                    email: user.email
+                }
+            })
+        }
+        catch (err) {
+            return res.status(401.).json({
+                message: 'Invalid or expired token',
+            })
         }
     }
 }

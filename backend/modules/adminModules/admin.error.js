@@ -1,4 +1,4 @@
-import AppError from "../shared/AppError";
+import AppError from "../shared/AppError.js";
 
 // prevent unauthorized access
 export class adminUnauthorizedError extends AppError {

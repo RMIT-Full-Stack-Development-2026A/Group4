@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import { adminUnauthorizedError,
          invalidIdFormatError,
          invalidInputError
- } from './admin.error';
+ } from './admin.error.js';
 
-// Authorization
+// Authorization:
 export const isAdmin = (req, res, next) => {
     // check the role attached by the verifyToken middleware
     if (req.user && req.user.userRole === 'ADMIN') {
