@@ -55,23 +55,19 @@ const Login = () => {
     };
     // Countdown timer:
     useEffect(()=>{
-      let interval = null;
-      if (isLocked && loginAttempt > 0) {
-        // reduce every second: 
-        interval = setInterval(()=>{
-          setLoggedOutTime((prev) => prev-1);
-        }, 1000);
-      }
-      // Checking if 60 seconds have passed
-      else if (loggedOutTime === 0) {
-        setIsLocked(false);
-        setLoginAttempt(0);
-        setErrorMessage('');
-      }
-      // returning to terminate the previous interval
-      return () => {
-        if (interval) clearInterval(interval);
-      }
+      let timer;
+        if (isLocked && loggedOutTime > 0) {
+            timer = setInterval(() => {
+                setLoggedOutTime((prev) => prev - 1);
+            }, 1000);
+        }
+        if (loggedOutTime === 0) {
+            setIsLocked(false);
+            setLoginAttempt(0);
+            setLoggedOutTime(60); 
+            setErrorMessage('');
+        }
+        return () => {clearInterval(timer)};
     }, [isLocked, loggedOutTime])
     // Log in attempts:
     const handleLoginAttempts = () => {
@@ -85,21 +81,21 @@ const Login = () => {
     }
     // Returning JSX:
     return (
-      <div className='text-red-500'>
-          <form onSubmit={submitLoginForm}>
-              <h1>Log in!</h1>
-              <div>
-                <label>Email:</label>
-                <input value={loginInput.email} type='email' name='email' required onChange={handleChangingInput} />
+      <div className='flex justify-center'>
+          <form className='shadow-[9px_18px_82px_8px_rgba(0,0,0,0.15)] flex flex-col gap-5 w-[50%] p-5' onSubmit={submitLoginForm}>
+              <h1 className='text-3xl text-center font-semibold '>Log In</h1>
+              <div className='flex flex-col gap-2'>
+                <label className='text-xl text-gray-800 font-medium'>Email</label>
+                <input className='bg-gray-100 rounded-sm p-3 text-gray-600'  value={loginInput.email} type='email' name='email' required onChange={handleChangingInput} />
               </div>
-              <div>
-                <label>Password:</label>
-                <input value={loginInput.password} name='password' type='password'required onChange={handleChangingInput}  />
+              <div className='flex flex-col gap-2 '>
+                <label className='text-xl text-gray-800 font-medium'>Password</label>
+                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' value={loginInput.password} name='password' type='password'required onChange={handleChangingInput}  />
               </div>
-              <button disabled={isLocked} type='submit'>{ !isLocked ? 'Log In' : 'Locked' }</button>
+              <button className={isLocked ? `p-3 cursor-not-allowed rounded-xl text-xl bg-gray-500 text-white` : `p-3 cursor-pointer rounded-xl text-xl bg-black text-white`} disabled={isLocked} type='submit'>{ !isLocked ? 'Log In' : 'Locked' }</button>
+              <p className='text-gray-500 text-center'>Don't have an account? <Link className='text-gray-600' to='/signup'>Sign up here</Link></p>
+              <div className='text-red-600 font-semibold text-center'>{ loginAttempt === 0 ? '' : ( loginAttempt < 6 ? `${errorMessage} ${loginAttempt} / 5 attempts remaining` : `Please try again in ${loggedOutTime} seconds...`)}</div>
           </form>
-          <div>{ loginAttempt === 0 ? '' : ( loginAttempt < 6 ? `Invalid Credentials! ${loginAttempt} / 5 attempts remaining` : `Please try again in ${loggedOutTime} seconds...`)}</div>
-          <p>Don't have an account? Sign up <Link to='/signup'>here</Link></p>
       </div>
     )
 }

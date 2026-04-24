@@ -1,8 +1,10 @@
 import React from 'react'
 import SubscriptionInfo from './SubscriptionInfo'
+import { useAuth } from '../../../context/UserContext'
 import { useState, useEffect } from 'react'
 
 const SubscriptionContainer = () => {
+    const { user } = useAuth();
     // Defining component states: 
     const [subscriptions, setSubscriptions] = useState([]);
     // Fetching all plans from backend:
@@ -26,7 +28,7 @@ const SubscriptionContainer = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 priceId: 'price_1TM1Us84EVoDubNDMkyLreC6',
-                playerId: userId,
+                playerId: user.id,
             }),
         }); 
         // Creating a payment session:

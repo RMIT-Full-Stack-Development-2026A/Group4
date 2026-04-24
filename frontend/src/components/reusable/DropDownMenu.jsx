@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logout from '../reusable/Logout'
+import Logout from './Logout'
 
 const DropDownMenu = () => {
-  
   return (
     <div className='flex flex-col align-center justify-center'>
         <Link to='/profile'>View Profile</Link>
