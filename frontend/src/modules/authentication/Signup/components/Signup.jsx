@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../../context/UserContext'
 
 const Signup = () => {
+    const {user, updateUserInfo} = useAuth();
     // States:
     const navigate = useNavigate();
     const [signUpInput, setSignUpInput] = useState({
@@ -29,7 +31,8 @@ const Signup = () => {
                 setErrorMessage( data.message ||'Error signing up! Please try again later...')
                 return;
             }
-            navigate('/home');
+            updateUserInfo(data.user);
+            navigate('/lobby');
         }
         catch (err) {
             setErrorMessage('Connection error. Is server running?')

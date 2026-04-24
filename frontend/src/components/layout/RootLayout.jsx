@@ -1,5 +1,5 @@
 import React from 'react'
-import PublicNavBar from './PublicNavBar'
+import PublicNavBar from './NavBar'
 import { Outlet } from 'react-router-dom'
 
 const RootLayout = () => {
