@@ -5,6 +5,7 @@ import { useState } from 'react'
 // Importing components:
 import BoardLayout from './components/BoardLayout';
 import GameMode from './components/GameMode';
+import StartGameButton from './components/StartGameButton';
 
 const GameLobby = () => {
   // Defining states:
@@ -15,7 +16,7 @@ const GameLobby = () => {
     <div className='text-4xl'>
       <GameMode />
       <BoardLayout />
-      <div></div>
+      <StartGameButton />
     </div>
   )
 }

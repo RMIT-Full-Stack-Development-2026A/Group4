@@ -47,27 +47,28 @@ const Signup = () => {
         }))
     }
   return (
-    <div>
-        <form onSubmit={handleSignupSubmission}>
-            <div>
-                <label htmlFor='username'>Username:</label>
-                <input onChange={handleChangingInput} required type='text' name='username' value={signUpInput.username} />
+    <div className='flex justify-center'>
+        <form className='shadow-[9px_18px_82px_8px_rgba(0,0,0,0.15)] flex flex-col gap-5 w-[50%] p-5' onSubmit={handleSignupSubmission}>
+            <h1 className='text-3xl text-center font-semibold '>Sign Up</h1>
+            <div className='flex flex-col gap-2'>
+                <label className='text-xl text-gray-800 font-medium' htmlFor='username'>Username:</label>
+                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} required type='text' name='username' value={signUpInput.username} />
             </div>
-            <div>
-                <label htmlFor='email'>Email:</label>
-                <input onChange={handleChangingInput} name='email' type='email' required value={signUpInput.email} />
+            <div className='flex flex-col gap-2'>
+                <label className='text-xl text-gray-800 font-medium' htmlFor='email'>Email:</label>
+                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} name='email' type='email' required value={signUpInput.email} />
             </div>
-            <div>
-                <label htmlFor='password'>Password: </label>
-                <input onChange={handleChangingInput} name='password' type='password' required value={signUpInput.password} />
+            <div className='flex flex-col gap-2'>
+                <label className='text-xl text-gray-800 font-medium' htmlFor='password'>Password: </label>
+                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} name='password' type='password' required value={signUpInput.password} />
             </div>
-            <div>
-                <label htmlFor='confirmPassword'>Confirm Password:</label>
-                <input onChange={handleChangingInput} name='confirmPassword' type='password' required value={signUpInput.confirmPassword} />
+            <div className='flex flex-col gap-2'>
+                <label className='text-xl text-gray-800 font-medium' htmlFor='confirmPassword'>Confirm Password:</label>
+                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} name='confirmPassword' type='password' required value={signUpInput.confirmPassword} />
             </div>
-            <div>
-                <label htmlFor='country'>Country:</label>
-                <select id='country' onChange={handleChangingInput} value={signUpInput.country} required name='country'>
+            <div className='flex flex-col gap-2'>
+                <label className='text-xl text-gray-800 font-medium' htmlFor='country'>Country:</label>
+                <select className='bg-gray-100 rounded-sm p-3 text-gray-600' id='country' onChange={handleChangingInput} value={signUpInput.country} required name='country'>
                     <option value="">Select a country</option>
                     <option value="Vietnam">Vietnam</option>
                     <option value="Singapore">Singapore</option>
@@ -75,10 +76,11 @@ const Signup = () => {
                     <option value="Malaysia">Malaysia</option>
                 </select>
             </div>
-            <button type='submit'>Sign Up</button>
+            <button className='p-3 cursor-pointer bg-black text-white text-semibold text-xl rounded-xl' type='submit'>Sign Up</button>
+            <div>{errorMessage}</div>
+            <p className='text-center text-gray-500'>Already have an account? Log in <Link className='text-bold text-gray-800' to='/login'>here</Link></p>
         </form>
-        <div>{errorMessage}</div>
-        <p>Already have an account? Log in <Link to='/login'>here</Link></p>
+      
     </div>
   )
 }
