@@ -10,7 +10,7 @@ import AppLayout from "../components/layout/AppLayout";
 import PlayerManagement from "../modules/admin/PlayerManagement";
 import GameLobby from "../modules/lobby/GameLobby";
 
-// Creating a router
+// Creating a router:
 const router = createBrowserRouter(
   [
     {
