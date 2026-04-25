@@ -10,7 +10,7 @@ import {
 
 import {
     validateProfileUpdate,
-    validateAvatarUpload,
+    validateAvatar,
 } from './profile.middleware.js';
 
 const router = Router();
