@@ -6,7 +6,7 @@ import * as profileRepo from "./profile.repository.js";
 
 //DTO
 import { ProfileDTO } from "./profileDTO.js";
-import { AccountDTO } from "../accountModules/accountDTO.js";
+import accountDTO from "../accountModules/account.dto.js";
 
 
 //GET profile
@@ -19,7 +19,7 @@ export const getProfile = async (userId) => {
     }
 
     return {
-        account: new AccountDTO(account),
+        account: new accountDTO(account),
         profile: profile ? new ProfileDTO(profile) : null,
     }
 }
