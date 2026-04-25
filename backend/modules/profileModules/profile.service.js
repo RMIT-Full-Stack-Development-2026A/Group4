@@ -8,6 +8,12 @@ import * as profileRepo from "./profile.repository.js";
 import { ProfileDTO } from "./profileDTO.js";
 import accountDTO from "../accountModules/account.dto.js";
 
+//Error
+import {
+    ProfileNotFoundError,
+    AccountNotFoundError,
+    DuplicateEmailError,
+} from "./profile.error.js";
 
 //GET profile
 export const getProfile = async (userId) => {
@@ -15,7 +21,10 @@ export const getProfile = async (userId) => {
     const profile = await profileRepo.findProfileByUserId(userId);
 
     if(!account) {
-        throw new Error('Account not found');
+        throw new AccountNotFoundError();
+    }
+    if(!profile) {
+        throw new ProfileNotFoundError();
     }
 
     return {
@@ -27,6 +36,12 @@ export const getProfile = async (userId) => {
 
 //UPDATE profile
 export const updateProfile = async (userId, data) => {
+    const account = await accountRepo.findById(userId);
+
+    if(!account) {
+        throw new AccountNotFoundError();
+    }
+
     const accountUpdate = {};
     const profileUpdate = {};
 
@@ -34,7 +49,7 @@ export const updateProfile = async (userId, data) => {
     if(data.username) {
         const regex = /^[a-zA-Z0-9_-]+$/;
         if(!regex.test(data.username)) {
-            throw new Error('Invalid username format');
+            throw new InvalidUsernameError();
         }
 
         accountUpdate.username = data.username;
@@ -49,7 +64,7 @@ export const updateProfile = async (userId, data) => {
 
         const existingEmail = await accountRepo.findByEmail(data.email);
         if(existingEmail && existingEmail._id.toString() !== userId) {
-            throw new Error('Email already in use');
+            throw new DuplicateEmailError();
         }
 
         accountUpdate.email = data.email;
@@ -93,7 +108,7 @@ export const uploadAvatar = async (userId, avatarUrl) => {
     const updated = await profileRepo.updateProfile(userId, {avatarUrl: filePath});
 
     if(!updated) {
-        throw new Error('Profile not found');
+        throw new ProfileNotFoundError();
     }
 
     return new ProfileDTO(updated);

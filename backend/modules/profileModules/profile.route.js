@@ -8,16 +8,21 @@ import {
     resizeAvatar,
 } from '../shared/shared.middleware.js';
 
+import {
+    validateProfileUpdate,
+    validateAvatarUpload,
+} from './profile.middleware.js';
+
 const router = Router();
 
 //GET profile
 router.get('/', authMiddleware, controller.getProfile);
 
 //UPDATE profile
-router.put('/', authMiddleware, controller.updateProfile);
+router.put('/', authMiddleware, validateProfileUpdate, controller.updateProfile);
 
 //UPLOAD avatar
-router.put('/avatar', authMiddleware, upload.single('avatar'), resizeAvatar, controller.uploadAvatar);
+router.put('/avatar', authMiddleware, upload.single('avatar'), validateAvatar, resizeAvatar, controller.uploadAvatar);
 
 //GAME HISTORY - To be implemented
 
