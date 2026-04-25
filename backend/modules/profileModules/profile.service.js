@@ -73,6 +73,7 @@ export const updateProfile = async (userId, data) => {
     //Country
     if(data.country) {
         profileUpdate.country = data.country;
+        accountUpdate.country = data.country;
     }
 
     //Apply updates
