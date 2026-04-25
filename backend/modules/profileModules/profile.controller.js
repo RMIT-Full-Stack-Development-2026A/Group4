@@ -3,7 +3,7 @@ import * as profileService from './profile.service.js';
 //GET profile
 export const getProfile = async (req, res) => {
     try{
-        const data = await profileService.getProfile(req.userId);
+        const data = await profileService.getProfile(req.user.id);
 
         res.status(200).json({
             success: true,
@@ -20,7 +20,7 @@ export const getProfile = async (req, res) => {
 //UPDATE profile
 export const updateProfile = async (req, res) => {
     try {
-        const data = await profileService.updateProfile(req.userId, req.body);
+        const data = await profileService.updateProfile(req.user.id, req.body);
 
         res.status(200).json({
             success: true,
@@ -44,7 +44,7 @@ export const uploadAvatar = async (req, res) => {
             });
         }
 
-        const data = await profileService.uploadAvatar(req.userId, req.file.path);
+        const data = await profileService.uploadAvatar(req.user.id, req.file.path);
 
         res.status(200).json({
             success: true,

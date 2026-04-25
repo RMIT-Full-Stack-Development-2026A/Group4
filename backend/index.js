@@ -12,9 +12,10 @@ import paymentRoutes from './modules/paymentModule/payment.route.js';
 import AuthRouter from './modules/authenticationModules/auth.route.js';
 import IndexRouter from './modules/shared/index.route.js';
 import AdminRouter from './modules/adminModules/admin.route.js';
+import ProfileRouter from './modules/profileModules/profile.route.js';
 // Configuration:
 const app = express();
-const port = process.env.PORT
+const port = process.env.PORT || 5000;
 // Connect to database: 
 connectDb();
 // Middlewares: 
@@ -30,6 +31,7 @@ app.use('/', IndexRouter);
 app.use('/subscription', SubscriptionRoute );
 app.use('/auth', AuthRouter);
 app.use('/admin', AdminRouter)
+app.use('/profile', ProfileRouter);
 // Error Handler
 app.use(ErrorHandler);
 // Listening on port: 
