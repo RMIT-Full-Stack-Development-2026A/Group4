@@ -1,5 +1,5 @@
 
-import Profile from "./profile.model";
+import Profile from "./profile.model.js";
 
 export const createProfile = async ( profileData ) => 
     Profile.create( profileData );

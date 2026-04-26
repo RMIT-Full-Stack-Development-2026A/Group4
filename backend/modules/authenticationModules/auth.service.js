@@ -36,7 +36,8 @@ export const registerService = async (username, email, password, confirmPassword
         const payload = new tokenDTO(user);
         const token = jwt.sign(
             { ...payload },
-            process.env.JWT_SECRET,
+            //process.env.JWT_SECRET,
+            "mysecretkey",
             { expiresIn: '7d' },
         )
         return { 
@@ -68,7 +69,8 @@ export const loginService = async ( email, password ) => {
         // Creating token:
         const token = jwt.sign ( 
             { ...payload }, 
-            process.env.JWT_SECRET,
+            //process.env.JWT_SECRET, 
+            "mysecretkey",
             { expiresIn: '1d' },
          );
          // Returning payload:
