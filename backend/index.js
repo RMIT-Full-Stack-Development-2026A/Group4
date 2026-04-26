@@ -31,6 +31,7 @@ app.use('/', IndexRouter);
 app.use('/subscription', SubscriptionRoute );
 app.use('/auth', AuthRouter);
 app.use('/admin', AdminRouter);
+app.use('/profile', ProfileRouter);
 
 // invalid routes
 app.all('*', (req, res, next) => {
