@@ -30,8 +30,13 @@ app.use(express.json()) // Enable json formatting
 app.use('/', IndexRouter);
 app.use('/subscription', SubscriptionRoute );
 app.use('/auth', AuthRouter);
-app.use('/admin', AdminRouter)
-app.use('/profile', ProfileRouter);
+app.use('/admin', AdminRouter);
+
+// invalid routes
+app.all('*', (req, res, next) => {
+    next(new AppError(404, `The route ${req.originalUrl} does not exist on this server.`)); 
+});
+
 // Error Handler
 app.use(ErrorHandler);
 // Listening on port: 

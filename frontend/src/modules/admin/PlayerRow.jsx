@@ -1,46 +1,36 @@
+import AdminService from "./AdminService";
+import StatusBadge from "../../components/reusable/StatusBadge";
+
 export default function PlayerRow({player, playerDispatch}) {
-    async function banPlayer() {
-        if (player.isActive) {
-            try {
-                // call to update backend
-                await AdminService.updatePlayerStatus(player.id, false);
+    async function updateStatus(newActiveStatus) {
+        if (player.isActive === newActiveStatus) return;
 
-                // update UI
-                playerDispatch({
-                    type: "UPDATE_STATUS",
-                    payload: { targetID: player.id, newStatus: false },
-                });
-            } catch (err) {
-                alert("Failed to ban player: " + err.message);
-            }
+        try {
+            await AdminService.updatePlayerStatus(player.id, newStatus);
+
+            playerDispatch({
+                type: "UPDATE_STATUS",
+                payload: {
+                    targetID: player.id,
+                    newActiveStatus,
+                },
+            });
+        } catch (err) {
+            alert(`Failed to change ${player.id}'s active status: ${err.message}`);    
         }
     }
 
-    async function unbanPlayer() {
-        if (!player.isActive) {
-            try {
-                // call to update backend
-                await AdminService.updatePlayerStatus(player.id, true);
-
-                // update UI
-                playerDispatch({
-                    type: "UPDATE_STATUS",
-                    payload: { targetID: player.id, newStatus: true },
-                });
-            } catch (err) {
-                alert("Failed to unban player: " + err.message);
-            }
-        }
-    }
+    const activeBadge = player.isActive ? "active" : "deactivated"
+    const premiumBadge = player.isPremium ? "premium" : "standard"
     return (
         <tr>
             <td className="table-body-cell text-left">{player.username}</td>
             <td className="table-body-cell text-left">{player.email}</td>
-            <td className="table-body-cell text-center">{player.isPremium}</td>
-            <td className="table-body-cell text-center">{player.isActive}</td>
+            <td className="table-body-cell text-center"><StatusBadge type={activeBadge}/></td>
+            <td className="table-body-cell text-center"><StatusBadge type={premiumBadge}/></td>
             <td className="table-body-cell text-center">
-                <button onClick={banPlayer}>🔨</button>
-                <button onClick={unbanPlayer}>🔓</button>
+                <button onClick={() => updateStatus(false)}>🔨</button>
+                <button onClick={() => updateStatus(true)}>🔓</button>
             </td>
         </tr>
     )

@@ -8,11 +8,10 @@ import { isAdmin, validateToggleInput } from './admin.middleware.js';
 // Creating a router:
 const AdminRouter = Router();
   
-// DEFINING ROUTES:
-// Getting all players
-AdminRouter.get('/players', isAdmin, AdminController.getAllPlayers)
-// Activating/Deactivating a player
-AdminRouter.post('/players/:id', isAdmin, validateToggleInput, AdminController.toggleAccountStatus)
+AdminRouter.use(isAdmin)
+// get all players
+AdminRouter.get('/players', AdminController.getAllPlayers)
+// activate/deactivate player
+AdminRouter.post('/players/:id', validateToggleInput, AdminController.toggleAccountStatus)
 
-// Exporting router:
 export default AdminRouter;

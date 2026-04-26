@@ -8,8 +8,8 @@ export default function StatusBadge({ type }) {
     };
 
     return (
-        <span className={`px-3 py-1.5 rounded-full text-xs font-bold capitalize ${styles[type]}
-                        bg-yellow-400 text-yellow-600`}>
+        <span className={`px-3 py-1.5 rounded-full text-xs font-bold capitalize 
+                         ${styles[type] || "bg-gray-100 text-gray-600"}`}>
         {type}
         </span>
     );
