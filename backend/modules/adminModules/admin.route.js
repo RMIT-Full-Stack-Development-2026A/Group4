@@ -1,9 +1,11 @@
+// Importing dependencies:
 import {Router} from 'express';
 
-// import controller and middleware
-import { AdminController } from './admin.controller';
-import { isAdmin, validateToggleInput } from './admin.middleware';
+// Import controller and middleware:
+import  AdminController from '../adminModules/admin.controller.js';
+import { isAdmin, validateToggleInput } from './admin.middleware.js';
 
+// Creating a router:
 const AdminRouter = Router();
   
 AdminRouter.use(isAdmin)

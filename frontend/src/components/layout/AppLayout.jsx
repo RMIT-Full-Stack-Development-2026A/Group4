@@ -1,4 +1,4 @@
-import { Sidebar } from './SideBar';
+import  Sidebar  from './SideBar';
 import { Outlet } from 'react-router-dom';
 
 export default function AppLayout() {

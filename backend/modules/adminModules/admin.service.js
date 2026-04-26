@@ -1,9 +1,9 @@
-import { AdminRepository } from "./admin.repository";
+import { AdminRepository } from "./admin.repository.js";
 import { 
     adminProtectionError, 
     playerNotFoundError, 
     accountStatusRedundantError
-} from './admin.error';
+} from './admin.error.js';
 
 export const AdminService = {
 
