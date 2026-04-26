@@ -1,7 +1,8 @@
 // import data models
-import Account from "../authenticationModules/account.model";
-import Profile from "../accountModules/account.model";
+import Account from "../accountModules/account.model.js";
+import Profile from "../profileModules/profile.model.js";
 
+// Defining repository class:
 export const AdminRepository = {
     // get player info
      async fetchAllPlayers() {

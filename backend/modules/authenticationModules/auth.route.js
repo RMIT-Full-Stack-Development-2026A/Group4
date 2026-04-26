@@ -10,6 +10,10 @@ import { AuthController } from './auth.controller.js';
 AuthRouter.post( '/signup', isEmailValid, isPasswordStrong, isUsernameValid, AuthController.registerController )
 // Logging in:
 AuthRouter.post( '/login', isEmailValid, AuthController.loginController );
+// logging out:
+AuthRouter.post('/logout', AuthController.logOut)
+// Checking for cookie: 
+AuthRouter.get('/me', AuthController.checkCookie );
 
 // Export:
 export default AuthRouter;
