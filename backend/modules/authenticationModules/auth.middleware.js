@@ -1,4 +1,5 @@
 
+import jwt from 'jsonwebtoken';
 // Validating inut: 
 // Checking if password's strong:
 export const isPasswordStrong = (req, res, next) => {
@@ -59,4 +60,36 @@ export const isUsernameValid = ( req, res, next ) => {
     };  
     // Calling next middleware: 
     next()
+};
+
+export const authMiddleware = (req, res, next) => {
+    try {
+        const header = req.headers.authorization;
+
+        //Check if token exists 
+        if(!header || !header.startsWith('Bearer ')) {
+            return res.status(401).json({message: 'Unauthorized - No token provided'});
+        }
+
+        //Extract token
+        const token = header.split(' ')[1];
+
+        const secret = process.env.JWT_SECRET || "mysecretkey";
+
+        //Verify token
+        const decoded = jwt.verify(token, secret);
+
+        //Attch user info to request object
+        req.user = {
+            id: decoded.id,
+        };
+
+        console.log("RAW HEADER:", header);
+        console.log("TOKEN EXTRACTED:", token);
+
+        next();
+    } catch (error) {
+        console.error("JWT ERROR:", error.message);
+        return res.status(401).json({message: 'Unauthorized - Invalid token'});
+    }
 };
