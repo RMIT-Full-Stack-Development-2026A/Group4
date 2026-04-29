@@ -11,12 +11,10 @@ const GameLobby = () => {
   // Defining states:
   const [selectedBoard, setSelectedBoard] = useState();
   const [gameMode, setGameMode] = useState();
-
+  // Returning JSX:
   return (
     <div className='text-4xl'>
-      <GameMode />
-      <BoardLayout />
-      <StartGameButton />
+      
     </div>
   )
 }

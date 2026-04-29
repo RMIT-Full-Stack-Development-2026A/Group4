@@ -1,8 +1,8 @@
+
 const NavConfig = {
     "PLAYER": [
         { type: "link", label: "", path: ""}
     ],
-
     "ADMIN": [
         { 
             type: "section",

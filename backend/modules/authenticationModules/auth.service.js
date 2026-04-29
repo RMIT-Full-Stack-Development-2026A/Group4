@@ -28,6 +28,8 @@ export const registerService = async (username, email, password, confirmPassword
         }
         // create new user: 
         const user = await creatingNewAccount(accountInput);
+        // Create new profile:
+        // --------------
         // Throwing error if something is wrong: 
         if (!user) {
             throw new errorCreatingNewUser();
