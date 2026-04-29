@@ -4,7 +4,7 @@ import Features from '../component/Features'
 
 const Home = () => {
   return (
-    <div className='flex flex-col align-center'>
+    <div className='flex flex-col gap-15 align-center'>
         <Hero />
         <Features />
     </div>
