@@ -8,6 +8,8 @@ import RootLayout from "../components/layout/RootLayout";
 import PlayerManagement from "../modules/admin/PlayerManagement";
 import GameLobby from "../modules/lobby/GameLobby";
 import SubscriptionPage from "../modules/subscription/SubscriptionPage";
+import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
+import PaymentFailure from "../modules/subscription/components/PaymentFailure";
 
 // Creating a router:
 const router = createBrowserRouter(
@@ -21,7 +23,9 @@ const router = createBrowserRouter(
         { path: 'signup', element: <Signup /> },
         { path: 'lobby', element: <GameLobby /> },
         { path:'profile', element: <></> },
-        { path:'subscription', element: <SubscriptionPage/>},
+        { path:'subscription', element: <SubscriptionPage />, },
+        { path: 'payment/success', element: <PaymentSuccess />},
+        { path: 'payment/failure', element: <PaymentFailure/>},
         { path:'history', element: <></> },
       ]
     },

@@ -14,12 +14,16 @@ export const createStripeSession = async ( priceId, userId ) => {
                 }
             ],
             metadata: { userId: userId },
-            success_url: 'http://localhost:3000/payment/success.html',
-            cancel_url:'http://localhost:3000/payment/success.html',
+            success_url: `${process.env.CLIENT_URL}/payment/success`,
+            cancel_url: `${process.env.CLIENT_URL}/payment/failure`,
         })
         return {url: session.url};
     }
     catch (err) {
         throw new Error("Error creating stripe session");
     }
+}
+
+export const webHookServiceHandler = async () => {
+    
 }

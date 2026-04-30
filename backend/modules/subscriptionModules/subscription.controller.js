@@ -9,7 +9,7 @@ export const retrievingSubscriptionPlans = async (req, res, next) => {
             message: 'failed!'
         })
     }
-    return res.status().json({
+    return res.status(500).json({
         subscriptions: subscriptionplans,
         message: 'Successfully retrieved subscriptions!',
     })

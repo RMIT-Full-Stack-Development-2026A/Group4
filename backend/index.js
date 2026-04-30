@@ -21,15 +21,15 @@ const port = process.env.PORT || 5000;
 connectDb();
 // Middlewares: 
 app.use(cors({
-    origin: 'http://localhost:5173', // frontend origin:
+    origin: `${process.env.CLIENT_URL}`, // frontend origin:
     credentials: true, // for cookies
 }));
-app.use(cookieParser());
 // Parsing requests into JSON format: 
 app.use(express.json()) // Enable json formatting
+app.use(cookieParser());
 // Setting routes: 
 app.use('/', IndexRouter);
-app.use('/subscriptions', SubscriptionRoute );
+app.use('/subscription', SubscriptionRoute );
 app.use('/auth', AuthRouter);
 app.use('/payment', paymentRoutes);
 app.use('/admin', AdminRouter);
