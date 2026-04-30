@@ -3,8 +3,6 @@ import React from 'react'
 // Importing dependencies: 
 import { useState } from 'react'
 // Importing components:
-import BoardLayout from './components/BoardLayout';
-import GameMode from './components/GameMode';
 import StartGameButton from './components/StartGameButton';
 
 const GameLobby = () => {

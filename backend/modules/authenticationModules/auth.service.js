@@ -10,8 +10,10 @@ import { tokenDTO } from './authDTO.js';
 // importing error messages: 
 import { matchingPasswordError, errorCreatingNewUser, invalidCredentialsError, userNotFoundError } from './auth.error.js';
 import { creatingNewAccount } from '../accountModules/account.services.js';
+import { createNewProfile } from '../profileModules/profile.service.js'
+
 // Registering: 
-export const registerService = async (username, email, password, confirmPassword, country) => {
+export const registerService = async ( username, email, password, confirmPassword, country ) => {
     try {
         // Perform validation:
         if (password !== confirmPassword) {
@@ -26,20 +28,19 @@ export const registerService = async (username, email, password, confirmPassword
             hashedPassword,
             country,
         }
-        // create new user: 
-        const user = await creatingNewAccount(accountInput);
-        // Create new profile:
-        // --------------
+        // create new account and profile based on user input: 
+        const newAccount = await creatingNewAccount(accountInput);
+        const newProfile = await createNewProfile( newAccount.id, country );
         // Throwing error if something is wrong: 
-        if (!user) {
+        if (!newAccount || !newProfile) {
             throw new errorCreatingNewUser();
         }
         // Creating token based on user
-        const payload = new tokenDTO(user);
+        const payload = new tokenDTO(newAccount);
         const token = jwt.sign(
             { ...payload },
             //process.env.JWT_SECRET,
-            "mysecretkey",
+            process.env.JWT_SECRET,
             { expiresIn: '7d' },
         )
         return { 
@@ -72,7 +73,7 @@ export const loginService = async ( email, password ) => {
         const token = jwt.sign ( 
             { ...payload }, 
             //process.env.JWT_SECRET, 
-            "mysecretkey",
+            process.env.JWT_SECRET,
             { expiresIn: '1d' },
          );
          // Returning payload:

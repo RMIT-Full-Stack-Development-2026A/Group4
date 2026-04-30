@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const createStripeSession = async (priceId, userId) => {
+export const createStripeSession = async ( priceId, userId ) => {
     try {
         // Creating a stripe session
         const session = await stripe.checkout.sessions.create({
@@ -13,7 +13,7 @@ export const createStripeSession = async (priceId, userId) => {
                     quantity: 1,
                 }
             ],
-            metadata: userId,
+            metadata: { userId: userId },
             success_url: 'http://localhost:3000/payment/success.html',
             cancel_url:'http://localhost:3000/payment/success.html',
         })

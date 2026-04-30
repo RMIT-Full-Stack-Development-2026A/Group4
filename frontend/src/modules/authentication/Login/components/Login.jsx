@@ -12,7 +12,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [loginInput, setLoginInput] = useState({
       email: '',
-      password: ''
+      password: '',
     })
     const [loggedOutTime, setLoggedOutTime] = useState(60);
     const [errorMessage, setErrorMessage] = useState('');

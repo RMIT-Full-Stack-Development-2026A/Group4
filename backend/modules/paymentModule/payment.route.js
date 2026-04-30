@@ -22,9 +22,10 @@ paymentRoutes.post('/webhook', express.raw({type: 'application/json'}), async (r
         console.error(err);
     }
     if (event.type==='checkout.session.completed') {
-        const session = event.data.object;
-        const playerId = session.metadata.playerId;
-        console.log(`Payment successful for player: ${playerId}`);
+        const session = event.data.object; // Creating session
+        const userId = session.metadata.userId;
+        const stripeSubId = session.subscription;
+        const amount = session.amount_total/100; 
     }
     res.json({received: true});
 })

@@ -24,10 +24,10 @@ export const AuthProvider = ({ children }) => {
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data.user);
-                }
+                };
             }
             catch (err) {
-                throw err;
+                console.log(err);
                 setUser(null);
             }
             finally {
