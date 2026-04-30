@@ -14,6 +14,20 @@ import {
     AccountNotFoundError,
     DuplicateEmailError,
 } from "./profile.error.js";
+import { errorCreatingNewUser } from '../authenticationModules/auth.error.js';
+
+// Creating new profile: 
+export const createNewProfile = async ( accountId, country ) => {
+    const profileInput = {
+        user_id: accountId,
+        country: country,
+    }
+    const profile = await profileRepo.createProfile(profileInput);
+    if (!profile) {
+        throw new errorCreatingNewUser();
+    }
+    return profile;
+};
 
 //GET profile
 export const getProfile = async (userId) => {
@@ -102,6 +116,15 @@ export const updateProfile = async (userId, data) => {
 
     return await getProfile(userId);
 };
+
+// Changing player premium status:
+export const updatePlayerPremiumStatus = async (userId, newStatus) => {
+    const updatedStatus = await profileRepo.updateProfile(userId, {isPremium: newStatus});
+    if (!updatedStatus) {
+        throw new ProfileNotFoundError();
+    }
+    return ProfileDTO(updated);
+}
 
 //UPLOAD avatar
 export const uploadAvatar = async (userId, avatarUrl) => {

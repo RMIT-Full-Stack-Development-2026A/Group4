@@ -4,16 +4,19 @@ import { useAuth } from '../../../context/UserContext'
 import { useState, useEffect } from 'react'
 
 const SubscriptionContainer = () => {
+    // Getting the user from authentication context: 
     const { user } = useAuth();
     // Defining component states: 
     const [subscriptions, setSubscriptions] = useState([]);
     // Fetching all plans from backend:
     const getSubscriptionPlans = async () => {
-        const res = await fetch('http://localhost:3000/subscriptions/all_plans', {
+        // Sending request to backend: 
+        const res = await fetch('http://localhost:3000/subscriptions', {
             method: 'GET',
             headers: {'Content-type': 'application/json'},
         })
         const data = await res.json();
+        console.log(data);
         setSubscriptions(data);
     }
     // Populating state with subscription plans:
