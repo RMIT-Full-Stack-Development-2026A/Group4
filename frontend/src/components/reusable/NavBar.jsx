@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton';
 import SignupButton from './SignupButton';
 import Logout from './Logout';
-import DropDownMenu from './DropDownMenu';
 import Logo from './Logo';
 
 // Component:
