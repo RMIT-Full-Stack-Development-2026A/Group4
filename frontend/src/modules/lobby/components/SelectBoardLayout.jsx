@@ -18,7 +18,8 @@ const SelectBoardLayout = () => {
   // Submit Chosen Board Layout:
   // Carousel layout With board in middle and arrow pointing forward and backward to toggle
   return (
-    <div className=' min-h-screen bg-gray-100 flex flex-col justify-evenly '>
+    <div className=' min-h-screen shadow-[0px_0px_6px_1px_rgba(0,_0,_0,_0.1)] p-2 flex flex-col justify-evenly '>
+        
         <div className='flex items-center justify-center gap-2 align-middle'>
           <h1 className='text-3xl font-semibold'>Select Board Layout</h1>
           <Grid3x3 className='sm:hidden md:block' size={60} />
@@ -48,9 +49,9 @@ const SelectBoardLayout = () => {
           </button>
         </div>
         
-        <div className='flex gap-5 sm:flex-col md:flex-row '>
-          <button className='flex-1/2 border text-3xl font-bold p-5 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(10);}}>10x10</button>
-          <button className='flex-1/2 border text-3xl font-bold p-5 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(15);}}>15x15</button>
+        <div className='flex gap-5 flex-col justify-center align-middle items-center md:flex-row '>
+          <button className='flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(10);}}>10x10</button>
+          <button className='flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(15);}}>15x15</button>
         </div>
     
     </div>
