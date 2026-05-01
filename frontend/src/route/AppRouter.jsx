@@ -10,6 +10,7 @@ import GameLobby from "../modules/lobby/GameLobby";
 import SubscriptionPage from "../modules/subscription/SubscriptionPage";
 import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
 import PaymentFailure from "../modules/subscription/components/PaymentFailure";
+import Profile from "../modules/profile/UI/Profile";
 
 // Creating a router:
 const router = createBrowserRouter(
@@ -22,7 +23,7 @@ const router = createBrowserRouter(
         { path: 'login', element: <Login /> },
         { path: 'signup', element: <Signup /> },
         { path: 'lobby', element: <GameLobby /> },
-        { path:'profile', element: <></> },
+        { path:'profile', element: <Profile/> },
         { path:'subscription', element: <SubscriptionPage />, },
         { path: 'payment/success', element: <PaymentSuccess />},
         { path: 'payment/failure', element: <PaymentFailure/>},

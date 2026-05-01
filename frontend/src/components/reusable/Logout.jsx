@@ -25,7 +25,7 @@ const Logout = () => {
         }
     }
   return (
-    <button className='p-2 hover:bg-gray-200 cursor-pointer flex gap-2' onClick={logout}><LogOutIcon/> Log Out</button>
+    <button className='p-4 text-gray-700 hover:bg-gray-100 font-semibold border-gray-100 border rounded-lg justify-center items-center cursor-pointer flex gap-2' onClick={logout}><LogOutIcon /> LOG OUT</button>
   )
 }
 
