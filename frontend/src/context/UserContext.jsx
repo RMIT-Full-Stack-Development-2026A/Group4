@@ -9,7 +9,7 @@ const AuthContext = createContext(null);
 // Context provider:
 export const AuthProvider = ({ children }) => {
     // Defining states: 
-    const [user, setUser] = useState(null);
+    const [ user, setUser ] = useState(null);
     const [loading, setLoading] = useState(true);
 
     // Checking cookie:

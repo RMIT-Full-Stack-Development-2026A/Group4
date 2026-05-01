@@ -1,7 +1,6 @@
 import React from 'react'
 import PublicNavBar from '../reusable/NavBar'
 import { useAuth } from '../../context/UserContext'
-import ProtectedNav from '../reusable/ProtectedNav'
 import { Outlet } from 'react-router-dom'
 import SideBar from '../reusable/SideBar'
 

@@ -8,8 +8,7 @@ import { useAuth } from '../../context/UserContext'
 const SideBar = () => {
   // State 
   const {user} = useAuth();
-  const [navSection, setNavSection] = useState(NavConfig["PLAYER"]);
-  console.log(navSection)
+  const [navSection, setNavSection] = useState(NavConfig[user.role]);
 
   return (
     <div className='flex  flex-col gap-3 rounded-lg p-4 shadow-[0px_0px_6px_1px_rgba(0,_0,_0,_0.1)]'>
@@ -17,8 +16,8 @@ const SideBar = () => {
       
       <nav>
         {
-          navSection.map((section)=>(
-              <div className='flex flex-col p-4 border rounded border-gray-100'>
+          navSection.map((section, index)=>(
+              <div key={index} className='flex flex-col p-4 border rounded border-gray-100'>
                 <h2 className='font-semibold text-gray-800'>{section.label}</h2>
                 {section.links.map((link)=>{
                   const CurrentIcon = link.icon
