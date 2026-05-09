@@ -1,13 +1,14 @@
 // Importing dependencies:
-import Subscription from './subscription.model.js';
+import Subscription, { SubscriptionPlan } from './subscription.model.js';
 // Basic queries for subscription:
 // Creating subscription:
-export const createSubscription = async ( userId, paymentMethod ) => {
+export const createSubscription = async ( userId, price, paymentMethod, stripeId ) => {
     return Subscription.create({
         userId,
-        price: 10,
+        price: price,
         purchasedTime: Date.now(),
         paymentMethod: paymentMethod,
+        stripeSubscriptionId: stripeId,
     });
 };
 // Deleting subscription:
@@ -38,3 +39,20 @@ export const findSubscription = async ( subscriptionId ) => {
 export const findUserSubscription = async ( userId ) => {
     return Subscription.findOne({ userId }).lean();
 };
+
+// Dealing with subscription plans
+export const createNewSubscriptionPlan = async (planInput) => {
+    return SubscriptionPlan.create({planInput});
+};
+export const deleteSubscriptionPlan = async (subscriptionPlanId) => {
+    return SubscriptionPlan.findByIdAndDelete(subscriptionPlanId);
+};
+export const findSubscriptionPlan = async () => {
+    return SubscriptionPlan.findById(subscriptionPlanId);
+};
+export const returnAllSubscriptionPlans = async () => {
+    return SubscriptionPlan.find();
+}
+export const updateSubscriptionPlan = async (subscriptionPlanId, updateData) => {
+    return SubscriptionPlan.findByIdAndUpdate(subscriptionPlanId, updateData, {new: true, runValidators: true});
+}

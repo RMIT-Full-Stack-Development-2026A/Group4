@@ -2,6 +2,7 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^6.1.0",
     "@stripe/stripe-js": "^9.2.0",
+    "multer": "^2.1.1",
     "stripe": "^22.0.1"
   }
 }

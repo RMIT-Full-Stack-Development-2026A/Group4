@@ -1,24 +1,31 @@
 // Importing dependencies and repository queries:
-import { createSubscription, updateSubscription, deleteSubscription, findSubscription, findUserSubscription } from './subscription.repository.js';
-import { findExistingUser } from '../userModules/user.services.js';
+import { createSubscription, updateSubscription, deleteSubscription, findSubscription, findUserSubscription, returnAllSubscriptionPlans, createNewSubscriptionPlan, updateSubscriptionPlan } from './subscription.repository.js';
+import { getProfile } from '../profileModules/profile.service.js';
 import { subscriptionDTO } from './subscription.dto.js';
-// Cancelling subscription:
-export const purchaseSubscription = async ( userId, amount, paymentMethod ) => {
+import { updatePlayerPremiumStatus } from '../profileModules/profile.service.js';
+// purchasing a subscription:
+export const purchaseSubscription = async ( userId, amount, paymentMethod, stripeSubId ) => {
     try {
         // Find and valiate user:
-        const user = await findExistingUser(userId);
+        const user = await getProfile(userId);
         if (!user) { throw new UserNotFoundError(); };
         // Ensure amount is enough:
         if ( amount !== 10 ) { throw new InvalidAmountError(); } 
-        // Calling appropriate payment services depending on payment method:
-        // Changing player's premium status to fit
-        // Creating a new instance of subscription 
+        // Creating a new subscription instance:
+        const subscription = await createSubscription( userId, amount, paymentMethod, stripeSubId );
+        // Verify subscription is successful:
+        if (!subscription) {
+            throw new Error();
+        }
+        // 
+        await updatePlayerPremiumStatus(userId, true);
     }
     catch (err) {
-        throw err;
+        console.error(err); // Consoling error
+        throw err; // Throwing error
     }
-}
-// Managing subscription status:
+};
+// Cancelling a subscription:
 export const cancelSubscription = async ( userId ) => {
     try {
         // Find user:
@@ -56,4 +63,43 @@ export const viewSubscriptionHistory = async ( userId ) => {
     catch (err) {
         throw err;
     }
-}
+};
+
+// Dealing with subscription plans:
+export const addNewSubscription = async ( name, stripePriceId, price, features ) => {
+    try {
+        // Creating a data object
+        const planInput = {
+            name: name,
+            StripePriceId: stripePriceId,
+            price: price,
+            features: features,
+        }
+        const newSub = await createNewSubscriptionPlan(planInput);
+        if (!newSub) {
+            throw new Error();
+        }
+        return newSub;
+
+    }   
+    catch (err) {
+        throw err;
+    }
+};
+export const deactiveSubscription = async (subscriptionPlanId) => {
+    const updated = updateSubscriptionPlan(subscriptionPlanId, { isActive: false });
+    if (!updated) {
+        throw new Error();
+    }
+    return;
+};
+export const reactivateSubscription = async (subscriptionPlanId) => {
+    const updated = updateSubscriptionPlan(subscriptionPlanId, {isActive: true});
+    if (!updated) {
+        throw new Error();
+    }
+    return;
+};
+export const getAllSubscriptionPlans = async () => {
+    return await returnAllSubscriptionPlans();
+};
