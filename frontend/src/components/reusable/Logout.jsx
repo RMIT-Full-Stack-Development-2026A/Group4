@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAuth } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom';
+import { LogOutIcon } from 'lucide-react';
 
 const Logout = () => {
     const { updateUserInfo } = useAuth();
@@ -24,9 +25,7 @@ const Logout = () => {
         }
     }
   return (
-    <div>
-        <button onClick={logout}>Log out</button>
-    </div>
+    <button className='p-4 text-gray-700 hover:bg-gray-100 font-semibold border-gray-100 border rounded-lg justify-center items-center cursor-pointer flex gap-2' onClick={logout}><LogOutIcon /> LOG OUT</button>
   )
 }
 

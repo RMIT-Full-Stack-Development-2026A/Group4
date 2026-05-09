@@ -1,4 +1,6 @@
 // Can't purchase:
+import AppError from "../shared/AppError.js";
+
 class UnableToPurchaseError extends AppError {
     constructor (message = 'Unable to process purchase') {
         super(500, message);

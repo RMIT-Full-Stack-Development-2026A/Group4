@@ -55,7 +55,7 @@ const gameSessionSchema = new mongoose.Schema({
     winner: {
         type: String,
         default: "Undefined"
-    }
+    },
 })
 // Creating a model: 
 export const GameSession = mongoose.model("GameSession", gameSessionSchema)

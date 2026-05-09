@@ -21,7 +21,8 @@ export const AuthController = {
             // Putting token into cookie: 
             res.cookie('token', result.token, {
                 httpOnly: 'true',
-                secure: process.env.production === 'production',
+                secure: false,
+                path: '/',
                 maxAge: 7 * 24 * 60 * 1000, // 7 days validity
                 sameSite: 'lax'
             })
@@ -49,7 +50,8 @@ export const AuthController = {
             // Putting cookie into browser:
             res.cookie('token', result.token, {
                 httpOnly: 'true',
-                secure: process.env.production === 'production',
+                secure: false,
+                path: '/',
                 maxAge: 7 * 24 * 60 * 1000, // 7 days validity
                 sameSite: 'lax'
             })
@@ -64,17 +66,16 @@ export const AuthController = {
             next(err);
         }
     },
-    logOut (req, res)  {
+    logOut (req, res, next)  {
         res.clearCookie('token', {
             httpOnly: true,
             secure: false,
             sameSite: 'lax',
         })
         res.status(200).json({message: 'Logged out!'})
-    }
-    ,
+    },
     // Fetching for cookie
-    checkCookie (req, res)  {
+    checkCookie (req, res, next)  {
         // Optional chaining incase cookie doesn't exist
         const token = req.cookies?.token;
         if (!token) {
@@ -85,17 +86,18 @@ export const AuthController = {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
             return res.status(200).json({
-                user: {
-                    id: decoded.id,
-                    username: user.username,
-                    email: user.email
-                }
+                    user: {
+                        id: decoded.id,
+                        username: decoded.username,
+                        email: decoded.email,
+                        role: decoded.role
+                    }
             })
-        }
+        }   
         catch (err) {
-            return res.status(401.).json({
-                message: 'Invalid or expired token',
-            })
+            console.error(err);
+            return res.stauts().json({error: err})
         }
+        
     }
 }

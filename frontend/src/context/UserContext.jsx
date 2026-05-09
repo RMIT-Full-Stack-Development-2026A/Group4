@@ -9,7 +9,7 @@ const AuthContext = createContext(null);
 // Context provider:
 export const AuthProvider = ({ children }) => {
     // Defining states: 
-    const [user, setUser] = useState(null);
+    const [ user, setUser ] = useState(null);
     const [loading, setLoading] = useState(true);
 
     // Checking cookie:
@@ -24,10 +24,10 @@ export const AuthProvider = ({ children }) => {
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data.user);
-                }
+                };
             }
             catch (err) {
-                throw err;
+                console.log(err);
                 setUser(null);
             }
             finally {

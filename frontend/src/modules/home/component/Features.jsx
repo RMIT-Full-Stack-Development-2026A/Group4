@@ -2,18 +2,18 @@ import React from 'react'
 
 const Features = () => {
   return (
-    <div className='grid md:grid-cols-3 gap-5 sm:grid-cols-1'>
-        <div>
+    <div className='grid sm:grid-cols-1 md:grid-cols-3 gap-5'>
+        <div className='p-5 w-[1/3] bg-gray-300 rounded-4xl'>
             <img></img>
-            <p>SELECT DIFFERENT AESTHETIC BOARD LAYOUTS</p>
+            <p className='text-center font-semibold text-gray-800 text-sm'>SELECT DIFFERENT AESTHETIC BOARD LAYOUTS</p>
         </div>
-        <div>
+        <div className='p-5 w-[1/3] bg-gray-300 rounded-4xl'>
             <img></img>
-            <p>PLAY AGAINST YOUR FRIENDS</p>
+            <p className='text-center font-semibold text-gray-800 text-sm'>PLAY AGAINST YOUR FRIENDS</p>
         </div>
-        <div>
+        <div className='p-5 w-[1/3] bg-gray-300 rounded-4xl'>
             <img></img>
-            <p>GO AGAINST OUR AI MODELS</p>
+            <p className='text-center font-semibold text-gray-800 text-sm'>GO AGAINST OUR AI MODELS</p>
         </div>
     </div>
   )

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/UserContext';
+import { User } from 'lucide-react';
 
 // Login form:
 const Login = () => {
@@ -12,7 +13,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [loginInput, setLoginInput] = useState({
       email: '',
-      password: ''
+      password: '',
     })
     const [loggedOutTime, setLoggedOutTime] = useState(60);
     const [errorMessage, setErrorMessage] = useState('');
@@ -24,7 +25,7 @@ const Login = () => {
       if (isLocked) return; // Ensure log in attempts are still valid
       try {
         // calling backend:
-        const res = await fetch('http://localhost:3000/auth/login', {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(loginInput),

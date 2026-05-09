@@ -4,6 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv';
 dotenv.config();
 import { ErrorHandler } from './modules/shared/errorHandler.js';
+import cookieParser from 'cookie-parser'
 // Importing database:
 import connectDb from './pool/db.js';
 // Importing route:
@@ -20,20 +21,22 @@ const port = process.env.PORT || 5000;
 connectDb();
 // Middlewares: 
 app.use(cors({
-    origin: 'http://localhost:5173', // frontend origin:
-    methods: [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE' ], // Setting up http methods
+    origin: `${process.env.CLIENT_URL}`, // frontend origin:
     credentials: true, // for cookies
 }));
 // Parsing requests into JSON format: 
 app.use(express.json()) // Enable json formatting
+app.use(cookieParser());
 // Setting routes: 
 app.use('/', IndexRouter);
 app.use('/subscription', SubscriptionRoute );
 app.use('/auth', AuthRouter);
+app.use('/payment', paymentRoutes);
 app.use('/admin', AdminRouter);
+app.use('/profile', ProfileRouter);
 
-// invalid routes
-app.all('*', (req, res, next) => {
+// invalid routes:
+app.all('{*path}', (req, res, next) => {
     next(new AppError(404, `The route ${req.originalUrl} does not exist on this server.`)); 
 });
 

@@ -5,5 +5,6 @@ export class tokenDTO {
         this.id = userObject.id, // Need user ID;
         this.email = userObject.email, // Need user email 
         this.username = userObject.username // need username
+        this.role = userObject.userRole
     };
 };
