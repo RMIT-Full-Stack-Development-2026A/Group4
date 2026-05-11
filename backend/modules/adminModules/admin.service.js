@@ -1,4 +1,5 @@
 import { AdminRepository } from "./admin.repository.js";
+import { AdminDTO } from "./admin.dto.js";
 import { 
     adminProtectionError, 
     playerNotFoundError, 
@@ -10,7 +11,7 @@ export const AdminService = {
     getAllPlayersList: async () => {
         const rawData = await AdminRepository.fetchAllPlayers();
         // turn raw data to dto
-        const dtoList = rawData.map(data => new AdminPlayerDTO(data.acc, data.prof));
+        const dtoList = rawData.map(data => new AdminDTO(data.acc, data.prof));
         return dtoList;
     },
 

@@ -1,9 +1,13 @@
-// Defining a subscription route
 import express from 'express';
-const SubscriptionRoute = express.Router();
-// Importing middlewares and controllers: 
-import { retrievingSubscriptionPlans } from './subscription.controller.js'
-// Defining routes:
-SubscriptionRoute.get('/plans', retrievingSubscriptionPlans);
+import * as subsController from './subscription.subsController.js';
+import { authMiddleware } from '../shared/shared.middleware.js';
 
-export default SubscriptionRoute;
+const subsRouter = express.subsRouter();
+
+subsRouter.use(authMiddleware);
+subsRouter.get('/history', subsController.getTransactionHistory);
+subsRouter.post('/deposit', subsController.depositMoney);
+subsRouter.post('/subscribe', subsController.purchaseSubscription);
+subsRouter.post('/stripe', subsController.createStripeSession);
+
+export default subsRouter;

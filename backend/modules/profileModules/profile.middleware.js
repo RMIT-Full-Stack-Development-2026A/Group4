@@ -39,18 +39,18 @@ export const validateProfileUpdate = (req, res, next) => {
 };
 
 //Validate avatar upload
-    export const validateAvatar = (req, res, next) => {
-        if(!req.file) {
-            return res.status(400).json({message: 'No file uploaded'});
-        }
-
-        //Only allow image files
-        if(!req.file.mimetype.startsWith('image/')) {
-            return res.status(400).json({message: 'Only image files are allowed'});
-        }
-
-        next();
+export const validateAvatar = (req, res, next) => {
+    if(!req.file) {
+        return res.status(400).json({message: 'No file uploaded'});
     }
+
+    //Only allow image files
+    if(!req.file.mimetype.startsWith('image/')) {
+        return res.status(400).json({message: 'Only image files are allowed'});
+    }
+
+    next();
+}
 
 
 

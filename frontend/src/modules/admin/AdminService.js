@@ -1,4 +1,4 @@
-import {HttpHelper} from "../../utils/httpHelper"
+import { httpHelper } from "../../utils/httpHelper"
 import { ADMIN_ENDPOINTS } from "../../config/apiConfig"
 
 const AdminService = {
