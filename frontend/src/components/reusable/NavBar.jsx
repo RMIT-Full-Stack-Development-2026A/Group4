@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 // Importing components
 import LoginButton from './LoginButton';
-import SignupButton from './SignupButton';
+import SignupButton from './SignUpButton';
 import Logout from './Logout';
 import Logo from './Logo';
 

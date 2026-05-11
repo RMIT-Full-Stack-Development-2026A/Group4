@@ -128,7 +128,7 @@ export const updatePlayerPremiumStatus = async (userId, newStatus) => {
 
 //UPLOAD avatar
 export const uploadAvatar = async (userId, avatarUrl) => {
-    const updated = await profileRepo.updateProfile(userId, {avatarUrl: filePath});
+    const updated = await profileRepo.updateProfile(userId, {avatarUrl});
 
     if(!updated) {
         throw new ProfileNotFoundError();
