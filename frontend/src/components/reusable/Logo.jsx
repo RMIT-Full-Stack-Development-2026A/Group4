@@ -1,12 +1,23 @@
-// Importing dependencies:
 import { Link } from "react-router-dom";
-// need some more refinement
-export const Logo = () => {
-    return (
-        <div className="text-4xl">
-            <Link to='/'>TicTacToang</Link>    
-        </div>
-    )
-}
 
-export default Logo
+export const Logo = () => {
+  return (
+    <Link
+      to="/"
+      className="
+        text-3xl md:text-4xl font-extrabold
+        tracking-tight
+
+        text-transparent bg-clip-text 
+        bg-gradient-to-r from-red-600 to-pink-500
+
+        hover:scale-105
+        transition duration-300
+      "
+    >
+      TicTacToang
+    </Link>
+  );
+};
+
+export default Logo;
