@@ -47,41 +47,107 @@ const Signup = () => {
         }))
     }
   return (
-    <div className='flex justify-center'>
-        <form className='shadow-[9px_18px_82px_8px_rgba(0,0,0,0.15)] flex flex-col gap-5 w-[50%] p-5' onSubmit={handleSignupSubmission}>
-            <h1 className='text-3xl text-center font-semibold '>Sign Up</h1>
-            <div className='flex flex-col gap-2'>
-                <label className='text-xl text-gray-800 font-medium' htmlFor='username'>Username:</label>
-                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} required type='text' name='username' value={signUpInput.username} />
-            </div>
-            <div className='flex flex-col gap-2'>
-                <label className='text-xl text-gray-800 font-medium' htmlFor='email'>Email:</label>
-                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} name='email' type='email' required value={signUpInput.email} />
-            </div>
-            <div className='flex flex-col gap-2'>
-                <label className='text-xl text-gray-800 font-medium' htmlFor='password'>Password: </label>
-                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} name='password' type='password' required value={signUpInput.password} />
-            </div>
-            <div className='flex flex-col gap-2'>
-                <label className='text-xl text-gray-800 font-medium' htmlFor='confirmPassword'>Confirm Password:</label>
-                <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} name='confirmPassword' type='password' required value={signUpInput.confirmPassword} />
-            </div>
-            <div className='flex flex-col gap-2'>
-                <label className='text-xl text-gray-800 font-medium' htmlFor='country'>Country:</label>
-                <select className='bg-gray-100 rounded-sm p-3 text-gray-600' id='country' onChange={handleChangingInput} value={signUpInput.country} required name='country'>
-                    <option value="">Select a country</option>
-                    <option value="Vietnam">Vietnam</option>
-                    <option value="Singapore">Singapore</option>
-                    <option value="Japan">Japan</option>
-                    <option value="Malaysia">Malaysia</option>
-                </select>
-            </div>
-            <button className='p-3 cursor-pointer bg-black text-white text-semibold text-xl rounded-xl' type='submit'>Sign Up</button>
-            <div>{errorMessage}</div>
-            <p className='text-center text-gray-500'>Already have an account? Log in <Link className='text-bold text-gray-800' to='/login'>here</Link></p>
-        </form>
-      
-    </div>
+    <div className='min-h-screen flex items-center justify-center
+         bg-gradient-to-br from-red-600 to-pink-500 px-4'>
+
+            <form className='backdrop-blur-xl bg-white/20 border border-white/20
+                            shadow-2xl rounded-3xl p-8 w-full max-w-md text-white flex flex-col gap-4' 
+                            onSubmit={handleSignupSubmission}>
+                                <h1 className='text-3xl text-center font-bold mb-2'>
+                                    Create Account
+                                </h1>
+
+                                {/*Username*/}
+                                <div className='flex flex-col gap-1'>
+                                    <label className='text-sm text-white/80'>Username</label>
+                                    <input 
+                                    className='input-glass'
+                                    onChange={handleChangingInput}
+                                    required
+                                    type='text'
+                                    name='username'
+                                    value={signUpInput.username}/>
+                                </div>
+
+                                {/*Email*/}
+                                <div className='flex flex-col gap-1'>
+                                    <label className='text-sm text-white/80'>Email</label>
+                                    <input
+                                    className='input-glass'
+                                    onChange={handleChangingInput}
+                                    name='email'
+                                    type='email'
+                                    required
+                                    value={signUpInput.email}
+                                    />
+                                </div>
+
+                                {/*Password*/}
+                                <div className='flex flex-col gap-1'>
+                                    <label className='text-sm text-white/80'>Password</label>
+                                    <input
+                                    className='input-glass'
+                                    onChange={handleChangingInput}
+                                    name='password'
+                                    type='password'
+                                    required
+                                    value={signUpInput.password}
+                                    />
+                                </div>
+
+                                {/*Confirm Password*/}
+                                <div className='flex flex-col gap-1'>
+                                    <label className='text-sm text-white/80'>Confirm Password</label>
+                                    <input
+                                    className='input-glass'
+                                    onChange={handleChangingInput}
+                                    name='confirmPassword'
+                                    type='password'
+                                    required
+                                    value={signUpInput.confirmPassword}
+                                    />
+                                </div>
+
+                                <div className='flex flex-col gap-1'>
+                                    <label className='text-sm text-white/80'>Country</label>
+                                    <select
+                                    className='input-glass text-white'
+                                    onChange={signUpInput.country}
+                                    required
+                                    name='country'
+                                    >
+                                        <option value="" className='text-black'>Select a country</option>
+                                        <option value="Vietnam" className='text-black'>Vietnam</option>
+                                        <option value="Singapore" className='text-black'>Singapore</option>
+                                        <option value="Japan" className='text-black'>Japan</option>
+                                        <option value="Malaysia" className='text-black'>Malaysia</option>
+                                    </select>
+                                </div>
+
+                                {/*Button*/}
+                                <button
+                                className='mt-3 py-3 bg-white text-red-600 font-bold
+                                rounded-xl shadow-lg hover:bg-red-100 hover:scale-105
+                                transition duration-300'
+                                type='submit'
+                                >
+                                    Sign Up
+                                </button>
+
+                                {/*Error*/}
+                                <div className='text-center text-red-200 text-sm'>
+                                    {errorMessage}
+                                </div>
+
+                                {/*Link*/}
+                                <p className='text-center text-white/80 text-sm'>
+                                    Already have an Account ? {" "}
+                                    <Link className='font-semibold underline' to='/login'>
+                                        Login
+                                    </Link>
+                                </p>
+                            </form>
+         </div>
   )
 }
 
