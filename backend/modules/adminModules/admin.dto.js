@@ -1,4 +1,4 @@
-export class AdminPlayerDTO {
+export class AdminDTO {
     constructor(account, profile) {
         this.id = account._id; 
         this.username = account.username;

@@ -9,8 +9,6 @@ const PlayerActionsReducer = (players, action) => {
                     return player;
                 }
             });
-        case "LOAD_PLAYERS":
-            return action.payload
     }
 }
 
