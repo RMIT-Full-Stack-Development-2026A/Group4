@@ -1,8 +1,8 @@
-import express from 'express';
+import { Router } from 'express';
 import * as subsController from './subscription.subsController.js';
 import { authMiddleware } from '../shared/shared.middleware.js';
 
-const subsRouter = express.subsRouter();
+const subsRouter = Router();
 
 subsRouter.use(authMiddleware);
 subsRouter.get('/history', subsController.getTransactionHistory);
