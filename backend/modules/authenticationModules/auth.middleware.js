@@ -64,32 +64,36 @@ export const isUsernameValid = ( req, res, next ) => {
 
 export const authMiddleware = (req, res, next) => {
     try {
-        const header = req.headers.authorization;
+        let token = req.cookies?.token;
 
-        //Check if token exists 
-        if(!header || !header.startsWith('Bearer ')) {
-            return res.status(401).json({message: 'Unauthorized - No token provided'});
+        if (!token) {
+            const header = req.headers.authorization;
+
+            if (header && header.startsWith('Bearer ')) {
+                token = header.split(' ')[1];
+            }
         }
 
-        //Extract token
-        const token = header.split(' ')[1];
+        if (!token) {
+            return res.status(401).json({
+                message: 'Unauthorized - No token provided'
+            });
+        }
 
-        const secret = process.env.JWT_SECRET || "mysecretkey";
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        //Verify token
-        const decoded = jwt.verify(token, secret);
-
-        //Attch user info to request object
         req.user = {
             id: decoded.id,
+            email: decoded.email,
+            username: decoded.username,
+            role: decoded.role,
         };
-
-        console.log("RAW HEADER:", header);
-        console.log("TOKEN EXTRACTED:", token);
 
         next();
     } catch (error) {
         console.error("JWT ERROR:", error.message);
-        return res.status(401).json({message: 'Unauthorized - Invalid token'});
+        return res.status(401).json({
+            message: 'Unauthorized - Invalid token'
+        });
     }
 };

@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
         // Defining function:
         const verifyUser = async () => {
             try {
-                const res = await fetch('http://localhost:3000/auth/me', {
+                const res = await fetch('http://localhost:5000/auth/me', {
                     method: 'GET',
                     credentials: 'include',
                 });
