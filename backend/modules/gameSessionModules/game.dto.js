@@ -2,14 +2,21 @@
 export class gameDTO {
     constructor (game) {
         this.id = game._id;
-        this.sessionNum = game.session_num;
+        
         this.host = game.host_name;
         this.guest = game.guest_name;
+
         this.type = game.type;
         this.size = game.size;
+
         this.status = game.status;
         this.winner = game.winner;
+        
+        this.board = game.boardState;
+        this.turn = game.currentTurn;
+
         this.winLine = game.winningLine;
+
         this.start = game.startTime;
         this.end = game.endTime;
     }
