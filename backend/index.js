@@ -27,6 +27,7 @@ app.use(cors({
 // Parsing requests into JSON format: 
 app.use(express.json()) // Enable json formatting
 app.use(cookieParser());
+
 // Setting routes: 
 app.use('/', IndexRouter);
 app.use('/subscription', SubscriptionRoute );
