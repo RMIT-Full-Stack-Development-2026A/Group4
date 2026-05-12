@@ -11,9 +11,6 @@ export class gameDTO {
 
         this.status = game.status;
         this.winner = game.winner;
-        
-        this.board = game.boardState;
-        this.turn = game.currentTurn;
 
         this.winLine = game.winningLine;
 

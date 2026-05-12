@@ -1,23 +1,23 @@
-import GameSession from "./game.model.js"
+import GameSession from './game.model.js';
 
-export const createGame = (data) => {
-    return GameSession.create(data);
+export const saveSession = async (gameData) => {
+    return await GameSession.create(gameData);
 };
 
-export const findById = (id) => {
-    return GameSession.findById(id);
+export const getSessionById = async (id) => {
+    return await GameSession.findById(id).lean();
 };
 
-export const updateById = (id, update) => {
-    return GameSession.findByIdAndUpdate(id, update, {new: true});
+export const updateSessionData = async (id, update) => {
+    return await GameSession.findByIdAndUpdate(id, update, { new: true });
 };
 
-export const save = (game) => {
-    return game.save();
-}
+export const getHistoryByUser = async (userId) => {
+    return await GameSession.find({
+        $or: [{ host_id: userId }, { guest_id: userId }]
+    }).sort({ startTime: -1 }).lean();
+};
 
-export const getHistory = (userId) => {
-    return GameSession.find({
-        $or: [{host_id: userId}, {guest_id: userId}]
-    }).sort({startTime: -1});
-}
+export const countTotalGames = async () => {
+    return await GameSession.countDocuments();
+};

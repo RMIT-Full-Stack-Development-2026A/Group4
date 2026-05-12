@@ -11,11 +11,6 @@ const gameSessionSchema = new mongoose.Schema({
     gameType: { type: String, enum: ['SINGLE', 'LOCAL'], required: true },
 
     boardSize: { type: Number, enum: [10, 15], default: 10 },
-
-    boardState: {
-        type: [[String]],
-        default: []
-    },
     
     status: { type: String, enum: ['ACTIVE', 'FINISHED', 'ABORTED'], default: 'ACTIVE' },
 
