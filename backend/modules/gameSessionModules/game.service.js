@@ -1,5 +1,5 @@
 import * as repo from './game.repository.js';
-
+import { gameNotFoundError, gameAlreadyFinishedError, invalidMoveError, notYourTurnError } from './game.error.js';
 
 const createEmptyBoard = (size) => {
     return Array.from({length: size}, () => 
@@ -29,17 +29,18 @@ export const startGame = async (userId, gameData) => {
 export const playMove = async (gameId, userId, row, col) => {
     const game = await repo.findById(gameId);
 
-    if(!game) throw new Error('Game not found');
-    if(game.status !== 'ACTIVE') throw new Error('Game Finished');
+    if(!game) throw new gameNotFoundError();
+
+    if(game.status !== 'ACTIVE') throw new gameAlreadyFinishedError();
 
     const player = game.host_id.toString() === userId ? 'X' : 'O';
     
-    if(player !== game.currentTurn) {
-        throw new Error('Not your turn');
-    }
+    // if(player !== game.currentTurn) {
+    //     throw new notYourTurnError();
+    // }
 
     if(game.boardState[row][col] !== ''){
-        throw new Error('Cell occupied');
+        throw new invalidMoveError();
     }
 
     //Apply move
@@ -61,24 +62,42 @@ export const playMove = async (gameId, userId, row, col) => {
     return game;
 }
 
+//WIN CHECK
+const checkWinner = (board, row, col, player) => {
+    const dirs = [[0,1],[1,0],[1,1],[1,-1]];
 
-// Finalizes the record
-export const finishGame = async (gameId, resultData) => {
-    const result = {
-        status: resultData.status, // 'FINISHED' or 'ABORTED'
-        endTime: Date.now()
-    };
+    for(let [dx, dy] of dirs) {
+        let count = 1;
 
-    // Only record winner/line if the game was actually completed
-    if (resultData.status === 'FINISHED') {
-        result.winner = resultData.winner;
-        result.winningLine = resultData.winningLine;
+        count += countDir(board, row, col, dx, dy, player);
+        count += countDir(board, row, col, -dx, -dy, player);
+
+        if(count >= 5) return true;
     }
 
-    return await repo.updateSessionData(gameId, result);
+    return false;
 };
 
-// Fetching history for the profile page
-export const getPlayerHistory = async (userId) => {
-    return await repo.getHistoryByUser(userId);
+const countDir = (board, r, c, dx, dy, player) => {
+    let count = 0;
+    let x = r + dx;
+    let y = c + dy;
+
+    while(
+        x >= 0 && y >= 0 &&
+        x < board.length &&
+        y < board.length &&
+        board[x][y] === player
+    ) {
+        count++;
+        x += dx;
+        y += dy;
+    }
+
+    return count;
 };
+
+//HISTORY
+export const getHistory = async (userId) => {
+    return await repo.getHistory(userId);
+}

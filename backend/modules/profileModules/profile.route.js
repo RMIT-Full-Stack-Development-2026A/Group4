@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import * as controller from './profile.controller.js';
 
-import {authMiddleware} from '../authenticationModules/auth.middleware.js';
+import {authMiddleware} from '../accountModules/account.middleware.js';
 
 import {
     upload,
@@ -25,5 +25,9 @@ router.put('/', authMiddleware, validateProfileUpdate, controller.updateProfile)
 router.put('/avatar', authMiddleware, upload.single('avatar'), validateAvatar, resizeAvatar, controller.uploadAvatar);
 
 //GAME HISTORY - To be implemented
+router.get('/games', authMiddleware, controller.getGameHistory);
+
+//GAME stats
+router.get('/stats', authMiddleware, controller.getGameStats);
 
 export default router;
