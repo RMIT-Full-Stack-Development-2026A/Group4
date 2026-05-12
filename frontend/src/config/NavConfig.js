@@ -1,36 +1,35 @@
-import { Sword, LayoutDashboard, Gamepad, Edit, User, ClipboardCheck, History } from "lucide-react";
+import { Sword, LayoutDashboard, Gamepad, Edit, User, ClipboardCheck, History, ShieldAlert, Home } from "lucide-react";
 
 const NavConfig = {
     "PLAYER": [
+        { type: "link", text: "HOME", to: "/", icon: Home },
         {
-            label: 'GAME',
+            type: "section",
+            label: "GAME",
             links: [
-                { to: '/lobby', text:'START', icon: Sword },
-                { to: '/statistics', text:'STATISTICS', icon: LayoutDashboard },
-                { to: '/history', text:'HISTORY', icon: Gamepad },
+                { to: "/lobby", text: "START NEW GAME", icon: Sword },
+                { to: "/history", text: "MATCH HISTORY", icon: Gamepad },
             ]
         },
         {
-            label: 'PROFILE',
+            type: "section",
+            label: "PROFILE",
             links: [
-                { to: '/profile', text: 'VIEW INFO', icon: User  },
-                { to: '/profile/edit', text:'EDIT', icon: Edit  },
+                { to: "/profile", text: "VIEW INFO", icon: User },
+                { to: "/profile/edit", text: "EDIT PROFILE", icon: Edit },
             ]
         },
-        {
-            label: 'SUBSCRIPTION',
-            links: [
-                { to: '/subscription', text:'PLANS', icon:ClipboardCheck },
-                { to: '/subscription/history', text:'HISTORY', icon: History},
-            ]
-        }
+        { type: "link", text: "PLANS", to: "/subscription", icon: ClipboardCheck }
     ],
     "ADMIN": [
         { 
-            label: "section",
-            links: [],
+            type: "section",
+            label: "ADMIN FUNCTIONS",
+            links: [
+                { to: "/app/admin", text: "PLAYER MANAGEMENT", icon: ShieldAlert }
+            ],
         },
     ]
-}
+};
 
-export default NavConfig
+export default NavConfig;

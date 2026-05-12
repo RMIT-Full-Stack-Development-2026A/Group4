@@ -9,7 +9,7 @@ export const Logo = () => {
         tracking-tight
 
         text-transparent bg-clip-text 
-        bg-gradient-to-r from-red-600 to-pink-500
+        bg-linear-to-r from-red-600 to-pink-500
 
         hover:scale-105
         transition duration-300
