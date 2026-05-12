@@ -1,15 +1,27 @@
-// Can't purchase:
 import AppError from "../shared/AppError.js";
 
-class UnableToPurchaseError extends AppError {
-    constructor (message = 'Unable to process purchase') {
+// Wallet balance is too low
+export class insufficientFundsError extends AppError {
+    constructor(message = "Insufficient funds in your wallet!") {
+        super(400, message);
+    }
+}
+
+// Stripe communication issues
+export class stripeSessionError extends AppError {
+    constructor(message = "Unable to connect to payment provider. Please try again.") {
+        super(503, message);
+    }
+}
+
+// Transaction failure
+export class transactionFailedError extends AppError {
+    constructor(message = "The transaction could not be completed.") {
         super(500, message);
     }
-};
-// Invalid payment method error:
-class InvalidPaymentMethodError extends AppError {
-    constructor( message = 'Invalid payment method' ) {
-        super(501, message);
-    }
-};
-// 
+}
+
+// Invalid amount of deposit (x<=0)
+export class invalidAmountError extends AppError {
+    constructor(message = "Please enter a valid deposit amount.") { super(400, message); }
+}

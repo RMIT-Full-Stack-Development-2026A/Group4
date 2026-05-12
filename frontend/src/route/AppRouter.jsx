@@ -1,5 +1,6 @@
 // Importing dependencies:
 import { createBrowserRouter, Outlet } from "react-router-dom";
+import AdminService from "../modules/admin/AdminService";
 // Importing route components:
 import Login from "../modules/authentication/Login/components/Login";
 import Signup from "../modules/authentication/Signup/components/Signup";
@@ -36,7 +37,8 @@ const router = createBrowserRouter(
       children: [ // Hung: Maybe the index should be the game?
         {
           path: 'admin',
-          element: <PlayerManagement />
+          element: <PlayerManagement />,
+          loader: AdminService.fetchAllPlayers
         }
       ]
     }

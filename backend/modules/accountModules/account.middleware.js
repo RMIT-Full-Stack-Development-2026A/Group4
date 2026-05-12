@@ -1,6 +1,5 @@
-
 import jwt from 'jsonwebtoken';
-// Validating inut: 
+// Validating input: 
 // Checking if password's strong:
 export const isPasswordStrong = (req, res, next) => {
     // Extracting the password
