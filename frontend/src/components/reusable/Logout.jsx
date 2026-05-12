@@ -1,4 +1,3 @@
-import React from 'react'
 import { useAuth } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom';
 import { LogOutIcon } from 'lucide-react';

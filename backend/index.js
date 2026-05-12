@@ -1,50 +1,55 @@
-// Importing dependencies: 
 import express from 'express';
-import cors from 'cors'
+import cors from 'cors';
 import dotenv from 'dotenv';
-dotenv.config();
+import cookieParser from 'cookie-parser';
+
+// Shared Utilities
 import { ErrorHandler } from './modules/shared/errorHandler.js';
-import cookieParser from 'cookie-parser'
-// Importing database:
+import AppError from './modules/shared/AppError.js';
+
+// Database
 import connectDb from './pool/db.js';
-// Importing route:
-import SubscriptionRoute  from './modules/subscriptionModules/subscription.route.js';
-import paymentRoutes from './modules/paymentModule/payment.route.js';
-import AuthRouter from './modules/authenticationModules/auth.route.js';
-import IndexRouter from './modules/shared/index.route.js';
-import AdminRouter from './modules/adminModules/admin.route.js';
+
+// Route Imports - Updated to match our new consolidated folders
+import AccountRouter from './modules/account/account.route.js';
+import SubscriptionRouter from './modules/subscription/subscription.route.js';
+import AdminRouter from './modules/admin/admin.route.js';
 import ProfileRouter from './modules/profileModules/profile.route.js';
-// Configuration:
+import IndexRouter from './modules/shared/index.route.js';
+
+dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 5000;
-// Connect to database: 
+
+// Connect to database
 connectDb();
-// Middlewares: 
+
+// Middlewares
 app.use(cors({
-    origin: `${process.env.CLIENT_URL}`, // frontend origin:
-    credentials: true, // for cookies
+    origin: `${process.env.CLIENT_URL}`,
+    credentials: true,
 }));
-// Parsing requests into JSON format: 
-app.use(express.json()) // Enable json formatting
+
+app.use(express.json());
 app.use(cookieParser());
 
-// Setting routes: 
+// Setting routes
 app.use('/', IndexRouter);
-app.use('/subscription', SubscriptionRoute );
-app.use('/auth', AuthRouter);
-app.use('/payment', paymentRoutes);
+app.use('/auth', AccountRouter);
+app.use('/subscription', SubscriptionRouter);
 app.use('/admin', AdminRouter);
 app.use('/profile', ProfileRouter);
 
-// invalid routes:
-app.all('{*path}', (req, res, next) => {
+// 404 Handler for invalid routes
+app.all('*', (req, res, next) => {
     next(new AppError(404, `The route ${req.originalUrl} does not exist on this server.`)); 
 });
 
-// Error Handler
+// Global Error Handler
 app.use(ErrorHandler);
-// Listening on port: 
-app.listen( port,()=>{
-    console.log(`Server is running at ${port}`);
-})
 
+// Listening on port
+app.listen(port, () => {
+    console.log(`Server is running at ${port}`);
+});

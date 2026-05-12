@@ -1,41 +1,37 @@
-import React, { useEffect, useState} from 'react'
-import { Link } from 'react-router-dom'
-import { Check, CircleCheck, Clipboard, ClipboardCheck, Edit, Gamepad, History, LayoutDashboard, Receipt, ReceiptCent, Sword, User } from 'lucide-react'
-import Logout from './Logout'
-import NavConfig from '../../config/NavConfig'
-import { useAuth } from '../../context/UserContext'
+import { useAuth } from "../../context/UserContext";
+import Logo from "./Logo";
+import SideBarNav from "./SideBarNav";
+import UserBox from "./UserBox";
+import Logout from "./Logout";
 
 const SideBar = () => {
-  // State 
-  const {user} = useAuth();
-  const [navSection, setNavSection] = useState(NavConfig[user.role]);
+    const { user } = useAuth();
 
-  return (
-    <div className='flex  flex-col gap-3 rounded-lg p-4 shadow-[0px_0px_6px_1px_rgba(0,_0,_0,_0.1)]'>
-      <h1 className='text-2xl font-bold text-gray-900'>TIC TAC TOANG</h1>
-      
-      <nav>
-        {
-          navSection.map((section, index)=>(
-              <div key={index} className='flex flex-col p-4 border rounded border-gray-100'>
-                <h2 className='font-semibold text-gray-800'>{section.label}</h2>
-                {section.links.map((link)=>{
-                  const CurrentIcon = link.icon
-                  return (
-                  <Link className='flex align-middle gap-2 p-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg' to={link.to}>
-                    <CurrentIcon />
-                    <span>{link.text}</span>
-                  </Link>)
-                })}
-              </div>
-          ))
-        }
-        
-      </nav>
+    return (
+        <aside className="w-[260px] h-screen shrink-0 flex flex-col border-r border-gray-300 font-baloo overflow-hidden">
+            
+            <div className="bg-[#00a651] p-6 shrink-0 border-b border-[#008f45] flex justify-center items-center">
+                <Logo />
+            </div>
 
-      <Logout />
-    </div>  
-  )
-}
+            <div className="bg-[#cd5253] flex-1 flex flex-col min-h-0">
+                <div className="flex-1 overflow-y-auto py-2 custom-scrollbar">
+                    <SideBarNav role={user?.role} />
+                </div>
+                
+                <div className="p-4 border-t border-white/10">
+                    <Logout />
+                </div>
+            </div>
 
-export default SideBar
+            <div className="shrink-0">
+                <UserBox 
+                    username={user?.username} 
+                    avatarUrl={user?.avatarUrl} 
+                />
+            </div>
+        </aside>
+    );
+};
+
+export default SideBar;
