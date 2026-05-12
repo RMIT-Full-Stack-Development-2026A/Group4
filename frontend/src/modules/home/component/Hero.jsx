@@ -3,7 +3,7 @@ import SignUpButton from "../../../components/reusable/SignUpButton"
 const Hero = () => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between
-          bg-gradient-to-br from-red-600 to-pink-500 
+          bg-linear-to-br from-red-600 to-pink-500 
           rounded-3xl px-10 py-12 shadow-2xl text-white">
             {/*LEFT*/}
             <div className="max-w-xl">
