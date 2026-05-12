@@ -1,12 +1,8 @@
-const BASE_URL = "http://localhost:5000";
 
-export const getProfileService = async (token) => {
-    const res = await fetch(`${BASE_URL}/profile`, {
+export const getProfileService = async () => {
+    const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/profile`, {
         method: "GET",
-        headers: {
-            "Content-Type" : "application/json",
-            Authorization: `Bearer ${token}`,
-        },
+        credentials: 'include',
     });
 
     const data = await res.json();
@@ -17,12 +13,12 @@ export const getProfileService = async (token) => {
     return data;
 }
 
-export const updateProfileService = async (token, payload) => {
-    const res = await fetch(`${BASE_URL}/profile`, {
+export const updateProfileService = async (payload) => {
+    const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/profile`, {
         method: "PUT",
+        credentials: 'include',
         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Content-Type" : "application/json",
         },
         
         body: JSON.stringify(payload),
