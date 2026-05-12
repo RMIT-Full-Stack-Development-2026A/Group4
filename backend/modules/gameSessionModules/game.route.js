@@ -1,19 +1,13 @@
-import { Router } from "express";
-import { authMiddleware } from "../accountModules/account.middleware.js";
+import { Router } from 'express';
+import * as gameController from './game.gameController.js';
+import { authMiddleware } from '../shared/shared.middleware.js';
 
-import * as gameConTroller from './game.controller.js'
+const gameRouter = gameRouter();
 
-const router = Router();
+gameRouter.use(authMiddleware);
 
-router.use(authMiddleware);
+gameRouter.post('/start', gameController.startSession);
+gameRouter.get('/history', gameController.getUserHistory);
+gameRouter.patch('/finish/:id', gameController.endSession);
 
-//start game
-router.post('/start', gameConTroller.startGame);
-
-//play move
-router.put('/:id/move', gameConTroller.playMove);
-
-//get history
-router.get('/history', gameConTroller.getHistory);
-
-export default router;
+export default gameRouter;
