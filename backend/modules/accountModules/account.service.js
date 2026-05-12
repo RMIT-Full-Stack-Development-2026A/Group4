@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import * as accRepo from './account.repository.js';
 import { createProfile } from '../profileModules/profile.repository.js';
-import { AccountDTO, TokenDTO } from './account.dto.js';
+import { TokenDTO } from './account.dto.js';
 import { 
     matchingPasswordError, 
     errorCreatingNewUser, 

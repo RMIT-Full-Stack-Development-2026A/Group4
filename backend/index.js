@@ -8,12 +8,12 @@ import cookieParser from 'cookie-parser'
 // Importing database:
 import connectDb from './pool/db.js';
 // Importing route:
-import SubscriptionRoute  from './modules/subscriptionModules/subscription.route.js';
-import paymentRoutes from './modules/paymentModule/payment.route.js';
-import AuthRouter from './modules/authenticationModules/auth.route.js';
+// import SubscriptionRoute  from './modules/subscriptionModules/subscription.route.js';
+import AccountRouter from './modules/accountModules/account.route.js';
 import IndexRouter from './modules/shared/index.route.js';
 import AdminRouter from './modules/adminModules/admin.route.js';
 import ProfileRouter from './modules/profileModules/profile.route.js';
+import GameRouter from './modules/gameSessionModules/game.route.js';
 // Configuration:
 const app = express();
 const port = process.env.PORT || 5000;
@@ -30,11 +30,11 @@ app.use(cookieParser());
 
 // Setting routes: 
 app.use('/', IndexRouter);
-app.use('/subscription', SubscriptionRoute );
-app.use('/auth', AuthRouter);
-app.use('/payment', paymentRoutes);
+// app.use('/subscription', SubscriptionRoute );
+app.use('/account', AccountRouter);
 app.use('/admin', AdminRouter);
 app.use('/profile', ProfileRouter);
+app.use('/game', GameRouter); 
 
 // invalid routes:
 app.all('{*path}', (req, res, next) => {

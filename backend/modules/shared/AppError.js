@@ -3,9 +3,9 @@ class AppError extends Error {
     // Constructor definition: 
     constructor ( status, message, isOperational = true ) {
         // Constructor
-        super(status);
+        super(message);
         // Attributes: 
-        this.status = status,
+        this.status = status
         this.message = message
         this.name = this.constructor.name;
         // Capture the stack tracer, excluding the current constructor
