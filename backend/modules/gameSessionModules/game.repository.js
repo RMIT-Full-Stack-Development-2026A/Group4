@@ -1,5 +1,4 @@
-import { findById } from "../accountModules/account.repository";
-import GameSession from "./game.model"
+import GameSession from "./game.model.js"
 
 export const createGame = (data) => {
     return GameSession.create(data);
