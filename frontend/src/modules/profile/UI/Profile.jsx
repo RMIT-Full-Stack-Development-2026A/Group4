@@ -10,12 +10,12 @@ import { useProfile } from '../hook/useProfile';
 const Profile = () => {
   const [edit, setEdit] = useState(false);
 
-  const {user, token} = useAuth(); //token must be included
-  const {profile, fetchProfile, loading, error} = useProfile(token);
+  const {user} = useAuth(); 
+  const {profile, fetchProfile, loading, error} = useProfile();
 
   useEffect(() => {
-    fetchProfile();
-  }, []);
+    if(user) fetchProfile();
+  }, [user]);
 
   return (
     <div className='flex justify-center p-5'>

@@ -20,7 +20,7 @@ export const AuthController = {
             // Providing appropriate return to frontend;
             // Putting token into cookie: 
             res.cookie('token', result.token, {
-                httpOnly: 'true',
+                httpOnly: true,
                 secure: false,
                 path: '/',
                 maxAge: 7 * 24 * 60 * 1000, // 7 days validity
@@ -49,7 +49,7 @@ export const AuthController = {
             const result = await loginService( email, password );
             // Putting cookie into browser:
             res.cookie('token', result.token, {
-                httpOnly: 'true',
+                httpOnly: true,
                 secure: false,
                 path: '/',
                 maxAge: 7 * 24 * 60 * 1000, // 7 days validity
@@ -91,13 +91,12 @@ export const AuthController = {
                         username: decoded.username,
                         email: decoded.email,
                         role: decoded.role
-                    }
+                    },
             })
         }   
         catch (err) {
             console.error(err);
-            return res.stauts().json({error: err})
+            return res.status().json({error: err})
         }
-        
     }
 }
