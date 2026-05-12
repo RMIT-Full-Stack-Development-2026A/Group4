@@ -49,7 +49,7 @@ const Signup = () => {
   return (
     <div className='flex justify-center'>
         <form className='shadow-[9px_18px_82px_8px_rgba(0,0,0,0.15)] flex flex-col gap-5 w-[50%] p-5' onSubmit={handleSignupSubmission}>
-            <h1 className='text-3xl text-center font-semibold '>Sign Up</h1>
+            <h1 className='text-3xl text-center font-semibold '>Join Us!</h1>
             <div className='flex flex-col gap-2'>
                 <label className='text-xl text-gray-800 font-medium' htmlFor='username'>Username:</label>
                 <input className='bg-gray-100 rounded-sm p-3 text-gray-600' onChange={handleChangingInput} required type='text' name='username' value={signUpInput.username} />
@@ -78,7 +78,7 @@ const Signup = () => {
             </div>
             <button className='p-3 cursor-pointer bg-black text-white text-semibold text-xl rounded-xl' type='submit'>Sign Up</button>
             <div>{errorMessage}</div>
-            <p className='text-center text-gray-500'>Already have an account? Log in <Link className='text-bold text-gray-800' to='/login'>here</Link></p>
+            <p className='text-center text-gray-500'>Already have an account? <Link className='text-boldtext-gray-700' to='/login'>Log in here</Link></p>
         </form>
       
     </div>

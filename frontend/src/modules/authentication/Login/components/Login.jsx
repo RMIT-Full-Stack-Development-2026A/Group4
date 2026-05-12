@@ -84,7 +84,7 @@ const Login = () => {
     return (
       <div className='flex justify-center'>
           <form className='shadow-[9px_18px_82px_8px_rgba(0,0,0,0.15)] flex flex-col gap-5 w-[50%] p-5' onSubmit={submitLoginForm}>
-              <h1 className='text-3xl text-center font-semibold '>Log In</h1>
+              <h1 className='text-3xl text-center font-semibold '>Welcome Back!</h1>
               <div className='flex flex-col gap-2'>
                 <label className='text-xl text-gray-800 font-medium'>Email</label>
                 <input className='bg-gray-100 rounded-sm p-3 text-gray-600'  value={loginInput.email} type='email' name='email' required onChange={handleChangingInput} />
