@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../../context/UserContext';
-import { signupService } from '../../service/authService';
+import { useAuth } from '../../../context/UserContext';
+import { signupService } from '../service/authService';
 
 const useSignup = () => {
+    // Auth Context
     const { updateUserInfo } = useAuth();
     
     // States
