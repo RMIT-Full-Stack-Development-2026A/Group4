@@ -8,7 +8,7 @@ import RootLayout from "../components/layout/RootLayout";
 import Home from "../modules/home/page/Home";
 import Login from "../modules/authentication/Login/components/Login";
 import Signup from "../modules/authentication/Signup/components/Signup";
-import GameLobby from "../modules/lobby/GameLobby";
+import GameLobby from "../modules/lobby/UI/GameLobby";
 import Profile from "../modules/profile/UI/Profile";
 import SubscriptionPage from "../modules/subscription/SubscriptionPage";
 import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
