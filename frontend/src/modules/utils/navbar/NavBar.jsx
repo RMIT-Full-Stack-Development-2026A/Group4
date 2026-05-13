@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 // Importing components:
-import Login from '../../authentication/Login/components/Login'
-import Signup from '../../authentication/Signup/components/Signup';
+import Login from '../../authentication/pages/Login'
+import Signup from '../../authentication/pages/Signup';
 
 const NavBar = () => {
   return (

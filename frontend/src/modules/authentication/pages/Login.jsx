@@ -2,89 +2,23 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../context/UserContext';
+import { useAuth } from '../../../context/UserContext';
 import { User } from 'lucide-react';
+import useLogin from '../hooks/useLogin';
 
 // Login form:
 const Login = () => {
-    // Auth Context:
-    const { updateUserInfo } = useAuth();
-    // States and hooks: 
-    const navigate = useNavigate();
-    const [loginInput, setLoginInput] = useState({
-      email: '',
-      password: '',
-    })
-    const [loggedOutTime, setLoggedOutTime] = useState(60);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [loginAttempt, setLoginAttempt] = useState(0);
-    const [isLocked, setIsLocked] = useState(false);
-    // Functions:
-    const submitLoginForm = async (e) => {
-      e.preventDefault(); // Prevent form reload
-      if (isLocked) return; // Ensure log in attempts are still valid
-      try {
-        // calling backend:
-        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(loginInput),
-          credentials: 'include',
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          setErrorMessage(data.message);
-          handleLoginAttempts();
-          return;
-        }
-        // putting token into cookie and redirecting user
-        updateUserInfo(data.user);
-        navigate('/lobby')
-      }
-      catch (err) {
-        console.error(err);
-        setErrorMessage('Connection error! Unable to log in.')
-      }
-    }
-    // Handling changing input
-    const handleChangingInput = (e) => {
-      const {name, value} = e.target;
-      setLoginInput((prev)=>({
-        ...prev,
-        [name]: value,
-      }))
-    };
-    // Countdown timer:
-    useEffect(()=>{
-      let timer;
-        if (isLocked && loggedOutTime > 0) {
-            timer = setInterval(() => {
-                setLoggedOutTime((prev) => prev - 1);
-            }, 1000);
-        }
-        if (loggedOutTime === 0) {
-            setIsLocked(false);
-            setLoginAttempt(0);
-            setLoggedOutTime(60); 
-            setErrorMessage('');
-        }
-        return () => {clearInterval(timer)};
-    }, [isLocked, loggedOutTime])
-    // Log in attempts:
-    const handleLoginAttempts = () => {
-      setLoginAttempt((prev)=>{
-        const nextAttempt = prev + 1;
-        if (nextAttempt > 5) {
-          setIsLocked(true);
-        }
-        return nextAttempt;
-      })
-    }
+    // Hooks
+    const { 
+        loginInput, errorMessage, loginAttempt, isLocked, 
+        loggedOutTime, handleChangingInput, submitLoginForm 
+    } = useLogin();
+
     // Returning JSX:
     return (
 
   <div className='min-h-screen flex items-center justify-center 
-    bg-gradient-to-br from-red-600 to-pink-500 px-4'>
+    bg-linear-to-br from-red-600 to-pink-500 px-4'>
 
       <form
         className='backdrop-blur-xl bg-white/10 border border-white/20 
