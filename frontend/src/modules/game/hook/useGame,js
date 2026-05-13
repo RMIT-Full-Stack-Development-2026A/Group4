@@ -1,0 +1,51 @@
+import { useState } from "react";
+import { createGameService, playMoveService } from "../service/gameService";
+
+export const useGame = () => {
+    const [game, setGame] = useState(null);
+    const [difficulty, setDifficulty] = useState("MEDIUM"); // 🔥 NEW
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const createGame = async () => {
+        try {
+            setLoading(true);
+
+            const data = await createGameService({
+                host_name: "You",
+                guest_name: "AI",
+                gameType: "SINGLE",
+                boardSize: 10,
+                difficulty: difficulty, // 🔥 USE SELECTED LEVEL
+            });
+
+            setGame(data);
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const playMove = async (row, col) => {
+        if (!game || game.status !== 'ACTIVE') return;
+
+        try {
+            const data = await playMoveService(game.id, row, col);
+            setGame(data);
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    return {
+        game,
+        loading,
+        error,
+        difficulty,
+        setDifficulty, // 🔥 expose setter
+        createGame,
+        playMove,
+    };
+};

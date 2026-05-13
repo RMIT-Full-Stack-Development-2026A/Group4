@@ -25,7 +25,7 @@ const Login = () => {
       if (isLocked) return; // Ensure log in attempts are still valid
       try {
         // calling backend:
-        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/account/login`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(loginInput),

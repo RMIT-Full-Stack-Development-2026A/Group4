@@ -12,6 +12,7 @@ import SubscriptionPage from "../modules/subscription/SubscriptionPage";
 import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
 import PaymentFailure from "../modules/subscription/components/PaymentFailure";
 import Profile from "../modules/profile/UI/Profile";
+import GamePage from "../modules/game/UI/GamePage";
 
 // Creating a router:
 const router = createBrowserRouter(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         { path: 'payment/success', element: <PaymentSuccess />},
         { path: 'payment/failure', element: <PaymentFailure/>},
         { path:'history', element: <></> },
+        { path: 'game', element: <GamePage/>}
       ]
     },
     {
