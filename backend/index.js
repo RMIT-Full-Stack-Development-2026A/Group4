@@ -26,7 +26,7 @@ import GameRouter from './modules/gameSessionModules/game.route.js';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 // Connect to database:
 connectDb();
@@ -36,7 +36,6 @@ app.use(cors({
     origin: `${process.env.CLIENT_URL}`,
     credentials: true,
 }));
-
 app.use(express.json());
 app.use(cookieParser());
 
@@ -48,8 +47,8 @@ app.use('/admin', AdminRouter);
 app.use('/profile', ProfileRouter);
 app.use('/game', GameRouter); 
 
-// 404 Handler for invalid routes
-app.all('*path', (req, res, next) => {
+// Any undefined route: 
+app.all('/{*splat}', (req, res, next) => {
     next(new AppError(404, `The route ${req.originalUrl} does not exist on this server.`)); 
 });
 

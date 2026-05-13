@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
 import { registerService, loginService } from './account.service.js';
 import { missingCredentialsError } from './account.error.js';
+import jwt from 'jsonwebtoken';
 
 export const register = async (req, res, next) => {
-    // Controllers will take request, extract information and call the service layer
+    // Controllers will take request, extract information and call the service layer: 
     try {
         // Extracting information from the request body:
         const { username, email, password, confirmPassword, country } = req.body;
@@ -25,7 +25,7 @@ export const register = async (req, res, next) => {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days validity
             sameSite: 'lax'
         });
-
+        
         return res.status(201).json({ 
             message: 'Successfully registered user', 
             user: result.user
@@ -78,24 +78,5 @@ export const logout = (req, res) => {
 };
 
 export const me = async (req, res) => {
-    // Optional chaining incase cookie doesn't exist
-    const token = req.cookies?.token;
-    
-    if (!token) {
-        return res.status(401).json({ message: 'No token found' });
-    }
-
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return res.status(200).json({
-            user: {
-                id: decoded.id,
-                username: decoded.username,
-                email: decoded.email,
-                role: decoded.role
-            }
-        });
-    } catch (err) {
-        return res.status(401).json({ message: 'Invalid or expired token' });
-    }
+    res.status(200).json({user: req.user});
 };
