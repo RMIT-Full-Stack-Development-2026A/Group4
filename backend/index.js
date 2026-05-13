@@ -4,6 +4,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
+// Hung: Can't connect to MongoDB Atlas, this is the only solution
+import dns from 'node:dns';
+dns.setServers(['8.8.8.8', '8.8.4.4']); 
+
 // Shared Utilities:
 import { ErrorHandler } from './modules/shared/errorHandler.js';
 import AppError from './modules/shared/AppError.js';

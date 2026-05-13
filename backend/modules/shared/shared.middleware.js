@@ -52,10 +52,11 @@ export const resizeAvatar = async (req, res, next) => {
     }
 };
 
-// Auth middleware fixes
+// This function is for checking if the user is logged in
 export const authMiddleware = (req, res, next) => {
     try {
         const token = req.cookies?.token;
+
         if (!token) {
             return res.status(401).json({
                 message: 'Unauthorized - No token provided'
