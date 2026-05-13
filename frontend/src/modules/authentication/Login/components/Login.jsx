@@ -82,6 +82,7 @@ const Login = () => {
     }
     // Returning JSX:
     return (
+
   <div className='min-h-screen flex items-center justify-center 
     bg-gradient-to-br from-red-600 to-pink-500 px-4'>
 

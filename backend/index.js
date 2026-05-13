@@ -1,13 +1,14 @@
+// Importing dependencies: 
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
-// Shared Utilities
+// Shared Utilities:
 import { ErrorHandler } from './modules/shared/errorHandler.js';
 import AppError from './modules/shared/AppError.js';
 
-// Database
+// Database:
 import connectDb from './pool/db.js';
 
 // Route Imports - Updated to match our new consolidated folders
@@ -23,10 +24,10 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Connect to database
+// Connect to database:
 connectDb();
 
-// Middlewares
+// Middlewares:
 app.use(cors({
     origin: `${process.env.CLIENT_URL}`,
     credentials: true,

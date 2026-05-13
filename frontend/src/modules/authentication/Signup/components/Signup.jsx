@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/UserContext'
 
 const Signup = () => {
-    const {user, updateUserInfo} = useAuth();
+    const { updateUserInfo} = useAuth();
     // States:
     const navigate = useNavigate();
     const [signUpInput, setSignUpInput] = useState({
