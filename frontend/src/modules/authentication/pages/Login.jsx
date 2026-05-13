@@ -73,11 +73,11 @@ const Login = () => {
 
           {/* Error */}
           <div className='text-center text-red-200 text-sm'>
-            {loginAttempt === 0
-              ? ''
-              : loginAttempt < 6
-              ? `${errorMessage} ${loginAttempt} / 5 attempts remaining`
-              : `Please try again in ${loggedOutTime} seconds...`}
+              {isLocked ? (
+                  `Account locked. Please try again in ${loggedOutTime} seconds...`
+              ) : (
+                  loginAttempt > 0 ? `${errorMessage} (${loginAttempt} / 5 attempts used)` : ""
+              )}
           </div>
 
           {/* Link */}

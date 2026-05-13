@@ -20,8 +20,8 @@ export class userIsDeactivatedError extends AppError {
 }
 // Log in time out => more than 5 log in attempts: 
 export class loginTimeOutError extends AppError {
-    constructor ( message = 'Exceeded the allowed login attempts!' ) {
-        super(429, message);
+    constructor ( seconds ) {
+        super(429, `Locked: ${seconds}`);
     };
 }
 export class missingCredentialsError extends AppError {

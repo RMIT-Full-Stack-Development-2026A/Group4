@@ -8,7 +8,8 @@ import {
     errorCreatingNewUser, 
     userAlreadyExistsError, 
     userNotFoundError, 
-    invalidCredentialsError 
+    invalidCredentialsError,
+    loginTimeOutError 
 } from './account.error.js';
 
 // Registering
@@ -75,11 +76,38 @@ export const loginService = async ( email, password ) => {
         if (!user) {
             throw new userNotFoundError(); // User not found error
         }
-        // Checking if password is correct:
+
+        const hasLock = user.lockUntil;
+        const lockExpired = hasLock && user.lockUntil < Date.now();
+        const lockActive = hasLock && user.lockUntil > Date.now();
+        
+        // Check if the user is locked
+        if (lockActive) {
+            const secondsLeft = Math.ceil((user.lockUntil - Date.now()) / 1000);
+            throw new loginTimeOutError(secondsLeft);
+        }
+
+        // Checking if password is correct
         const res = await bcrypt.compare(password, user.hashedPassword);
+        // If not correct
         if (!res) {
+            let attempts = user.failedAttempts + 1;
+            if (lockExpired) attempts = 1 // If the user was locked before and waited
+
+            let lockTime = null;
+
+            // If 5th failed attempt, set lock for 60 seconds
+            if (attempts >= 5) {
+                lockTime = new Date(Date.now() + 60 * 1000);
+            }
+
+            await accRepo.updateLoginAttempts(user._id, attempts, lockTime);
             throw new invalidCredentialsError(); // Invalid credentials error
         };
+
+        // Reset security fields on success
+        await accRepo.updateLoginAttempts(user._id, 0, null);
+
         // Creating token DTO: 
         const payload = new TokenDTO(user);
         // Creating token:

@@ -7,7 +7,7 @@ const ProfileDisplay = ({profile}) => {
       <p><b>Email:</b> {profile.account.email}</p>
       <p><b>Username:</b> {profile.account.username}</p>
       <p><b>Country:</b> {profile.profile.country}</p>
-      <p><b>Wallet:</b> {profile.account.wallet_balance}</p>
+      <p><b>Wallet:</b> {profile.profile.wallet_balance}$</p>
       <p><b>Premium:</b> {profile.profile.isPremium ? "Yes" : "No"}</p>
     </div>
   );
