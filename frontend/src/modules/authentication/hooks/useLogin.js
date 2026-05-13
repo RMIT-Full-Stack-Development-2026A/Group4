@@ -44,35 +44,34 @@ const useLogin = () => {
       }))
     };
 
-    // Log in attempts
-    const handleLoginAttempts = () => {
-      setLoginAttempt((prev)=>{
-        const nextAttempt = prev + 1;
-        if (nextAttempt > 5) {
-          setIsLocked(true);
-        }
-        return nextAttempt;
-      })
-    };
-
     // Functions
     const submitLoginForm = async (e) => {
-      e.preventDefault(); // Prevent form reload
-      if (isLocked) return; // Ensure log in attempts are still valid
-      
-      try {
-        const data = await loginService(loginInput);
+        e.preventDefault();
+        if (isLocked) return;
         
-        // putting token into cookie and redirecting user
-        updateUserInfo(data.user);
-        navigate('/lobby');
-      }
-      catch (err) {
-        console.error(err);
-        // Using the error message from the backend or a fallback
-        setErrorMessage(err.message || 'Connection error! Unable to log in.');
-        handleLoginAttempts();
-      }
+        try {
+            const data = await loginService(loginInput);
+            updateUserInfo(data.user);
+            navigate('/lobby');
+        }
+        catch (err) {
+            // Check if the user is already locked
+            if (err.message.includes("Locked:")) {
+                const secondsMatch = err.message.match(/\d+/);
+                if (secondsMatch) {
+                    const seconds = parseInt(secondsMatch[0]);
+                    setLoggedOutTime(seconds);
+                    setIsLocked(true);
+                    setErrorMessage(''); 
+                }
+            } 
+            // If it's a normal error (Invalid credentials, etc.)
+            else {
+                setErrorMessage(err.message);
+                setLoginAttempt(prev => prev + 1);
+                setIsLocked(false);
+            }
+        }
     };
 
     return {
