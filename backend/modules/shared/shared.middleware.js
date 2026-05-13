@@ -62,17 +62,13 @@ export const authMiddleware = (req, res, next) => {
             });
         }
         const decoded = jwt.verify(token , process.env.JWT_SECRET);
-        const userData = {
+        req.user = {
             id: decoded.id,
             email: decoded.email,
             username: decoded.username,
             role: decoded.role,
         };
-        res.status(200).json({
-            user: userData,
-            message: 'Authorized',
-            token: token
-        })
+        next();
     } catch (error) {
         console.error("JWT ERROR:", error.message);
         return res.status(401).json({

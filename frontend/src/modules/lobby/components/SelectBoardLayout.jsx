@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Grid3x3 } from 'lucide-react';
 
-const SelectBoardLayout = () => {
+const SelectBoardLayout = ({setBoardLayout}) => {
   const [currentLayout, setCurrentLayout] = useState(10);
   const [selectedLayout, setSelectedLayout] = useState(Array(currentLayout * currentLayout).fill(null))
   // Loads at first when mounted and when current layout changes: 
@@ -15,7 +15,9 @@ const SelectBoardLayout = () => {
     };
     displayCurrentLayout();
   }, [currentLayout]);
+
   // Submit Chosen Board Layout:
+  
   // Carousel layout With board in middle and arrow pointing forward and backward to toggle
   return (
     <div className=' min-h-screen shadow-[0px_0px_6px_1px_rgba(0,0,0,0.1)] p-2 flex flex-col justify-evenly '>
@@ -50,8 +52,8 @@ const SelectBoardLayout = () => {
         </div>
         
         <div className='flex gap-5 flex-col justify-center align-middle items-center md:flex-row '>
-          <button className='flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(10);}}>10x10</button>
-          <button className='flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(15);}}>15x15</button>
+          <button className='flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(10); setBoardLayout('10x10')}}>10x10</button>
+          <button className='flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200' onClick={()=>{ setCurrentLayout(15); setBoardLayout('15x15')}}>15x15</button>
         </div>
     
     </div>
