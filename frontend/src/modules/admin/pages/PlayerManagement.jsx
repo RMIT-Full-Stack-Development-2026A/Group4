@@ -3,6 +3,7 @@ import AdminService from "../service/AdminService"
 import PlayerActionsReducer from "../hooks/PlayerActionsReducer"
 import { useReducer, useEffect } from "react"
 import { useLoaderData } from "react-router-dom"
+import useAdmin from "../hooks/useAdmin"
 
 export default function PlayerManagement() {
     const initialPlayers = useLoaderData()

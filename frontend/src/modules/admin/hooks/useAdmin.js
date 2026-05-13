@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import { updatePlayerStatusService } from "../service/AdminService";
 import PlayerActionsReducer from "./PlayerActionsReducer";
 
-export const useAdmin = (initialPlayers = []) => {
+const useAdmin = (initialPlayers = []) => {
     const [players, dispatch] = useReducer(PlayerActionsReducer, initialPlayers);
     const [loading, setLoading] = useState(false);
 
@@ -20,3 +20,5 @@ export const useAdmin = (initialPlayers = []) => {
 
     return { players, loading, toggleStatus };
 };
+
+export default useAdmin
