@@ -13,14 +13,14 @@ const Signup = () => {
         password: '',
         confirmPassword: '',
         country: '',
-    })
+    });
     const [errorMessage, setErrorMessage] = useState('');
     // Functions:
     // handling signup submission:
     const handleSignupSubmission = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/signup`, {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/signup`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(signUpInput),
@@ -35,6 +35,7 @@ const Signup = () => {
             navigate('/lobby');
         }
         catch (err) {
+            console.error(err);
             setErrorMessage('Connection error. Is server running?')
         }
     }
@@ -112,7 +113,7 @@ const Signup = () => {
                                     <label className='text-sm text-white/80'>Country</label>
                                     <select
                                     className='input-glass text-white'
-                                    onChange={signUpInput.country}
+                                    onChange={handleChangingInput}
                                     required
                                     name='country'
                                     >

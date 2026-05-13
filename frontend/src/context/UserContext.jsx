@@ -17,14 +17,18 @@ export const AuthProvider = ({ children }) => {
         // Defining function:
         const verifyUser = async () => {
             try {
-                const res = await fetch('http://localhost:5000/auth/me', {
+                const res = await fetch('http://localhost:3000/auth/me', {
                     method: 'GET',
+                    headers: {'Content-Type': 'application/json'},
                     credentials: 'include',
                 });
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data.user);
-                };
+                } else {
+                    console.log(res);
+                    setUser(null);
+                }
             }
             catch (err) {
                 console.log(err);

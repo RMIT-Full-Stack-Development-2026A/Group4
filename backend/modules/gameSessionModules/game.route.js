@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import * as gameController from './game.gameController.js';
+import * as gameController from './game.controller.js'
 import { authMiddleware } from '../shared/shared.middleware.js';
 
-const gameRouter = gameRouter();
+const gameRouter = Router();
 
 gameRouter.use(authMiddleware);
 
