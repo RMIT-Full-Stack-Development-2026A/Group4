@@ -140,7 +140,7 @@ export const uploadAvatar = async (userId, avatarUrl) => {
         throw new ProfileNotFoundError();
     }
 
-    return new ProfileDTO(updated);
+    return await getProfile(userId);
 }
 
 //GAME implementation will be added here in the future

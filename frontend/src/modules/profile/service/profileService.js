@@ -17,3 +17,16 @@ export const updateProfileService = async (payload) => {
     }
     return res.data;
 };
+
+export const uploadAvatarService = async (file) => {
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    const res = await httpHelper.put('/profile/avatar', formData);
+
+    if(res.status !== 200){
+        throw new Error(res.data.message);
+    }
+
+    return res.data;
+}
