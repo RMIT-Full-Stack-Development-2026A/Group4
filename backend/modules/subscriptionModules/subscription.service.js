@@ -11,10 +11,12 @@ const premium_fee = 10;
 // Buying the subscription with wallet
 export const purchaseSubscription = async (userId) => {
     try {
+        // Getting user information from the user id?
         const userData = await getProfile(userId);
         const profile = userData.profile;
         const email = userData.account.email; // We need the user's email
 
+        // Checking the wallet balance? 
         if (profile.wallet_balance < premium_fee) {
             throw new insufficientFundsError();
         }
@@ -27,7 +29,7 @@ export const purchaseSubscription = async (userId) => {
         await updatePlayerPremiumStatus(userId, true);
 
         await sendPaymentConfirmation(email, premium_fee);
-
+        
         return new transactionDTO(record);
     } catch (err) {
         console.error(err);
@@ -35,7 +37,7 @@ export const purchaseSubscription = async (userId) => {
     }
 };
 
-// Depositing money into local wallet
+// Depositing money into local wallet:
 export const depositToWallet = async ( userId, amount ) => {
     try {
         const userData = await getProfile(userId);

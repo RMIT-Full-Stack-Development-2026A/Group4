@@ -1,3 +1,4 @@
+
 import { useAuth } from "../../context/UserContext";
 import Logo from "./Logo";
 import SideBarNav from "./SideBarNav";
@@ -5,11 +6,10 @@ import UserBox from "./UserBox";
 import Logout from "./Logout";
 
 const SideBar = () => {
-    const { user } = useAuth();
+  const { user } = useAuth();
+  return (
+      <aside className="w-[260px] h-screen shrink-0 flex flex-col border-r border-gray-300 font-baloo overflow-hidden">
 
-    return (
-        <aside className="w-[260px] h-screen shrink-0 flex flex-col border-r border-gray-300 font-baloo overflow-hidden">
-            
             <div className="bg-[#00a651] p-6 shrink-0 border-b border-[#008f45] flex justify-center items-center">
                 <Logo />
             </div>
