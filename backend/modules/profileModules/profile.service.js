@@ -112,7 +112,12 @@ export const updateProfile = async (userId, data) => {
     }
 
     if(Object.keys(profileUpdate).length > 0) {
-        await profileRepo.updateProfile(userId, profileUpdate);
+        const profile = await profileRepo.findProfileByUserId(userId);
+
+        if(!profile){
+            throw new ProfileNotFoundError();
+        }
+        await profileRepo.updateProfile(profile.user_id, profileUpdate);
     }
 
     return await getProfile(userId);
