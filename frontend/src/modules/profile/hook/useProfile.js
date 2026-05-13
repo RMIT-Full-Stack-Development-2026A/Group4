@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getProfileService, updateProfileService } from "../service/profileService";
+import { getProfileService, updateProfileService, uploadAvatarService } from "../service/profileService";
 
 export const useProfile = () => {
     const [profile, setProfile] = useState(null);
@@ -30,11 +30,26 @@ export const useProfile = () => {
         }
     };
 
+    const uploadAvatar = async (file) => {
+        try {
+            setLoading(true);
+
+            const res = await uploadAvatarService(file);
+
+            setProfile(res.data);
+        } catch (err){
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return {
         profile,
         loading,
         error,
         fetchProfile,
-        updateProfile
+        updateProfile,
+        uploadAvatar
     };
 };
