@@ -2,14 +2,14 @@ import { Router } from 'express';
 import { register, login, logout, me } from './account.controller.js';
 import { isEmailValid, isPasswordStrong, isUsernameValid } from './account.middleware.js';
 import { authMiddleware } from '../shared/shared.middleware.js';
-const router = Router();
+const accRouter = Router();
 
 // PUBLIC ROUTES: Anyone can access these
-router.post('/signup', isEmailValid, isPasswordStrong, isUsernameValid, register);
-router.post('/login', isEmailValid, login);
+accRouter.post('/signup', isEmailValid, isPasswordStrong, isUsernameValid, register);
+accRouter.post('/login', isEmailValid, login);
 
 // PROTECTED ROUTES: Only logged-in users can access these
-router.get('/me', authMiddleware, me);
-router.post('/logout', authMiddleware, logout);
+accRouter.get('/me', authMiddleware, me);
+accRouter.post('/logout', authMiddleware, logout);
 
-export default router;
+export default accRouter;
