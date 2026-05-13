@@ -5,7 +5,7 @@ import { loginService } from '../service/authService';
 
 const useLogin = () => {
     // Auth Context
-    const { updateUserInfo } = useAuth();
+    const { user, updateUserInfo } = useAuth();
     
     // States and hooks 
     const navigate = useNavigate();
@@ -17,6 +17,13 @@ const useLogin = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [loginAttempt, setLoginAttempt] = useState(0);
     const [isLocked, setIsLocked] = useState(false);
+
+    // redirect if the user is logged in
+    useEffect(() => {
+        if (user) {
+            navigate('/lobby');
+        }
+    }, [user, navigate]);
 
     // Countdown timer
     useEffect(()=>{
