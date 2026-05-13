@@ -2,7 +2,7 @@ import { Sword, LayoutDashboard, Gamepad, Edit, User, ClipboardCheck, History, S
 
 const NavConfig = {
     "PLAYER": [
-        { type: "link", text: "HOME", to: "/", icon: Home },
+        { type: "link", text: "HOME", to: "/lobby", icon: Home },
         {
             type: "section",
             label: "GAME",

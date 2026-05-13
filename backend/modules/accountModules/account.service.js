@@ -50,7 +50,7 @@ export const registerService = async ( username, email, password, confirmPasswor
         // Creating token based on user
         const payload = new TokenDTO(newAccount);
         const token = jwt.sign(
-            { ...payload },
+            { ...payload},
             process.env.JWT_SECRET,
             { expiresIn: '7d' },
         )
@@ -94,8 +94,4 @@ export const loginService = async ( email, password ) => {
         console.error(err);
         throw err;
     }
-}
-
-export const deleteExistingUser = async () => {
-    // To be implemented
 }

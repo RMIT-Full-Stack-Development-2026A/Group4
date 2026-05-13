@@ -1,3 +1,4 @@
+//
 import * as repo from './game.repository.js';
 
 // Starts the record in the database
@@ -12,7 +13,7 @@ export const startGame = async (userId, gameData) => {
         session_num: total + 1,
     });
 };
-
+ 
 // Finalizes the record
 export const finishGame = async (gameId, resultData) => {
     const result = {

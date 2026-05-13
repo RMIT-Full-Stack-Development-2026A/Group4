@@ -32,15 +32,15 @@
 // Representing an easy AI:
 export class easyAiService {
     // Constructor: 
-    constructor (name) {
-        this.name = name;
+    constructor () {
+        this.name = "Bill";
     }
     // Make move:
     makeMove (previousSquare, board, marker) {
         // Coordinates: 
         const { x, y } = previousSquare;
         
-        // Calculate all moves
+        // Calculate all moves: 
         // X:
         const newMoves = [
             // Right Side:
@@ -90,26 +90,28 @@ export class easyAiService {
 
 export class mediumAiService {
     // Constructor:
-    constructor (name) {
-        this.name = name;
+    constructor () {
+        this.name = "Ricky"
     };
     // Make Move:
     defend (boardLayout, aiMarker) {
         
     };
+    // Make move:
+    
 };
 
 export class hardAiService {
     // Constructor:
-    constructor (name) {
-        this.name = this.name;
+    constructor () {
+        this.name = "Mack"
     };
     // Make Move: 
-    // Defending:
-    defend (boardLayout, aiMarker) {
+    attack (boardLayout, aiMarker) {
 
     };
-    attack (boardLayout, aiMarker) {
+    // Defending:
+    defend (boardLayout, aiMarker) {
 
     };
 }

@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
 // Validating input: 
 // Checking if password's strong:
 export const isPasswordStrong = (req, res, next) => {
@@ -61,33 +61,22 @@ export const isUsernameValid = ( req, res, next ) => {
     next()
 };
 
+
 export const authMiddleware = (req, res, next) => {
     try {
-        let token = req.cookies?.token;
-
-        if (!token) {
-            const header = req.headers.authorization;
-
-            if (header && header.startsWith('Bearer ')) {
-                token = header.split(' ')[1];
-            }
-        }
-
+        const token = req.cookies?.token;
         if (!token) {
             return res.status(401).json({
                 message: 'Unauthorized - No token provided'
             });
         }
-
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+        const decoded = jwt.verify(token , process.env.JWT_SECRET);
         req.user = {
             id: decoded.id,
             email: decoded.email,
             username: decoded.username,
             role: decoded.role,
         };
-
         next();
     } catch (error) {
         console.error("JWT ERROR:", error.message);
