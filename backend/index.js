@@ -11,7 +11,7 @@ import AppError from './modules/shared/AppError.js';
 // Database:
 import connectDb from './pool/db.js';
 
-// Route Imports - Updated to match our new consolidated folders:
+// Route Imports - Updated to match our new consolidated folders
 import AccountRouter from './modules/accountModules/account.route.js';
 import SubscriptionRouter from './modules/subscriptionModules/subscription.route.js';
 import AdminRouter from './modules/adminModules/admin.route.js';
@@ -43,8 +43,8 @@ app.use('/admin', AdminRouter);
 app.use('/profile', ProfileRouter);
 app.use('/game', GameRouter); 
 
-// 404 Handler for invalid routes:
-app.all('/{*splat}', (req, res) => {
+// Any undefined route: 
+app.all('/{*splat}', (req, res, next) => {
     next(new AppError(404, `The route ${req.originalUrl} does not exist on this server.`)); 
 });
 

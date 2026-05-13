@@ -1,5 +1,5 @@
 // Importing dependencies and repository queries:
-import { saveTransaction, getTransactionsByUser } from './subscription.repository.js';
+import { saveTransaction, findUserTransactions } from './subscription.repository.js';
 import { updatePlayerPremiumStatus, getProfile } from '../profileModules/profile.service.js';
 import { transactionDTO } from './subscription.dto.js';
 import { insufficientFundsError, stripeSessionError, transactionFailedError } from './subscription.error.js';
@@ -79,7 +79,7 @@ export const createStripeSession = async (userId) => {
 // View History:
 export const viewHistory = async (userId) => {
     try {
-        const records = await getTransactionsByUser(userId);
+        const records = await findUserTransactions(userId);
         return records.map(r => new transactionDTO(r));
     } catch (err) {
         throw err;

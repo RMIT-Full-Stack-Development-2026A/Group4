@@ -56,5 +56,4 @@ class HttpHelper {
     }
 }
 
-// remember to add the apiUrl here
-export const httpHelper = new HttpHelper()
+export const httpHelper = new HttpHelper(import.meta.env.VITE_SERVER_URL)
