@@ -10,7 +10,7 @@ accRouter.post('/signup', isEmailValid, isPasswordStrong, isUsernameValid, regis
 accRouter.post('/login', isEmailValid, login);
 
 // PROTECTED ROUTES: Only logged-in users can access these
-accRouter.get('/me', authMiddleware, me);
+accRouter.get('/me', authMiddleware);
 accRouter.post('/logout', authMiddleware, logout);
 
 export default accRouter;

@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import * as controller from './profile.controller.js';
 
-import {authMiddleware} from '../accountModules/account.middleware.js';
+import { authMiddleware } from '../shared/shared.middleware.js';
 
 import {
     upload,

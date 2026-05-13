@@ -1,5 +1,5 @@
 // Middlewares which can be shared between the modules
-
+import jwt from 'jsonwebtoken'
 import multer from 'multer';
 import sharp from 'sharp';
 import path from 'path';
@@ -62,13 +62,17 @@ export const authMiddleware = (req, res, next) => {
             });
         }
         const decoded = jwt.verify(token , process.env.JWT_SECRET);
-        req.user = {
+        const userData = {
             id: decoded.id,
             email: decoded.email,
             username: decoded.username,
             role: decoded.role,
         };
-        next();
+        res.status(200).json({
+            user: userData,
+            message: 'Authorized',
+            token: token
+        })
     } catch (error) {
         console.error("JWT ERROR:", error.message);
         return res.status(401).json({
