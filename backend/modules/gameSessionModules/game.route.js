@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as gameController from './game.controller.js';
+import * as gameController from './game.controller.js'
 import { authMiddleware } from '../shared/shared.middleware.js';
 
 const gameRouter = Router();
