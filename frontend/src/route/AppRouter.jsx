@@ -18,7 +18,7 @@ import PlayerManagement from "../modules/admin/pages/PlayerManagement";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />, // This is the ONLY one we need
+    element: <RootLayout />,
     children: [
       { 
         index: true, 

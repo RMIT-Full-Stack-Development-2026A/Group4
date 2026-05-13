@@ -11,11 +11,12 @@ import AppError from './modules/shared/AppError.js';
 import connectDb from './pool/db.js';
 
 // Route Imports - Updated to match our new consolidated folders
-import AccountRouter from './modules/account/account.route.js';
-import SubscriptionRouter from './modules/subscription/subscription.route.js';
-import AdminRouter from './modules/admin/admin.route.js';
+import AccountRouter from './modules/accountModules/account.route.js';
+import SubscriptionRouter from './modules/subscriptionModules/subscription.route.js';
+import AdminRouter from './modules/adminModules/admin.route.js';
 import ProfileRouter from './modules/profileModules/profile.route.js';
 import IndexRouter from './modules/shared/index.route.js';
+import GameRouter from './modules/gameSessionModules/game.route.js';
 
 dotenv.config();
 
@@ -43,7 +44,7 @@ app.use('/profile', ProfileRouter);
 app.use('/game', GameRouter); 
 
 // 404 Handler for invalid routes
-app.all('*', (req, res, next) => {
+app.all('*path', (req, res, next) => {
     next(new AppError(404, `The route ${req.originalUrl} does not exist on this server.`)); 
 });
 
