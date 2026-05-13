@@ -17,17 +17,10 @@ export const AuthProvider = ({ children }) => {
         // Defining function:
         const verifyUser = async () => {
             try {
-                const res = await fetch('http://localhost:3000/auth/me', {
-                    method: 'GET',
-                    headers: {'Content-Type': 'application/json'},
-                    credentials: 'include',
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data.user);
-                } else {
-                    console.log(res);
-                    setUser(null);
+                const response = await httpHelper.get('/auth/me');
+
+                if (response.status === 200) {
+                    setUser(response.data.user);
                 }
             }
             catch (err) {
