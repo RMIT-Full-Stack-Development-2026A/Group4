@@ -1,5 +1,5 @@
 import { useReducer, useState } from "react";
-import { updatePlayerStatusService } from "../service/AdminService";
+import AdminService from "../service/AdminService";
 import PlayerActionsReducer from "./PlayerActionsReducer";
 
 const useAdmin = (initialPlayers = []) => {
@@ -9,7 +9,7 @@ const useAdmin = (initialPlayers = []) => {
     const toggleStatus = async (userId, newStatus) => {
         try {
             setLoading(true);
-            await updatePlayerStatusService(userId, newStatus);
+            await AdminService.updatePlayerStatus(userId, newStatus);
             dispatch({ type: "UPDATE_STATUS", payload: { targetID: userId, newStatus } });
         } catch (err) {
             alert(`Error: ${err.message}`);
