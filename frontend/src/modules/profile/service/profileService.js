@@ -1,7 +1,8 @@
 import { httpHelper } from "../../../utils/httpHelper";
+import { PROFILE_ENDPOINTS } from "../../../config/apiConfig";
 
 export const getProfileService = async () => {
-    const res = await httpHelper.get('/profile');
+    const res = await httpHelper.get(PROFILE_ENDPOINTS.PROFILE);
     
     if (res.status !== 200) {
         throw new Error(res.data.message || "Failed to load profile");
@@ -10,7 +11,7 @@ export const getProfileService = async () => {
 };
 
 export const updateProfileService = async (payload) => {
-    const res = await httpHelper.put('/profile', payload);
+    const res = await httpHelper.put(PROFILE_ENDPOINTS.PROFILE, payload);
 
     if (res.status !== 200) {
         throw new Error(res.data.message || "Update failed");
@@ -22,7 +23,7 @@ export const uploadAvatarService = async (file) => {
     const formData = new FormData();
     formData.append("avatar", file);
 
-    const res = await httpHelper.put('/profile/avatar', formData);
+    const res = await httpHelper.put(PROFILE_ENDPOINTS.UPLOAD_AVATAR, formData);
 
     if(res.status !== 200){
         throw new Error(res.data.message);

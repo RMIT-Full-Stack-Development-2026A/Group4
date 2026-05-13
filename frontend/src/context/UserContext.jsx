@@ -1,5 +1,6 @@
 import { useContext, useState, createContext, useEffect } from "react";
 import { httpHelper } from "../utils/httpHelper";
+import { AUTH_ENDPOINTS } from "../config/apiConfig";
 // Context needs to handle 3 things:
 // State: Storing the user object as a loading boolean
 // Persistence: checking cookie when the app first loads
@@ -18,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         // Defining function:
         const verifyUser = async () => {
             try {
-                const response = await httpHelper.get('/auth/me');
+                const response = await httpHelper.get(AUTH_ENDPOINTS.ME);
 
                 if (response.status === 200) {
                     setUser(response.data.user);

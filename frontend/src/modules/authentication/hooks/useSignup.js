@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/UserContext';
 import { signupService } from '../service/authService';
 
 const useSignup = () => {
     // Auth Context
-    const { updateUserInfo } = useAuth();
+    const { user, updateUserInfo } = useAuth();
     
-    // States
+    // States and hooks
     const navigate = useNavigate();
     const [signUpInput, setSignUpInput] = useState({
         username: '',
@@ -17,6 +17,13 @@ const useSignup = () => {
         country: '',
     });
     const [errorMessage, setErrorMessage] = useState('');
+
+    // redirect if the user is logged in
+    useEffect(() => {
+        if (user) {
+            navigate('/lobby');
+        }
+    }, [user, navigate]);
 
     // Functions
     // Handling changing input
