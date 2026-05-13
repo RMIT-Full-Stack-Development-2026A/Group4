@@ -1,38 +1,19 @@
-const BASE_URL = "http://localhost:5000";
+import { httpHelper } from "../../../utils/httpHelper";
 
-export const getProfileService = async (token) => {
-    const res = await fetch(`${BASE_URL}/profile`, {
-        method: "GET",
-        headers: {
-            "Content-Type" : "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    const data = await res.json();
-
-    if(!res.ok){
-        throw new Error(data.message);
+export const getProfileService = async () => {
+    const res = await httpHelper.get('/profile');
+    
+    if (res.status !== 200) {
+        throw new Error(res.data.message || "Failed to load profile");
     }
-    return data;
-}
+    return res.data;
+};
 
-export const updateProfileService = async (token, payload) => {
-    const res = await fetch(`${BASE_URL}/profile`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        
-        body: JSON.stringify(payload),
-    });
+export const updateProfileService = async (payload) => {
+    const res = await httpHelper.put('/profile', payload);
 
-    const data = await res.json();
-
-    if(!res.ok){
-        throw new Error(data.message);
+    if (res.status !== 200) {
+        throw new Error(res.data.message || "Update failed");
     }
-
-    return data;
-}
+    return res.data;
+};

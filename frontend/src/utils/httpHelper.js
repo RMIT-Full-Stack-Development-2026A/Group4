@@ -1,4 +1,4 @@
-export class HttpHelper {
+class HttpHelper {
     constructor(apiUrl) {
         this.apiUrl = apiUrl
     }
@@ -55,3 +55,6 @@ export class HttpHelper {
         return await this.request(endpoint, 'DELETE', body, headers)
     }
 }
+
+// remember to add the apiUrl here
+export const httpHelper = new HttpHelper()

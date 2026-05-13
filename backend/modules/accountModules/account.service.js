@@ -1,48 +1,60 @@
-// Importing dependencies: 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-dotenv.config();
-// Importing queries: 
-import { findByEmail } from '../accountModules/account.repository.js';
-// Importing DTO:
-import { tokenDTO } from './authDTO.js';
-// importing error messages: 
-import { matchingPasswordError, errorCreatingNewUser, invalidCredentialsError, userNotFoundError } from './auth.error.js';
-import { creatingNewAccount } from '../accountModules/account.services.js';
-import { createNewProfile } from '../profileModules/profile.service.js'
+import * as accRepo from './account.repository.js';
+import { createProfile } from '../profileModules/profile.repository.js';
+import { TokenDTO } from './account.dto.js';
+import { 
+    matchingPasswordError, 
+    errorCreatingNewUser, 
+    userAlreadyExistsError, 
+    userNotFoundError, 
+    invalidCredentialsError 
+} from './account.error.js';
 
-// Registering: 
+// Registering
 export const registerService = async ( username, email, password, confirmPassword, country ) => {
     try {
         // Perform validation:
         if (password !== confirmPassword) {
             throw new matchingPasswordError();
         }
+
+        // Check if user already exists: 
+        const existingUser = await accRepo.findByEmail(email);
+        if (existingUser){
+            throw new userAlreadyExistsError();
+        };
+
         // Hash password:
         const hashedPassword = await bcrypt.hash( password, 10 );
-        // Creating new input: 
-        const accountInput = {
+
+        // Create the account record
+        const newAccount = await accRepo.createAccount({
             username,
             email,
             hashedPassword,
-            country,
-        }
-        // create new account and profile based on user input: 
-        const newAccount = await creatingNewAccount(accountInput);
-        const newProfile = await createNewProfile( newAccount.id, country );
+            userRole: 'PLAYER',
+        });
+
+        // Create the profile record
+        const newProfile = await createProfile({
+            user_id: newAccount._id,
+            country: country,
+        });
+
         // Throwing error if something is wrong: 
         if (!newAccount || !newProfile) {
             throw new errorCreatingNewUser();
         }
+
         // Creating token based on user
-        const payload = new tokenDTO(newAccount);
+        const payload = new TokenDTO(newAccount);
         const token = jwt.sign(
             { ...payload },
-            //process.env.JWT_SECRET,
             process.env.JWT_SECRET,
             { expiresIn: '7d' },
         )
+        
         return { 
             token: token, 
             message: 'Successfully created user', 
@@ -54,11 +66,12 @@ export const registerService = async ( username, email, password, confirmPasswor
         throw err;
     }
 }
-// Logging in: 
+
+// Logging in
 export const loginService = async ( email, password ) => {
     try {
         // Find user based on email: 
-        const user = await findByEmail(email);
+        const user = await accRepo.findByEmail(email);
         if (!user) {
             throw new userNotFoundError(); // User not found error
         }
@@ -68,11 +81,10 @@ export const loginService = async ( email, password ) => {
             throw new invalidCredentialsError(); // Invalid credentials error
         };
         // Creating token DTO: 
-        const payload = new tokenDTO(user);
+        const payload = new TokenDTO(user);
         // Creating token:
         const token = jwt.sign ( 
             { ...payload }, 
-            //process.env.JWT_SECRET, 
             process.env.JWT_SECRET,
             { expiresIn: '1d' },
          );
@@ -82,4 +94,8 @@ export const loginService = async ( email, password ) => {
         console.error(err);
         throw err;
     }
+}
+
+export const deleteExistingUser = async () => {
+    // To be implemented
 }

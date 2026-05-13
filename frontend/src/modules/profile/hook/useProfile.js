@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getProfileService, updateProfileService } from "../service/profileService";
 
-export const useProfile = (token) => {
+export const useProfile = () => {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ export const useProfile = (token) => {
     const fetchProfile = async () => {
         try {
             setLoading(true);
-            const data = await getProfileService(token);
+            const data = await getProfileService();
             setProfile(data.data);
         } catch (err){
             setError(err.message);
@@ -21,7 +21,7 @@ export const useProfile = (token) => {
     const updateProfile = async (payload) => {
         try {
             setLoading(true);
-            const data = await updateProfileService(token, payload);
+            const data = await updateProfileService(payload);
             setProfile(data.data);
         } catch(err){
             setError(err.message)
