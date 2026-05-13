@@ -51,3 +51,47 @@ export const resizeAvatar = async (req, res, next) => {
         next(error);
     }
 };
+
+// Logged in check
+export const authMiddleware = (req, res, next) => {
+    try {
+        const header = req.headers.authorization;
+        let token = null;
+
+        //Check if token exists in headers
+        if(header && header.startsWith('Bearer ')) {
+            token = header.split(' ')[1];
+        } 
+
+        //Check if token exists in cookie
+        else if (req.cookies && req.cookies.token) {
+            token = req.cookies.token;
+        }
+
+        //Check if token exists 
+        if(!token) {
+            return res.status(401).json({message: 'Unauthorized - No token provided'});
+        }
+
+        const secret = process.env.JWT_SECRET || "mysecretkey";
+
+        //Verify token
+        const decoded = jwt.verify(token, secret);
+
+        //Attach user info to request object
+        req.user = {
+            id: decoded.id,
+            username: decoded.username,
+            email: decoded.email,
+            role: decoded.role,
+            userRole: decoded.role // Added to ensure Admin checks work
+        };
+
+        console.log("TOKEN EXTRACTED:", token);
+
+        next();
+    } catch (error) {
+        console.error("JWT ERROR:", error.message);
+        return res.status(401).json({message: 'Unauthorized - Invalid token'});
+    }
+};

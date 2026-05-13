@@ -1,50 +1,14 @@
-// Model representing a subscription
 import mongoose from 'mongoose';
-// Defining the schema:
-const subscriptionSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    purchasedTime: {
-        type: Date,
-    },
-    subscriptionStatus: {
-        type: String,
-        enum: ['active', 'cancelled', 'expired'],
-        default: 'active'
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-    paymentMethod: {
-        type: String,
-        enum: ['credit_card', 'paypal', 'bank_transfer'],
-        required: true,
-    },
-    stripeSubscriptionId: {
-        type: String,
-        required: true,
-        unique: true,
-    }
+
+const transactionSchema = new mongoose.Schema({
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Account', required: true },
+    type: { type: String, enum: ['DEPOSIT', 'PURCHASE'], required: true },
+    amount: { type: Number, required: true },
+    paymentMethod: { type: String, enum: ['WALLET', 'STRIPE'], required: true },
+    status: { type: String, enum: ['SUCCESS', 'PENDING', 'FAILED'], default: 'PENDING' },
+    stripeId: { type: String }, // For stripe logic
+    createdAt: { type: Date, default: Date.now }
 });
 
-// All plans offered by the application:
-const subscriptionPlanSchema = new mongoose.Schema({
-    name: {type: String, required: true},
-    stripePriceId: {type: String, required: true},
-    price: {
-        type: Number,
-        required: true,
-    },
-    features: [String],
-    isActive: {type: Boolean, default: true}
-
-});
-// Creating the model:
-const Subscription = mongoose.model('Subscription',subscriptionSchema)
-export const SubscriptionPlan = mongoose.model('SubscriptionPlan', subscriptionPlanSchema)
-// Exporting: 
-export default Subscription;
+const Transaction = mongoose.model('Transaction', transactionSchema);
+export default Transaction;

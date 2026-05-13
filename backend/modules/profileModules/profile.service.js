@@ -6,7 +6,7 @@ import * as profileRepo from "./profile.repository.js";
 
 //DTO
 import { ProfileDTO } from "./profileDTO.js";
-import accountDTO from "../accountModules/account.dto.js";
+import {AccountDTO} from "../accountModules/account.dto.js";
 
 //Error
 import {
@@ -14,7 +14,8 @@ import {
     AccountNotFoundError,
     DuplicateEmailError,
 } from "./profile.error.js";
-import { errorCreatingNewUser } from '../authenticationModules/auth.error.js';
+
+import { errorCreatingNewUser } from '../accountModules/account.error.js';
 
 // Creating new profile: 
 export const createNewProfile = async ( accountId, country ) => {
@@ -42,7 +43,7 @@ export const getProfile = async (userId) => {
     }
 
     return {
-        account: new accountDTO(account),
+        account: new AccountDTO(account),
         profile: profile ? new ProfileDTO(profile) : null,
     }
 }
@@ -138,3 +139,41 @@ export const uploadAvatar = async (userId, avatarUrl) => {
 }
 
 //GAME implementation will be added here in the future
+export const getGameHistory = async (userId) => {
+    const profile = await profileRepo.findProfileByUserId(userId);
+    
+    if(!profile){
+        throw new ProfileNotFoundError();
+    }
+
+    const games = await profileRepo.getGameHistoryByUser(userId);
+
+    return games;
+}
+
+export const getGameStats = async (userId) => {
+    const games = await profileRepo.getGameHistoryByUser(userId);
+
+    let wins = 0;
+    let loses = 0;
+    let draws = 0;
+
+    games.forEach(game => {
+        if(game.winner === 'Draw'){
+            draws++;
+        } else if ( (game.winner === 'X' && game.host_id.toString() === userId) ||
+                  (game.winner === 'O' && game.guest_id?.toString() === userId)
+        ) {
+            wins++;
+        } else{
+            loses++;
+        }
+    });
+
+    return {
+        total: games.length,
+        wins,
+        loses,
+        draws
+    };
+};
