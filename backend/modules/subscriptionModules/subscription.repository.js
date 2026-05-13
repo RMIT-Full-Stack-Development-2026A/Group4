@@ -17,8 +17,3 @@ export const saveTransaction = async ( user_id, amount, type, method, stripeId =
 export const findUserTransactions = async (userId) => {
     return Transaction.find({ user_id: userId }).sort({ createdAt: -1 }).lean();
 };
-
-// Get all transactions from user:
-export const getTransactionsByUser = async (userId) => {
-    return Transaction.findMany({user_id: userId});
-}
