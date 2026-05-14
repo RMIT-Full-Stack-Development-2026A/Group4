@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import * as accRepo from './account.repository.js';
-import { createProfile } from '../profileModules/profile.repository.js';
+import { createProfile, findProfileByUserId } from '../profileModules/profile.repository.js';
 import { TokenDTO } from './account.dto.js';
 import { 
     matchingPasswordError, 
@@ -80,7 +80,7 @@ export const loginService = async ( email, password ) => {
         const hasLock = user.lockUntil;
         const lockExpired = hasLock && user.lockUntil < Date.now();
         const lockActive = hasLock && user.lockUntil > Date.now();
-        
+
         // Check if the user is locked
         if (lockActive) {
             const secondsLeft = Math.ceil((user.lockUntil - Date.now()) / 1000);
@@ -109,7 +109,9 @@ export const loginService = async ( email, password ) => {
         await accRepo.updateLoginAttempts(user._id, 0, null);
 
         // Creating token DTO: 
-        const payload = new TokenDTO(user);
+        const userProfile = await findProfileByUserId(user._id);
+        const payload = new TokenDTO(user, userProfile);
+
         // Creating token:
         const token = jwt.sign ( 
             { ...payload }, 

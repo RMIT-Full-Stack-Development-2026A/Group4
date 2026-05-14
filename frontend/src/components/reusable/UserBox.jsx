@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const UserBox = ({ username, avatarUrl }) => {
+export default function UserBox({ username, avatarUrl }) {
     const defaultAvatar = ""; 
 
     return (
@@ -14,7 +14,6 @@ const UserBox = ({ username, avatarUrl }) => {
                 <div className="truncate text-sm font-bold text-white uppercase">
                     {username}
                 </div>
-                {/* there will be a link here*/}
                 <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider"> 
                     Click to see Profile 
                 </div>
@@ -23,5 +22,3 @@ const UserBox = ({ username, avatarUrl }) => {
         </Link>
     );
 };
-
-export default UserBox;
