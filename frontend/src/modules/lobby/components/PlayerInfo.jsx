@@ -6,7 +6,7 @@ const PlayerInfo = ({ setPlayerInfo }) => {
     playerOneName: '',
     playerTwoName: '',
   })
-  // handle input change
+  // handle input change:
   const handleInputChange = (e) => {
     // Destructure
     const { name, value } = e.target;
@@ -15,6 +15,7 @@ const PlayerInfo = ({ setPlayerInfo }) => {
         [name]: value
     }));
   }
+  // Initializing player information;
   const initializePlayerInfo = () => {
     setPlayerInfo(players);
   }

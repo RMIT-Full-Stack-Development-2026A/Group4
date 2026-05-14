@@ -1,4 +1,5 @@
 import { useContext, useState, createContext, useEffect } from "react";
+import {httpHelper} from '../utils/httpHelper'
 // Context needs to handle 3 things:
 // State: Storing the user object as a loading boolean
 // Persistence: checking cookie when the app first loads
