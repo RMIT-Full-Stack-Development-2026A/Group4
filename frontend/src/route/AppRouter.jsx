@@ -24,20 +24,18 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
-      
-      {
-        element: <AppLayout />,
-        children: [
-          { path: 'lobby', element: <GameLobby /> },
-          { path: 'profile', element: <Profile /> },
-          { path: 'subscription', element: <SubscriptionPage /> },
-          { path: 'payment/success', element: <PaymentSuccess /> },
-          { path: 'payment/failure', element: <PaymentFailure /> },
-          { path: 'admin', element: <PlayerManagement /> }
-        ]
-      }
+    ]
+  },
+
+  {
+    element: <AppLayout />, 
+    children: [
+      { path: 'lobby', element: <GameLobby /> },
+      { path: 'profile', element: <Profile /> },
+      { path: 'subscription', element: <SubscriptionPage /> },
+      { path: 'admin', element: <PlayerManagement /> }
     ]
   }
 ]);
 
-export default router;
+export default router
