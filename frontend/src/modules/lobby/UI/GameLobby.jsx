@@ -6,7 +6,7 @@ import SelectBoardLayout from '../components/SelectBoardLayout';
 import GameMode from '../components/GameMode';
 import PlayerInfo from '../components/PlayerInfo';
 import SelectAi from '../components/SelectAi';
-import {X} from 'lucide-react'
+import { X } from 'lucide-react'
 
 const GameLobby = () => {
   // Defining all states: 
@@ -21,11 +21,9 @@ const GameLobby = () => {
   const [boardLayout, setBoardLayout] = useState(null);
   const [boardStyle, setBoardStyle] = useState(null);
   const [gameInitialization, setGameInitialization] = useState(false);
-  // Functioning for initiaing game:
+  // Functioning for initializing game:
   const startGame = () => {
-    console.log(gameMode);
-    console.log(boardLayout);
-    console.log(boardStyle);
+    
     if (gameMode && boardLayout) {
       setGameInitialization(true);
     }
