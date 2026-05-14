@@ -23,7 +23,7 @@ const SubscriptionInfo = ({ subscriptionInfo }) => {
     }
   }
   return (
-    <div className='transition-transform duration-300 shadow-[0px_4px_9px_0px_rgba(0,_0,_0,_0.1)] hover:scale-102 m-5 p-5 rounded-lg flex flex-col gap-5 align-baseline'>
+    <div className='transition-transform duration-300 shadow-[0px_4px_9px_0px_rgba(0,0,0,0.1)] hover:scale-102 m-5 p-5 rounded-lg flex flex-col gap-5 align-baseline'>
         <h2 className='font-semibold text-xl'>{subscriptionInfo.name} | <span className='font-normal'>${subscriptionInfo.price}/Month</span></h2>
         <p className='font-light text-sm'>
             Description: {subscriptionInfo.features}

@@ -39,6 +39,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+app.use('/uploads', express.static('uploads'));
 // Setting routes
 app.use('/', IndexRouter);
 app.use('/auth', AccountRouter);

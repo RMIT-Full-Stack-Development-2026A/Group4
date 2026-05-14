@@ -8,11 +8,12 @@ class HttpHelper {
         // backend url
         const url = `${this.apiUrl}${endpoint}`;
         
+        const isFormData = body instanceof FormData;
         // request config
         const options = {
             method: method,
             headers: {
-                'Content-Type': 'application/json',
+                ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
                 ...customHeaders
             },
             credentials: 'include'
@@ -20,7 +21,7 @@ class HttpHelper {
 
         // if sending data, include it
         if (body) {
-            options.body = JSON.stringify(body);
+            options.body = isFormData ? body : JSON.stringify(body);
         }
 
         // call backend

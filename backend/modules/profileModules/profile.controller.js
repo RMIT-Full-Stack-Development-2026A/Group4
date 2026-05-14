@@ -36,6 +36,7 @@ export const updateProfile = async (req, res) => {
 
 //UPLOAD avatar
 export const uploadAvatar = async (req, res) => {
+    const avatarUrl = `${req.protocol}://${req.get('host')}/${req.file.path}`;
     try {
         if(!req.file) {
             return res.status(400).json({
@@ -44,7 +45,7 @@ export const uploadAvatar = async (req, res) => {
             });
         }
 
-        const data = await profileService.uploadAvatar(req.user.id, req.file.path);
+        const data = await profileService.uploadAvatar(req.user.id, avatarUrl);
 
         res.status(200).json({
             success: true,
