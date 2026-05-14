@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Logo = () => {
   return (
     <Link
-      to="/"
+      to="/lobby"
       className="
         text-3xl md:text-4xl font-extrabold
         tracking-tight
