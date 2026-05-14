@@ -1,14 +1,9 @@
 import PlayerRow from "../components/PlayerRow"
-import AdminService from "../service/AdminService"
-import PlayerActionsReducer from "../hooks/PlayerActionsReducer"
-import { useReducer, useEffect } from "react"
-import { useLoaderData } from "react-router-dom"
 import useAdmin from "../hooks/useAdmin"
 
 export default function PlayerManagement() {
-    const initialPlayers = useLoaderData()
     
-    const { players, loading, toggleStatus } = useAdmin(initialPlayers);
+    const { players, loading, toggleStatus } = useAdmin();
     
     return (
         <div className="flex-1 flex flex-col bg-gray-100 p-8">

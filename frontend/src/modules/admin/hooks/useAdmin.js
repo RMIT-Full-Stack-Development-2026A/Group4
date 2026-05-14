@@ -1,20 +1,40 @@
-import { useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import AdminService from "../service/AdminService";
-import PlayerActionsReducer from "./PlayerActionsReducer";
 
-const useAdmin = (initialPlayers = []) => {
-    const [players, dispatch] = useReducer(PlayerActionsReducer, initialPlayers);
+const useAdmin = () => {
+    const [players, dispatch] = useReducer(PlayerActionsReducer, []);
     const [loading, setLoading] = useState(false);
 
-    const toggleStatus = async (userId, newStatus) => {
+    useEffect(() => {
+        loadPlayers();
+    }, []);
+
+    const loadPlayers = async () => {
         try {
             setLoading(true);
-            await AdminService.updatePlayerStatus(userId, newStatus);
-            dispatch({ type: "UPDATE_STATUS", payload: { targetID: userId, newStatus } });
+            const data = await AdminService.fetchAllPlayers();
+            dispatch({ type: "SET_PLAYERS", payload: data });
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+     const toggleStatus = async (userId, newStatus) => {
+        try {
+            await AdminService.fetchAllPlayers(userId, newStatus);
+            
+            const prevPlayers = players
+            setPlayers(prevPlayers.map(player => {
+                if (player.id === action.payload.targetID) {
+                    return { ...player, isActive: action.payload.newStatus };
+                } else {
+                    return player;
+                }}
+            ));
         } catch (err) {
             alert(`Error: ${err.message}`);
-        } finally { 
-            setLoading(false); 
         }
     };
 

@@ -17,3 +17,10 @@ export const ADMIN_ENDPOINTS = {
     // URL to update a player's status
     UPDATE_STATUS: (userId) => `/admin/players/${userId}`,
 };
+
+export const SUBSCRIPTION_ENDPOINTS = {
+    HISTORY: '/subscription/history',
+    DEPOSIT: '/subscription/deposit',
+    BUY_WALLET: '/subscription/buy-wallet',
+    CHECKOUT: '/subscription/create-checkout'
+};

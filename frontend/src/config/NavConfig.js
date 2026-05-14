@@ -19,14 +19,14 @@ const NavConfig = {
                 { to: "/profile/edit", text: "EDIT PROFILE", icon: Edit },
             ]
         },
-        { type: "link", text: "PLANS", to: "/subscription", icon: ClipboardCheck }
+        { type: "link", text: "SUBSCRIPTION", to: "/subscription", icon: ClipboardCheck }
     ],
     "ADMIN": [
         { 
             type: "section",
             label: "ADMIN FUNCTIONS",
             links: [
-                { to: "/app/admin", text: "PLAYER MANAGEMENT", icon: ShieldAlert }
+                { to: "/admin", text: "PLAYER MANAGEMENT", icon: ShieldAlert }
             ],
         },
     ]

@@ -7,7 +7,8 @@ export const Logo = () => {
       className="
         text-3xl md:text-4xl font-extrabold
         tracking-tight
-
+        
+        inline-block pb-1
         text-transparent bg-clip-text 
         bg-linear-to-r from-red-600 to-pink-500
 

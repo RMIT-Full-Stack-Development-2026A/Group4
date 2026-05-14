@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const CollapsibleBox = ({ title, children }) => {
+export default function CollapsibleBox ({ title, children }) {
     const [isOpen, setIsOpen] = useState(true);
 
     const toggleBox = () => {
@@ -33,5 +33,3 @@ const CollapsibleBox = ({ title, children }) => {
         </div>
     );
 };
-
-export default CollapsibleBox;

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const PaymentSuccess = () => {
   return (
     <div>
-        <p>Thankyou!</p>
+        <p>Thank you!</p>
         <Link to='/lobby'>Return Home</Link>
     </div>
   )

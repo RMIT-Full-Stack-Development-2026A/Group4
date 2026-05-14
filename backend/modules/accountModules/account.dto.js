@@ -11,10 +11,11 @@ export class AccountDTO {
 
 // For JWT payload
 export class TokenDTO {
-    constructor(user) {
+    constructor(user, profile = null) {
         this.id = user._id;
-        this.email = user.email;
         this.username = user.username;
+        this.email = user.email;
         this.role = user.userRole;
+        this.avatarUrl = profile ? profile.avatarUrl : null;
     }
 }
