@@ -4,7 +4,7 @@ import { useAuth } from '../../../context/UserContext';
 import { loginService } from '../service/authService';
 
 const useLogin = () => {
-    // Auth Context
+    // Auth Context:
     const { user, updateUserInfo } = useAuth();
     
     // States and hooks 
@@ -25,7 +25,7 @@ const useLogin = () => {
         }
     }, [user, navigate]);
 
-    // Countdown timer
+    // Countdown timer:
     useEffect(()=>{
       let timer;
         if (isLocked && loggedOutTime > 0) {

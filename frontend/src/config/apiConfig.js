@@ -23,4 +23,4 @@ export const SUBSCRIPTION_ENDPOINTS = {
     DEPOSIT: '/subscription/deposit',
     BUY_WALLET: '/subscription/buy-wallet',
     CHECKOUT: '/subscription/create-checkout'
-};
+}
