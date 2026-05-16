@@ -69,7 +69,7 @@ export const depositToWallet = async (userId, amount) => {
     }
 };
 
-// Stripe payment
+// Stripe payment:
 export const createStripeSession = async (userId) => {
     try {
         const session = await stripe.checkout.sessions.create({
