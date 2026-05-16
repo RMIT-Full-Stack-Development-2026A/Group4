@@ -1,5 +1,5 @@
 
-import { useAuth } from "../../context/UserContext";
+import { useAuth } from "../context/UserContext";
 import Logo from "./Logo";
 import SideBarNav from "./SideBarNav";
 import UserBox from "./UserBox";

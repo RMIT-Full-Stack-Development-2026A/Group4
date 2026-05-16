@@ -76,7 +76,7 @@ const Login = () => {
               {isLocked ? (
                   `Account locked. Please try again in ${loggedOutTime} seconds...`
               ) : (
-                  loginAttempt > 0 ? `${errorMessage} (${loginAttempt} / 5 attempts used)` : ""
+                  loginAttempt > 0 ? `${errorMessage} (${loginAttempt} / 5 attempts used)` : `${errorMessage}`
               )}
           </div>
 

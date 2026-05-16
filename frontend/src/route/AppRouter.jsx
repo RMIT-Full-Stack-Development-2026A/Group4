@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import AdminService from "../modules/admin/service/AdminService";
 
 // Layout
-import RootLayout from "../components/layout/RootLayout";
-import AppLayout from "../components/layout/AppLayout";
+import RootLayout from "../layout/RootLayout";
+import AppLayout from "../layout/AppLayout";
 
 // Components
 import Home from "../modules/home/page/Home";
@@ -11,7 +11,7 @@ import Login from "../modules/authentication/pages/Login";
 import Signup from "../modules/authentication/pages/Signup";
 import GameLobby from "../modules/lobby/UI/GameLobby";
 import Profile from "../modules/profile/UI/Profile";
-import SubscriptionPage from "../modules/subscription/pages/SubscriptionPage";
+// import SubscriptionPage from "../modules/subscription/pages/SubscriptionPage";
 import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
 import PaymentFailure from "../modules/subscription/components/PaymentFailure";
 import PlayerManagement from "../modules/admin/pages/PlayerManagement";
@@ -32,7 +32,13 @@ const router = createBrowserRouter([
     children: [
       { path: 'lobby', element: <GameLobby /> },
       { path: 'profile', element: <Profile /> },
-      { path: 'subscription', element: <SubscriptionPage /> },
+      { 
+        path: 'subscription', 
+        element: <SubscriptionPage />,
+        children: [
+          { path: }
+        ] 
+      },
       { path: 'admin', element: <PlayerManagement /> }
     ]
   }

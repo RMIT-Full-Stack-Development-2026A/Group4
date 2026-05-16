@@ -1,5 +1,5 @@
 import AdminService from "../service/AdminService";
-import StatusBadge from "../../../components/reusable/StatusBadge";
+import StatusBadge from "../../../reusable/StatusBadge";
 
 export default function PlayerRow({player, onToggle}) {
 

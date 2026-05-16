@@ -1,8 +1,8 @@
 import React from 'react'
-import { useAuth } from '../../context/UserContext'
+import { useAuth } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
-import { httpHelper } from '../../utils/httpHelper';
+import { httpHelper } from '../utils/httpHelper';
 
 const Logout = () => {
     const { updateUserInfo } = useAuth();

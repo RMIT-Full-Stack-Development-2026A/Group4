@@ -1,4 +1,4 @@
-import SignUpButton from "../../../components/reusable/SignUpButton"
+import SignUpButton from "../../../reusable/SignUpButton"
 
 const Hero = () => {
   return (

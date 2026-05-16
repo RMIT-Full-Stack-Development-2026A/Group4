@@ -14,6 +14,14 @@ export class stripeSessionError extends AppError {
     }
 }
 
+// Stripe communication issues
+export class stripePaymentError extends AppError {
+    constructor(message = "Stripe payment not verified.") {
+        super(503, message);
+    }
+}
+
+
 // Transaction failure
 export class transactionFailedError extends AppError {
     constructor(message = "The transaction could not be completed.") {

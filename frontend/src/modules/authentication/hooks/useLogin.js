@@ -72,11 +72,16 @@ const useLogin = () => {
                     setErrorMessage(''); 
                 }
             } 
-            // If it's a normal error (Invalid credentials, etc.)
+            // If it's a normal error (Invalid credentials, user not found, etc.)
             else {
                 setErrorMessage(err.message);
-                setLoginAttempt(prev => prev + 1);
                 setIsLocked(false);
+
+                if (err.message.includes("not found")) {
+                    setLoginAttempt(0);
+                } else {
+                    setLoginAttempt(prev => prev + 1);
+                }
             }
         }
     };
