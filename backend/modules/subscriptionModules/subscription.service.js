@@ -1,34 +1,38 @@
 // Importing dependencies and repository queries:
 import { saveTransaction, findUserTransactions } from './subscription.repository.js';
-import { updatePlayerPremiumStatus, getProfile } from '../profileModules/profile.service.js';
 import { transactionDTO } from './subscription.dto.js';
-import { insufficientFundsError, stripeSessionError, transactionFailedError } from './subscription.error.js';
+import { insufficientFundsError, stripeSessionError, stripePaymentError } from './subscription.error.js';
+import { ProfileNotFoundError } from '../profileModules/profile.error.js';
 import { sendPaymentConfirmation } from '../shared/emailService.js';
 import stripe from '../shared/stripe.js';
+import * as profileRepo from '../profileModules/profile.repository.js';
+import * as accountRepo from '../accountModules/account.repository.js';
 
 const premium_fee = 10;
 
 // Buying the subscription with wallet
-export const purchaseSubscription = async (userId) => {
+export const buyPremiumWithWallet = async (userId) => {
     try {
-        // Getting user information from the user id?
-        const userData = await getProfile(userId);
-        const profile = userData.profile;
-        const email = userData.account.email; // We need the user's email
+        const profile = await profileRepo.findProfileByUserId(userId);
 
-        // Checking the wallet balance? 
+        if (!profile) throw new ProfileNotFoundError();
+
+        // Checking the wallet balance
         if (profile.wallet_balance < premium_fee) {
             throw new insufficientFundsError();
         }
 
+        // Update the live document
         profile.wallet_balance -= premium_fee;
+        profile.isPremium = true;
         await profile.save();
 
+        // Create receipt
         const record = await saveTransaction(userId, premium_fee, 'PURCHASE', 'WALLET');
         
-        await updatePlayerPremiumStatus(userId, true);
-
-        await sendPaymentConfirmation(email, premium_fee);
+        // Notify user
+        const account = await accountRepo.findById(userId); 
+        await sendPaymentConfirmation(account.email, premium_fee);
         
         return new transactionDTO(record);
     } catch (err) {
@@ -37,20 +41,33 @@ export const purchaseSubscription = async (userId) => {
     }
 };
 
-// Depositing money into local wallet:
-export const depositToWallet = async ( userId, amount ) => {
+// Cancelling a subscription
+export const cancelSubscription = async (userId) => {
     try {
-        const userData = await getProfile(userId);
-        const profile = userData.profile;
+        const profile = await profileRepo.findProfileByUserId(userId);
+        profile.isPremium = false;
+        await profile.save();
+        return { success: true, message: "Subscription cancelled." };
+    } catch (err) { 
+        throw err; 
+    }
+};
+
+// Depositing money into local wallet:
+export const depositToWallet = async (userId, amount) => {
+    try {
+        const profile = await profileRepo.findProfileByUserId(userId);
+        if (!profile) throw new ProfileNotFoundError(); // Use formalized error
 
         profile.wallet_balance += amount;
         await profile.save();
         
-        return await saveTransaction( userId, amount, 'DEPOSIT', 'WALLET', null );
-    } catch (err) {
-        throw err;
+        const record = await saveTransaction(userId, amount, 'DEPOSIT', 'WALLET');
+        return new transactionDTO(record);
+    } catch (err) { 
+        throw err; 
     }
-}
+};
 
 // Stripe payment
 export const createStripeSession = async (userId) => {
@@ -76,6 +93,28 @@ export const createStripeSession = async (userId) => {
     }
 };
 
+// Confirming the Stripe payment
+export const verifyStripePayment = async (sessionId) => {
+    try {
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+        if (session.payment_status === 'paid') {
+            const userId = session.metadata.userId;
+            const amount = session.amount_total / 100;
+
+            const profile = await profileRepo.findProfileByUserId(userId);
+            if (!profile) throw new ProfileNotFoundError();
+
+            profile.isPremium = true;
+            await profile.save();
+
+            const record = await saveTransaction(userId, amount, 'PURCHASE', 'STRIPE');
+            return new transactionDTO(record);
+        }
+        throw new stripePaymentError();
+    } catch (err) { throw err; }
+};
+
 // View History:
 export const viewHistory = async (userId) => {
     try {
@@ -86,16 +125,3 @@ export const viewHistory = async (userId) => {
     }
 };
 
-// Cancelling a subscription
-export const cancelSubscription = async ( userId ) => {
-    try {
-        // Corrected to use our existing getProfile service
-        const userData = await getProfile(userId);
-        // Ensure subscription is currently active:
-        // Change status to cancelled:
-        // Send email to user email (Requirement 5.1.2):
-    }
-    catch (err) {
-        throw err;
-    }
-};

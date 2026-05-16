@@ -1,16 +1,10 @@
-// 
 import * as subsService from './subscription.service.js';
-import { invalidAmountError } from './subscription.error.js';
 
-// Controller for depositing money into wallet (Requirement 5.1.1)
+// Controller for depositing money into wallet
 export const depositMoney = async (req, res, next) => {
     try {
         const { amount } = req.body;
         const userId = req.user.id;
-
-        if (!amount || amount <= 0) {
-            throw new invalidAmountError();
-        }
 
         const transaction = await subsService.depositToWallet(userId, amount);
         
@@ -24,11 +18,11 @@ export const depositMoney = async (req, res, next) => {
     }
 };
 
-// Purchasing with local wallet balance
-export const purchaseSubscription = async (req, res, next) => {
+// Purchasing with local wallet
+export const buyPremiumWithWallet = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const result = await subsService.purchaseSubscription(userId);
+        const result = await subsService.buyPremiumWithWallet(userId);
         
         return res.status(200).json({ 
             success: true,
@@ -53,6 +47,22 @@ export const createStripeSession = async (req, res, next) => {
         next(err);
     }
 };
+
+export const confirmStripePayment = async (req, res, next) => {
+    try {
+        const { sessionId } = req.body;
+        const result = await subsService.verifyStripePayment(sessionId);
+
+        return res.status(200).json({
+            success: true,
+            message: "Payment verified!",
+            data: result
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
 
 // Controller to view history
 export const getTransactionHistory = async (req, res, next) => {

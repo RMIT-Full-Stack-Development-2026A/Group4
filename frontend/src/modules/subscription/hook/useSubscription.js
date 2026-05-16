@@ -1,52 +1,98 @@
+// Importing dependencies:
 import { useState } from 'react';
 import { useAuth } from '../../../context/UserContext';
-import { startStripeService, buyWithWalletService } from '../service/subscriptionService';
+import { 
+    startStripeService, 
+    buyWithWalletService, 
+    depositService 
+} from '../service/subscriptionService';
 
-const useSubscription = () => {
+export const useSubscription = () => {
     // Auth Context:
-    const { updateUserInfo } = useAuth();
+    const { user, updateUserInfo } = useAuth();
 
     // States:
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     // Since we only have one plan, we hardcode it here instead of fetching
     const plan = {
-        name: "Premium Pass",
+        name: "Premium",
         price: 10,
-        features: ["Custom Markers", "Board Styles", "Match Replays"],
-        stripePriceId: import.meta.env.VITE_STRIPE_PREMIUM_PRICE_ID
+        features: "Custom markers, Aesthetic board styles, Match replay system",
+        stripePriceId: import.meta.env.VITE_STRIPE_PREMIUM_PRICE_ID 
     };
 
     // Functions:
 
-    // Logic for Stripe Payment:
-    const handleStripePurchase = async () => {
+    // Depositing money into local wallet
+    const handleDeposit = async (amount) => {
         try {
             setLoading(true);
-            const url = await startStripeService(plan.stripePriceId);
-            window.location.href = url;
+            setErrorMessage('');
+            
+            const result = await depositService(amount);
+            
+            // Update the user's wallet balance
+            updateUserInfo({
+                ...user,
+                wallet_balance: result.data.amount 
+            });
+            
+            alert(`Successfully deposited $${amount}!`);
         } catch (err) {
-            alert(err.message);
+            setErrorMessage(err.message);
         } finally {
             setLoading(false);
         }
     };
 
-    // Logic for Wallet Payment:
+    // Logic for purchasing premium with wallet (Requirement 5.1.1):
     const handleWalletPurchase = async () => {
         try {
             setLoading(true);
+            setErrorMessage('');
+            
             await buyWithWalletService();
-            alert("Success! Welcome to the Premium Arena.");
-            updateUserInfo({ ...user, isPremium: true });
+            
+            // update premium status
+            updateUserInfo({
+                ...user,
+                isPremium: true
+            });
+            
+            alert("Welcome to the Premium Arena!");
         } catch (err) {
-            alert(err.message);
+            setErrorMessage(err.message);
         } finally {
             setLoading(false);
         }
     };
 
-    return { plan, loading, user, handleStripePurchase, handleWalletPurchase };
-};
+    // Logic for starting a Stripe payment (Requirement 5.2.1):
+    const handleStripePurchase = async () => {
+        try {
+            setLoading(true);
+            setErrorMessage('');
+            
+            const url = await startStripeService(plan.stripePriceId);
+            
+            // Redirect the user to Stripe's secure page
+            window.location.href = url;
+        } catch (err) {
+            setErrorMessage(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-export default useSubscription
+    return {
+        plan,
+        loading,
+        errorMessage,
+        user,
+        handleDeposit,
+        handleWalletPurchase,
+        handleStripePurchase
+    };
+};

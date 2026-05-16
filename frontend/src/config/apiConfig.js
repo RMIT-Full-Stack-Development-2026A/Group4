@@ -22,5 +22,6 @@ export const SUBSCRIPTION_ENDPOINTS = {
     HISTORY: '/subscription/history',
     DEPOSIT: '/subscription/deposit',
     BUY_WALLET: '/subscription/buy-wallet',
-    CHECKOUT: '/subscription/create-checkout'
+    CHECKOUT: '/subscription/stripe-checkout',
+    VERIFY: '/subscription/stripe-verify'
 };
