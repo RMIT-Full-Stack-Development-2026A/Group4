@@ -23,7 +23,6 @@ const GameLobby = () => {
   const [gameInitialization, setGameInitialization] = useState(false);
   // Functioning for initializing game:
   const startGame = () => {
-    
     if (gameMode && boardLayout) {
       setGameInitialization(true);
     }
