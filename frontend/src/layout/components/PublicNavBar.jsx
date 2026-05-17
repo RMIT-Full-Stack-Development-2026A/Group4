@@ -1,10 +1,10 @@
 // Importing dependencies: 
 import { Link } from 'react-router-dom';
 // Importing components
-import LoginButton from './LoginButton';
-import SignupButton from './SignUpButton';
+import LoginButton from '../../reusable/LoginButton';
+import SignupButton from '../../reusable/SignupButton';
 import Logout from './Logout';
-import Logo from './Logo';
+import Logo from '../../reusable/Logo';
 
 // Component:
 const PublicNavBar = () => {

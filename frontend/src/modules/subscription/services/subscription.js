@@ -14,11 +14,6 @@ const SubscriptionService = {
                 amount,
             }
             const response = await httpHelper.post(SUBSCRIPTION_ENDPOINTS.DEPOSIT, subscriptionUTO);
-            // Check status
-            if (response.status) {
-
-            };
-            
         }
         catch (err) {
             console.error(err);

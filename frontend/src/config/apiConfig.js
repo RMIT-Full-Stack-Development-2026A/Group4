@@ -18,6 +18,12 @@ export const ADMIN_ENDPOINTS = {
     UPDATE_STATUS: (userId) => `/admin/players/${userId}`,
 };
 
+export const GAME_ENDPOINTS = {
+    INITIALIZE_GAME: '/game/start',
+    GET_GAME: (id) => `/game/${id}`,
+
+}
+
 export const SUBSCRIPTION_ENDPOINTS = {
     HISTORY: '/subscription/history',
     DEPOSIT: '/subscription/deposit',

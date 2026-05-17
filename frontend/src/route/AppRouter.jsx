@@ -15,6 +15,7 @@ import Profile from "../modules/profile/UI/Profile";
 import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
 import PaymentFailure from "../modules/subscription/components/PaymentFailure";
 import PlayerManagement from "../modules/admin/pages/PlayerManagement";
+import PlanDetails from "../modules/subscription/components/PlanDetails";
 
 const router = createBrowserRouter([
   {
@@ -34,9 +35,9 @@ const router = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
       { 
         path: 'subscription', 
-        element: <SubscriptionPage />,
+        element: <PlanDetails />,
         children: [
-          { path: }
+          // { path: },
         ] 
       },
       { path: 'admin', element: <PlayerManagement /> }

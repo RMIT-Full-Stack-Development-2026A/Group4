@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import NavConfig from "../config/NavConfig";
-import CollapsibleBox from "./CollapsibleBox";
+import NavConfig from "../../config/NavConfig";
+import CollapsibleBox from "../../reusable/CollapsibleBox";
 
 export default function SideBarNav({ role }) {
     const items = NavConfig[role];

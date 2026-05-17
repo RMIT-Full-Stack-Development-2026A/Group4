@@ -4,6 +4,10 @@ export const saveSession = async (gameData) => {
     return await GameSession.create(gameData);
 };
 
+export const getGame = async (gameId) => {
+    return await GameSession.findById(gameId);
+}
+
 export const getSessionById = async (id) => {
     return await GameSession.findById(id).lean();
 };

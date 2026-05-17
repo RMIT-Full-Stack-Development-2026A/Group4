@@ -7,6 +7,7 @@ const gameRouter = Router();
 gameRouter.use(authMiddleware);
 
 gameRouter.post('/start', gameController.startSession);
+gameRouter.get('/:id', gameController.getGameSession);
 gameRouter.get('/history', gameController.getUserHistory);
 gameRouter.patch('/finish/:id', gameController.endSession);
 
