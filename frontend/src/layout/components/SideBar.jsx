@@ -1,8 +1,8 @@
 
-import { useAuth } from "../context/UserContext";
-import Logo from "./Logo";
+import { useAuth } from "../../context/UserContext";
+import Logo from "../../reusable/Logo";
 import SideBarNav from "./SideBarNav";
-import UserBox from "./UserBox";
+import UserBox from "../../reusable/UserBox";
 import Logout from "./Logout";
 
 export default function SideBar() {

@@ -1,4 +1,5 @@
 //
+import { gameNotFoundError, missingGameData } from './game.error.js';
 import * as repo from './game.repository.js';
 
 // Starts the record in the database
@@ -8,11 +9,21 @@ export const startGame = async (userId, gameData) => {
         host_id: userId,
         host_name: gameData.host_name,
         guest_name: gameData.guest_name,
-        type: gameData.type,
-        size: gameData.size,
+        gameType: gameData.gameType,
+        boardSize: gameData.boardSize,
+        markers: gameData.markers,
         session_num: total + 1,
     });
 };
+
+// Fetching game based on gameId:
+export const getGame = async (gameId) => {
+    const session = await repo.getGame(gameId);
+    if (!session) {
+        throw new gameNotFoundError();
+    }
+    return session;
+}
  
 // Finalizes the record
 export const finishGame = async (gameId, resultData) => {

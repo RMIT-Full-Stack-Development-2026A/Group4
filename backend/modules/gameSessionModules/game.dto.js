@@ -18,3 +18,9 @@ export class gameDTO {
         this.end = game.endTime;
     }
 }
+
+export class startGameDTO {
+    constructor (game) {
+        this.id = game._id
+    }
+}
