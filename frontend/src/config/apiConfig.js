@@ -21,7 +21,8 @@ export const ADMIN_ENDPOINTS = {
 export const GAME_ENDPOINTS = {
     INITIALIZE_GAME: '/game/start',
     GET_GAME: (id) => `/game/${id}`,
-
+    MAKE_MOVE: (id) => `/game/${id}/move`, // Post
+    ABORT_GAME: (id) => `/game/finish/${id}`,
 }
 
 export const SUBSCRIPTION_ENDPOINTS = {

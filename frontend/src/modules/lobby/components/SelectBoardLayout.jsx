@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Grid3x3 } from 'lucide-react';
 import { SelectionButton } from '../../../reusable/CustomButtons';
-const SelectBoardLayout = ({ setBoardLayout }) => {
+const SelectBoardLayout = ({ setBoardConfig }) => {
   const [currentLayout, setCurrentLayout] = useState(10);
   const [selectedLayout, setSelectedLayout] = useState(Array(currentLayout * currentLayout).fill(null));
+  
   // Loads at first when mounted and when current layout changes: 
   useEffect(()=>{
     // Defining function for current layout
@@ -55,13 +56,13 @@ const SelectBoardLayout = ({ setBoardLayout }) => {
           <SelectionButton 
             label="10x10"
             isActive={currentLayout === 10}
-            onClick={() => { setCurrentLayout(10); setBoardLayout(10); }}
+            onClick={() => { setCurrentLayout(10); setBoardConfig(10); }}
           />
 
           <SelectionButton 
             label="15x15"
             isActive={currentLayout === 15}
-            onClick={() => { setCurrentLayout(15); setBoardLayout(15); }}
+            onClick={() => { setCurrentLayout(15); setBoardConfig(15); }}
           />
         </div>
     

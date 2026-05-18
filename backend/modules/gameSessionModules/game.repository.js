@@ -13,7 +13,7 @@ export const getSessionById = async (id) => {
 };
 
 export const updateSessionData = async (id, update) => {
-    return await GameSession.findByIdAndUpdate(id, update, { new: true });
+    return await GameSession.findByIdAndUpdate(id, update, { returnDocument: 'after' });
 };
 
 export const getHistoryByUser = async (userId) => {
