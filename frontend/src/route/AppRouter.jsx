@@ -4,7 +4,7 @@ import AdminService from "../modules/admin/service/AdminService";
 // Layout
 import RootLayout from "../layout/RootLayout";
 import AppLayout from "../layout/AppLayout";
-
+import GameLayout from '../layout/GameLayout'
 // Components
 import Home from "../modules/home/page/Home";
 import Login from "../modules/authentication/pages/Login";
@@ -16,6 +16,8 @@ import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
 import PaymentFailure from "../modules/subscription/components/PaymentFailure";
 import PlayerManagement from "../modules/admin/pages/PlayerManagement";
 import PlanDetails from "../modules/subscription/components/PlanDetails";
+import GameSession from "../modules/game/UI/ActiveGame";
+import ActiveGame from "../modules/game/UI/ActiveGame";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,13 @@ const router = createBrowserRouter([
         ] 
       },
       { path: 'admin', element: <PlayerManagement /> }
+    ]
+  },
+
+  {
+    element: <GameLayout />,
+    children: [
+      { path: '/game/:id', element: <ActiveGame /> }
     ]
   }
 ]);

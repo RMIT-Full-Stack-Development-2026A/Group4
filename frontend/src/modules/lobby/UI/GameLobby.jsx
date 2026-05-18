@@ -16,20 +16,24 @@ const GameLobby = () => {
   const navigate = useNavigate();
   // UserId:
   const { userId } = useAuth();
+  
   // Defining all states: 
   const [ playerInfo, setPlayerInfo ] = useState(INITIAL_PLAYER_INFO);
+  const [ firstPlayer, setFirstPlayer] = useState(null);
   const [ step, setStep ] = useState(STEPS.SETUP);
   const [ gameMode, setGameMode ] = useState(null);
   const [ boardLayout, setBoardLayout ] = useState(10);
   const [ boardStyle, setBoardStyle ] = useState(null);
+  
   // Functioning for initializing game:
   const initializeGame =  async () => {
     if (playerInfo.playerOneName === '' || playerInfo.playerTwoName === '') {
-      throw new Error("Error enter player detail!")
+      throw new Error("Error enter player detail!");
     }
-    const gameUTO = createGameUTO( playerInfo.playerOneName, playerInfo.playerTwoName, gameMode, boardLayout, [ playerInfo.playerOneMarker, playerInfo.playerTwoMarker ] );
-    const data = await startGame(userId, gameUTO);
-    console.log(data);
+    const gameUTO = createGameUTO( playerInfo.playerOneName, playerInfo.playerTwoName, gameMode, boardLayout, [ playerInfo.playerOneMarker, playerInfo.playerTwoMarker ], firstPlayer );
+    console.log(gameUTO);
+    const data = await startGame( userId, gameUTO );
+    navigate(`/game/${data.data.id}`);
   }
  
   // Returning JSX:
@@ -40,6 +44,7 @@ const GameLobby = () => {
           <GameMode setGameMode={ setGameMode } />
           <SelectBoardLayout setBoardLayout={setBoardLayout} setBoardStyle={setBoardStyle} />
           <button 
+            disabled={!gameMode}
             className='bg-gray-900 text-white p-4 font-bold rounded-lg cursor-pointer transition-all duration-300 hover:bg-gray-600 disabled:opacity-50'
             onClick={()=>setStep(STEPS.PLAYERS)}
             > Next </button>
@@ -48,7 +53,7 @@ const GameLobby = () => {
 
       {step === STEPS.PLAYERS && (
         <>
-          { gameMode === 'MULTIPLAYER' ? <PlayerInfo setPlayerInfo={setPlayerInfo} /> : <SelectAi /> }
+          { gameMode === 'MULTIPLAYER' ? <PlayerInfo setFirstPlayer={setFirstPlayer} setPlayerInfo={setPlayerInfo} /> : <SelectAi /> }
           <div className='flex gap-4'>
             <button
               className=''
