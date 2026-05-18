@@ -19,7 +19,16 @@ export const buyWithWalletService = async () => {
 };
 
 export const startStripeService = async (priceId) => {
-    const res = await httpHelper.post(SUBSCRIPTION_ENDPOINTS.CHECKOUT, { priceId });
+
+    const baseUrl = window.location.origin;
+    
+    const payload = {
+        priceId,
+        successUrl: `${baseUrl}/subscription/status?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${baseUrl}/subscription/status?failure=true`
+    };
+
+    const res = await httpHelper.post(SUBSCRIPTION_ENDPOINTS.CHECKOUT, payload);
     return res.data.url; 
 };
 

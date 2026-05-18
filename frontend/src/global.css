@@ -15,26 +15,3 @@
   padding-block: --spacing(4);
 };
 
-/* Secondary Button */
-@utility btn-secondary {
-  @apply flex items-center justify-center gap-2
-         border border-gray-300 text-xl font-bold p-3 rounded-xl 
-         transition-all duration-200 cursor-pointer 
-         hover:scale-105 hover:bg-gray-50 hover:border-gray-900;
-}
-
-/* Choice Toggle Button */
-@utility btn-choice {
-  @apply flex items-center justify-center gap-3
-         flex-1 p-4 rounded-xl font-semibold 
-         transition-all duration-200 cursor-pointer 
-         hover:scale-105 shadow-sm;
-}
-
-/* Primary Button */
-@utility btn-primary {
-  @apply flex items-center justify-center gap-2
-         w-full bg-gray-900 text-white p-4 font-bold rounded-xl 
-         cursor-pointer transition-all duration-300 
-         hover:bg-gray-700 hover:shadow-lg active:scale-95;
-}

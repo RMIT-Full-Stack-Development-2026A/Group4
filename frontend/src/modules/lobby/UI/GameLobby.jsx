@@ -7,6 +7,7 @@ import SelectBoardLayout from '../components/SelectBoardLayout';
 import GameMode from '../components/GameMode';
 import PlayerInfo from '../components/PlayerInfo';
 import SelectAi from '../components/SelectAi';
+import { BlackButton } from '../../../reusable/CustomButtons';
 // import from servie
 import { STEPS, INITIAL_PLAYER_INFO, createGameUTO, startGame } from '../services/lobbyservices';
 // Auth:
@@ -39,10 +40,10 @@ const GameLobby = () => {
         <>
           <GameMode setGameMode={ setGameMode } />
           <SelectBoardLayout setBoardLayout={setBoardLayout} setBoardStyle={setBoardStyle} />
-          <button 
-            className='bg-gray-900 text-white p-4 font-bold rounded-lg cursor-pointer transition-all duration-300 hover:bg-gray-600 disabled:opacity-50'
-            onClick={()=>setStep(STEPS.PLAYERS)}
-            > Next </button>
+          <BlackButton 
+              label="Next" 
+              onClick={() => setStep(STEPS.PLAYERS)} 
+          />
         </>
       )}
 
@@ -50,14 +51,18 @@ const GameLobby = () => {
         <>
           { gameMode === 'MULTIPLAYER' ? <PlayerInfo setPlayerInfo={setPlayerInfo} /> : <SelectAi /> }
           <div className='flex gap-4'>
-            <button
-              className=''
-              onClick={()=>setStep(STEPS.SETUP)}
-            >Back</button>
-            <button
-              className=''
-              onClick={initializeGame}
-            >Start Game</button>
+            <BlackButton 
+              label="Back" 
+              onClick={()=>setStep(STEPS.SETUP)} 
+            />
+            <BlackButton 
+              label="Back" 
+              onClick={()=>setStep(STEPS.SETUP)} 
+            />
+            <BlackButton 
+              label="Start Game" 
+              onClick={initializeGame} 
+            />
             </div> 
         </>
       )}

@@ -38,13 +38,14 @@ export const buyPremiumWithWallet = async (req, res, next) => {
 export const createStripeSession = async (req, res, next) => {
    try { 
         const userId = req.user.id;
-        const result = await subsService.createStripeSession(userId);
+        const { successUrl, cancelUrl } = req.body; 
         
-        // Sending URL back to frontend for redirection
+        const result = await subsService.createStripeSession(userId, successUrl, cancelUrl);
+        
         return res.status(200).json({ url: result.url });
     }
-    catch (err) {
-        next(err);
+    catch (err) { 
+        next(err); 
     }
 };
 

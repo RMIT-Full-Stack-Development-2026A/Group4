@@ -41,18 +41,6 @@ export const buyPremiumWithWallet = async (userId) => {
     }
 };
 
-// Cancelling a subscription
-export const cancelSubscription = async (userId) => {
-    try {
-        const profile = await profileRepo.findProfileByUserId(userId);
-        profile.isPremium = false;
-        await profile.save();
-        return { success: true, message: "Subscription cancelled." };
-    } catch (err) { 
-        throw err; 
-    }
-};
-
 // Depositing money into local wallet:
 export const depositToWallet = async (userId, amount) => {
     try {
@@ -70,7 +58,7 @@ export const depositToWallet = async (userId, amount) => {
 };
 
 // Stripe payment:
-export const createStripeSession = async (userId) => {
+export const createStripeSession = async (userId, successUrl, cancelUrl) => {
     try {
         const session = await stripe.checkout.sessions.create({
             mode: 'payment',
@@ -84,12 +72,14 @@ export const createStripeSession = async (userId) => {
                 quantity: 1,
             }],
             metadata: { userId: userId.toString() },
-            success_url: `${process.env.CLIENT_URL}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.CLIENT_URL}/payment/failure`,
+            success_url: successUrl,
+            cancel_url: cancelUrl,
         });
-        return { url: session.url };
-    } catch (err) {
-        throw new stripeSessionError();
+        return { 
+            url: session.url 
+        };
+    } catch (err) { 
+        throw new stripeSessionError(); 
     }
 };
 

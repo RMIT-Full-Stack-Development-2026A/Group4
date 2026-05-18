@@ -1,11 +1,11 @@
-import { Outlet, useOutletContext } from 'react-router-dom'
-import { useSubscription } from './hook/useSubscription'
+import { Outlet } from 'react-router-dom'
+import { useSubscription } from '../hook/useSubscription'
 import { Hash } from 'lucide-react'
-import PlanDetails from './components/PlanDetails'
+import PlanDetails from '../components/PlanDetails'
 
-export default function SubscriptionPage() {
+export default function Subscription() {
     
-    const subscriptionHooks = useSubscription();
+    const subscriptionHooks = useSubscription()
 
     return (
         <div className='flex justify-center mt-10'>
@@ -32,7 +32,7 @@ export default function SubscriptionPage() {
                     />
                 </div>
 
-                {/* Dynamic Lower Half */}
+                {/* Dynamic Lower Half (Pass the hooks in)*/}
                 <div className='flex-1 p-10 border-t'>
                     <Outlet context={subscriptionHooks} />
                 </div>

@@ -125,3 +125,10 @@ export const loginService = async ( email, password ) => {
         throw err;
     }
 }
+
+export const getMeService = async (userId) => {
+    const user = await accRepo.findById(userId);
+    const profile = await findProfileByUserId(userId);
+
+    return new TokenDTO(user, profile);
+};
