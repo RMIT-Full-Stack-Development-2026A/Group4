@@ -1,117 +1,101 @@
-// 10 x 10 layout:
-[
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-]
-// 15 x 15 layout:
-[
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-]
-// Representing an easy AI:
-export class easyAiService {
-    // Constructor: 
-    constructor () {
-        this.name = "Bill";
-    }
-    // Make move:
-    makeMove (previousSquare, board, marker) {
-        // Coordinates: 
-        const { x, y } = previousSquare;
-        
-        // Calculate all moves: 
-        // X:
-        const newMoves = [
-            // Right Side:
-            { x: x + 1, y: y },
-            // Left Side
-            { x: x - 1, y: y },
-            // Move Up:
-            { x: x, y: y + 1},
-            // Move Down:
-            { x: x, y: y - 1},
-            // Diagonals
-            { x: x + 1, y: y + 1 },
-            { x: x + 1, y: y - 1 },
-            { x: x - 1, y: y - 1 },
-            { x: x - 1, y: y+ 1}
-        ]
+import { DIRECTIONS, inBounds, applyMove } from "../gameSessionModules/game.logic.js";
+import { easyAi, hardAi, mediumAi } from "./ai.model.js";
+// Finding random move for 
+export const randomMove = (board) => {
+    // Storing all available moves
+    const empty = [];
+    // Pushing all available squares
+    board.forEach((row, r)=>{
+        row.forEach((col, c)=>{
+            if (cell === null) {empty.push({ row: r, col: c })}
+        })
+    })
+    // Choosing a random row, col and returning:
+    return empty[Math.floor(Math.random * empty.length)]
+}
 
-        // Filter and check: 
-        const potentialMoves = moveEquation.filter((move) => {
-            // If this move is within the board:
-            const isInside = move.x >= 0 && move.y <= board.length && move.y >= 0 && move.x <= board.length();
-            // If the square is empty:
-            if (!isInside) return false;
-            return board[move.x][move.y] === 0
-        });
+// Detecting open line:
+export const detectOpenLine = (board, marker, length) => {
+    const size = board.length
+    for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+            for (const [dr, dc] of DIRECTIONS) {
+                let cells = []
+                let nr = r, nc = c
 
-        // Choosing and making a move:
-        if (potentialMoves.length > 0) {
-            const randomIndex = Math.floor(Math.random() * potentialMoves.length);
-            return potentialMoves[randomIndex];
-        }
-        // 
-        return this.findEmptyCell(board);
-    }
-    // Find empty cell: 
-    findEmptyCell (board) {
-        for ( let y = 0; y < board.length; y++ ) {
-            for ( let x = 0; x < board.length; x++ ) {
-                if (board[y][x] === 0) {
-                    return {x, y};
+                // collect N consecutive markers
+                while (
+                    cells.length < length &&
+                    inBounds(nr, nc, size) &&
+                    board[nr][nc] === marker
+                ) {
+                    cells.push({ row: nr, col: nc })
+                    nr += dr
+                    nc += dc
                 }
-            };
+
+                if (cells.length < length) continue
+
+                // check both ends are open
+                const beforeRow = r - dr
+                const beforeCol = c - dc
+                const afterRow = nr
+                const afterCol = nc
+
+                const frontOpen = inBounds(afterRow, afterCol, size) && board[afterRow][afterCol] === null
+                const backOpen = inBounds(beforeRow, beforeCol, size) && board[beforeRow][beforeCol] === null
+
+                if (frontOpen && backOpen) {
+                    // return the blocking move — fill one open end
+                    return { row: afterRow, col: afterCol }
+                }
+            }
         }
-        return null;
     }
-};
+    return null
+}
 
-export class mediumAiService {
-    // Constructor:
-    constructor () {
-        this.name = "Ricky"
-    };
-    // Make Move:
-    defend (boardLayout, aiMarker) {
-        
-    };
-    // Make move:
-    
-};
+// Detecting fork formation
+// detect fork — two crossing 3-mark open lines
+export const detectFork = (board, marker) => {
+    const size = board.length
+    const threatCells = {}
 
-export class hardAiService {
-    // Constructor:
-    constructor () {
-        this.name = "Mack"
-    };
-    // Make Move: 
-    attack (boardLayout, aiMarker) {
+    // find all cells that would block a 3-mark open line
+    for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+            if (board[r][c] !== null) continue
+            // simulate placing here
+            const simBoard = applyMove(r, c, board, marker)
+            // check if this creates an open 3
+            for (const [dr, dc] of DIRECTIONS) {
+                let count = 1
+                let nr = r + dr, nc = c + dc
+                while (inBounds(nr, nc, size) && simBoard[nr][nc] === marker) { count++; nr += dr; nc += dc }
+                nr = r - dr; nc = c - dc
+                while (inBounds(nr, nc, size) && simBoard[nr][nc] === marker) { count++; nr -= dr; nc -= dc }
+                if (count >= 3) {
+                    const key = `${r},${c}`
+                    threatCells[key] = (threatCells[key] || 0) + 1
+                }
+            }
+        }
+    }
 
-    };
-    // Defending:
-    defend (boardLayout, aiMarker) {
+    // a fork exists where 2+ directions form a threat
+    const forkCell = Object.entries(threatCells).find(([_, count]) => count >= 2)
+    if (forkCell) {
+        const [r, c] = forkCell[0].split(',').map(Number)
+        return { row: r, col: c }
+    }
+    return null
+}
 
-    };
+export const getAiInstance = (aiName) => {
+    switch (aiName) {
+        case "Michael": return new easyAi();
+        case "Bill": return new mediumAi();
+        case "John": return new hardAi();
+        default: return;
+    }
 }

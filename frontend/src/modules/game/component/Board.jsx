@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Board = ({ board, makeMove, playerId, id}) => {
+const Board = ({ board, makeMove, playerId, id, winningCells }) => {
   const getCellStyle = (cell) => {
     if (cell === null) return 'hover:bg-gray-100 cursor-pointer'
     return 'cursor-default'

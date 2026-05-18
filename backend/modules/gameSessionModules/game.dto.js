@@ -29,8 +29,9 @@ export class moveDTO {
         this.host_name = game.host_name,
         this.guest_name = game.guest_name,
         this.board = game.board,
-        this.currentPlayer = game.currentPlayer
+        this.currentPlayer = game.currentPlayer,
         this.currentMarker = game.currentMarker,
+        this.winningLine = game.winningLine,
         this.isDraw = game.isDraw,
         this.status = game.status
         this.winner = game.winner

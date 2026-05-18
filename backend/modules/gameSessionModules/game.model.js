@@ -14,7 +14,7 @@ const gameSessionSchema = new mongoose.Schema({
     status: { type: String, enum: [ 'ACTIVE', 'FINISHED', 'ABORTED' ], default: 'ACTIVE' },
 
     winner: { type: String, default: null }, // 'X', 'O', or 'Draw'
-    winningLine: { type: [ Number ], default: [] }, // Indices of the 5 winning marks
+    winningLine: { type: [ { _id: false, row:{ type: Number, required: true,}, col: {type: Number, required: true} }], default: [] }, // Indices of the 5 winning marks
     
     // game info:
     startTime: { type: Date, default: Date.now },

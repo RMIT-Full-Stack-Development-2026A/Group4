@@ -73,6 +73,7 @@ export const makeMove = async (req, res, next) => {
         const {id} = req.params;
         // Calling service layer:
         const updated = await gameService.makeMove(row, col, playerId, id);
+        console.log(updated);
         return res.status(200).json({
             success: true,
             data: new moveDTO(updated)

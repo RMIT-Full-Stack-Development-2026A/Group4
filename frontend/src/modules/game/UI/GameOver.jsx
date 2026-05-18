@@ -4,7 +4,7 @@ import { getGameData } from '../service/gameServices';
 import BoardDisplay from '../component/BoardDisplay';
 
 const GameOver = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [gameData, setGameData] = useState(null);
     useEffect(()=>{
         const getData = async () => {
@@ -31,7 +31,7 @@ const GameOver = () => {
                 <div>
                     <h1>Board:</h1>
                     <div>
-                        <BoardDisplay board={gameData.board} />
+                        <BoardDisplay board={gameData.board} winningCells={gameData.winningLine} />
                     </div>
                 </div>
             </div>

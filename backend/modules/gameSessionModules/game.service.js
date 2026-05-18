@@ -1,4 +1,5 @@
 //
+import { getAiInstance } from '../aiModule/ai.service.js';
 import { gameNotFoundError, invalidMoveError, missingGameData, unableToMakeMoveError } from './game.error.js';
 import { applyMove, checkWinner, createBoard, validateSquare } from './game.logic.js';
 import * as repo from './game.repository.js';
@@ -58,26 +59,71 @@ export const makeMove = async ( row, col, playerId, id ) => {
     // Fetching game info from repo
     const session = await repo.getGame(id);
     if (!session) throw new gameNotFoundError();
+
     // Checking if square is valid
     const valid = validateSquare(row, col, session.board);
     if (!valid) throw new invalidMoveError();
-    // Applying the move
+
+    // Applying the move:
     const updatedBoard = applyMove(row, col, session.board, session.currentMarker);
     if (!updatedBoard) throw new unableToMakeMoveError();
-    const hasWinner = checkWinner(updatedBoard, row, col, session.currentMarker);
-    if (hasWinner) {
+    
+    // Checking if a winner exists: 
+    const { winner, winningCells } = checkWinner(updatedBoard, row, col, session.currentMarker);
+    if (winner) {
         // Finish game:
-        await repo.updateSessionData(id, { board: updatedBoard, status: "FINISHED", winner: playerId })
+        await repo.updateSessionData(id, { board: updatedBoard, status: "FINISHED", winner: playerId, winningLine: winningCells })
         return {
             board: updatedBoard,
             status: "FINISHED",
             winner: playerId,
+            winningCells
         };
     }
-    // Getting next turn and next marker
+
+    // AI GAME:
+    if (session.gameType !== "MULTIPLAYER") {
+        // finding the ai and making the move
+        const ai = getAiInstance(session.guest_name)
+        console.log(ai);
+        const aiMove = ai.makeMove(updatedBoard, {row, col}, session.markers[0], session.markers[1]);
+        console.log(aiMove);
+        // Applying the move
+        const afterAiBoard = applyMove( aiMove.row, aiMove.col, updatedBoard, session.markers[1] );
+
+        // Checking if a winner exists
+        const { winner: aiWinner, winningCells: aiWinningCells } = checkWinner(afterAiBoard, aiMove.row, aiMove.col, session.markers[1]);
+        if (aiWinner) {
+            await repo.updateSessionData(id, {board: afterAiBoard, status: "FINISHED", winner: guest_name, winningLine: aiWinningCells});
+            return {
+                board: afterAiBoard,
+                status: "FINISHED",
+                winner: session.guest_name,
+                winningCells: aiWinningCells
+            }
+        }
+        
+        // Updating session and switching turn
+        await repo.updateSessionData(id, {board: afterAiBoard });
+        return {
+            board: afterAiBoard, 
+            currentPlayer: session.host_name,
+            currentMarker: session.markers[0],
+            status: "ACTIVE",
+            winner: null,
+        }
+    };
+    
+    // Multiplayer change turns: 
     const nextTurn = session.currentPlayer === session.host_name ? session.guest_name : session.host_name;
     const nextMarker = session.currentPlayer === session.host_name ? session.markers[1] : session.markers[0]
-    // Update repo
+    // Update repo:
     const updated = await repo.updateSessionData(id, {board: updatedBoard, currentPlayer: nextTurn, currentMarker: nextMarker, winner: null, status: "ACTIVE"});
-    return updated;
+    return {
+        board: updatedBoard,
+        currentPlayer: nextTurn,
+        currentMarker: nextMarker,
+        status: "ACTIVE",
+        winner: null,
+    }
 }
