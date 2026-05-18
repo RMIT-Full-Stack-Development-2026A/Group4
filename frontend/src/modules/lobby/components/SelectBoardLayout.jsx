@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Grid3x3 } from 'lucide-react';
 
-const SelectBoardLayout = ({ setBoardLayout }) => {
+const SelectBoardLayout = ({ setBoardConfig }) => {
   // States:
   const [currentLayout, setCurrentLayout] = useState(10);
   const [selectedLayout, setSelectedLayout] = useState(Array(currentLayout * currentLayout).fill(null));
@@ -54,8 +54,8 @@ const SelectBoardLayout = ({ setBoardLayout }) => {
         </div>
         
         <div className='flex gap-5 flex-col justify-center align-middle items-center md:flex-row '>
-          <button className= {currentLayout === 10 ? `flex-1/3 border text-xl font-bold p-3 rounded-lg bg-gray-900 text-white transition-transform cursor-pointer hover:scale-101 duration-200`  : `flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200`} onClick={()=>{ setCurrentLayout(10); setBoardLayout(10)}}>10x10</button>
-          <button className={currentLayout === 15 ? `flex-1/3 border text-xl font-bold p-3 rounded-lg bg-gray-900 text-white transition-transform cursor-pointer hover:scale-101 duration-200`  : `flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200`} onClick={()=>{ setCurrentLayout(15); setBoardLayout(15)}}>15x15</button>
+          <button className= {currentLayout === 10 ? `flex-1/3 border text-xl font-bold p-3 rounded-lg bg-gray-900 text-white transition-transform cursor-pointer hover:scale-101 duration-200`  : `flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200`} onClick={()=>{ setCurrentLayout(10); setBoardConfig((prev) => ({ ...prev, layout: 10 }))}}>10x10</button>
+          <button className={currentLayout === 15 ? `flex-1/3 border text-xl font-bold p-3 rounded-lg bg-gray-900 text-white transition-transform cursor-pointer hover:scale-101 duration-200`  : `flex-1/3 border text-xl font-bold p-3 rounded-lg transition-transform cursor-pointer hover:scale-101 duration-200`} onClick={()=>{ setCurrentLayout(15); setBoardConfig((prev) => ({ ...prev, layout: 15 }))}}>15x15</button>
         </div>
     
     </div>

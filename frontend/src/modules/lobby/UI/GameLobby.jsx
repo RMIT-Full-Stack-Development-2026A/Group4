@@ -1,5 +1,5 @@
 // Representing home page where you can select game mode, board style, board layout
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 // Importing components:
 import StartGameButton from '../components/StartGameButton';
@@ -13,25 +13,35 @@ import { STEPS, INITIAL_PLAYER_INFO, createGameUTO, startGame } from '../service
 import { useAuth } from '../../../context/UserContext'
 
 const GameLobby = () => {
+  // Navigation: 
   const navigate = useNavigate();
   // UserId:
-  const { userId } = useAuth();
-  
+  const { userId, user } = useAuth();
   // Defining all states: 
   const [ playerInfo, setPlayerInfo ] = useState(INITIAL_PLAYER_INFO);
   const [ firstPlayer, setFirstPlayer] = useState(null);
   const [ step, setStep ] = useState(STEPS.SETUP);
   const [ gameMode, setGameMode ] = useState(null);
-  const [ boardLayout, setBoardLayout ] = useState(10);
-  const [ boardStyle, setBoardStyle ] = useState(null);
+  const [boardConfig, setBoardConfig] = useState({
+    layout: 10,
+    style: ''
+  })
+  // UseEffect:
+  useEffect(()=>{
+    if (gameMode !== "MULTIPLAYER") {
+      setPlayerInfo(prev => ({ ...prev, playerOneName: user.username }))
+      setFirstPlayer({ name: user.username, marker: INITIAL_PLAYER_INFO.playerOneMarker })
+    }
+  }, [gameMode])
   
   // Functioning for initializing game:
   const initializeGame =  async () => {
     if (playerInfo.playerOneName === '' || playerInfo.playerTwoName === '') {
       throw new Error("Error enter player detail!");
     }
-    const gameUTO = createGameUTO( playerInfo.playerOneName, playerInfo.playerTwoName, gameMode, boardLayout, [ playerInfo.playerOneMarker, playerInfo.playerTwoMarker ], firstPlayer );
-    console.log(gameUTO);
+    console.log(playerInfo);
+    const gameUTO = createGameUTO( playerInfo.playerOneName, playerInfo.playerTwoName, gameMode, boardConfig.layout, [ playerInfo.playerOneMarker, playerInfo.playerTwoMarker ], firstPlayer );
+    console.log(gameUTO)
     const data = await startGame( userId, gameUTO );
     navigate(`/game/${data.data.id}`);
   }
@@ -42,7 +52,7 @@ const GameLobby = () => {
       {step === STEPS.SETUP && (
         <>
           <GameMode setGameMode={ setGameMode } />
-          <SelectBoardLayout setBoardLayout={setBoardLayout} setBoardStyle={setBoardStyle} />
+          <SelectBoardLayout setBoardConfig={setBoardConfig}/>
           <button 
             disabled={!gameMode}
             className='bg-gray-900 text-white p-4 font-bold rounded-lg cursor-pointer transition-all duration-300 hover:bg-gray-600 disabled:opacity-50'
@@ -53,7 +63,7 @@ const GameLobby = () => {
 
       {step === STEPS.PLAYERS && (
         <>
-          { gameMode === 'MULTIPLAYER' ? <PlayerInfo setFirstPlayer={setFirstPlayer} setPlayerInfo={setPlayerInfo} /> : <SelectAi /> }
+          { gameMode === 'MULTIPLAYER' ? <PlayerInfo setFirstPlayer={setFirstPlayer} setPlayerInfo={setPlayerInfo} /> : <SelectAi playerInfo={playerInfo} setPlayerInfo={setPlayerInfo} /> }
           <div className='flex gap-4'>
             <button
               className=''
