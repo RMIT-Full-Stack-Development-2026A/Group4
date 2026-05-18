@@ -1,6 +1,5 @@
 import { httpHelper} from "../../../utils/httpHelper";
 import { GAME_ENDPOINTS } from "../../../config/apiConfig";
-import { useParams } from "react-router-dom";
 
 export const getGameData = async (id) => {
     // fetching from backend
@@ -12,11 +11,19 @@ export const getGameData = async (id) => {
 }
 
 export const makeMove = async ( row, col, playerId, id ) => {
-    console.log(row, col, playerId, id);
     const res = await httpHelper.post(GAME_ENDPOINTS.MAKE_MOVE(id), { row, col, playerId } );
     if (res.status !== 200) {
         throw new Error("Error making move!");
     }
-    console.log(res.data)
     return res.data
 }
+
+export const abortGame = async (id) => {
+    alert("You're aborting this game. Proceed?");
+    const res = await httpHelper.post(GAME_ENDPOINTS.ABORT_GAME(id));
+    if (res.status !== 200) {
+        throw new Error("Error aborting game!");
+    }
+    return res.data;
+}
+

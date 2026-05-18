@@ -18,6 +18,7 @@ import PlayerManagement from "../modules/admin/pages/PlayerManagement";
 import PlanDetails from "../modules/subscription/components/PlanDetails";
 import GameSession from "../modules/game/UI/ActiveGame";
 import ActiveGame from "../modules/game/UI/ActiveGame";
+import GameOver from "../modules/game/UI/GameOver";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,8 @@ const router = createBrowserRouter([
   {
     element: <GameLayout />,
     children: [
-      { path: '/game/:id', element: <ActiveGame /> }
+      { path: '/game/:id', element: <ActiveGame /> },
+      {path: '/game/finish/:id', element: <GameOver />}
     ]
   }
 ]);
