@@ -35,7 +35,6 @@ export const finishGame = async (gameId, resultData) => {
         status: resultData.status, // 'FINISHED' or 'ABORTED'
         endTime: Date.now()
     };
-
     // Only record winner/line if the game was actually completed
     if (resultData.status === 'FINISHED') {
         result.winner = resultData.winner;
@@ -44,6 +43,10 @@ export const finishGame = async (gameId, resultData) => {
 
     return await repo.updateSessionData(gameId, result);
 };
+
+export const abortGame = async (id) => {
+    return await repo.updateSessionData(id, {status: "ABORTED"});
+}
 
 // Fetching history for the profile page:
 export const getPlayerHistory = async (userId) => {
@@ -76,6 +79,5 @@ export const makeMove = async ( row, col, playerId, id ) => {
     const nextMarker = session.currentPlayer === session.host_name ? session.markers[1] : session.markers[0]
     // Update repo
     const updated = await repo.updateSessionData(id, {board: updatedBoard, currentPlayer: nextTurn, currentMarker: nextMarker, winner: null, status: "ACTIVE"});
-    console.log(updated);
     return updated;
 }

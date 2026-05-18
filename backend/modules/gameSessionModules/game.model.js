@@ -11,10 +11,10 @@ const gameSessionSchema = new mongoose.Schema({
     gameType: { type: String, enum: ['MULTIPLAYER', 'AI'], required: true },
     
     boardSize: { type: Number, enum: [10, 15], default: 10 },
-    status: { type: String, enum: ['ACTIVE', 'FINISHED', 'ABORTED'], default: 'ACTIVE' },
+    status: { type: String, enum: [ 'ACTIVE', 'FINISHED', 'ABORTED' ], default: 'ACTIVE' },
 
     winner: { type: String, default: null }, // 'X', 'O', or 'Draw'
-    winningLine: { type: [Number], default: [] }, // Indices of the 5 winning marks
+    winningLine: { type: [ Number ], default: [] }, // Indices of the 5 winning marks
     
     // game info:
     startTime: { type: Date, default: Date.now },

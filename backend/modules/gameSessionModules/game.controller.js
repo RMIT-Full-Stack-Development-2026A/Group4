@@ -83,6 +83,15 @@ export const makeMove = async (req, res, next) => {
 }
 
 export const abortGame = async (req, res, next) => {
-    
+    try {
+        const {id} = req.params;
+        const aborted = await gameService.abortGame(id);
+        return res.status(200).json({
+            success: true,
+        })
+    }
+    catch (err) {
+        next(err);
+    }
 }
 
