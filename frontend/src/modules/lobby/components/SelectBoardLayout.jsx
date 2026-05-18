@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Grid3x3 } from 'lucide-react';
 
 const SelectBoardLayout = ({ setBoardLayout }) => {
+  // States:
   const [currentLayout, setCurrentLayout] = useState(10);
   const [selectedLayout, setSelectedLayout] = useState(Array(currentLayout * currentLayout).fill(null));
+  
   // Loads at first when mounted and when current layout changes: 
   useEffect(()=>{
     // Defining function for current layout

@@ -1,5 +1,5 @@
 import * as gameService from './game.service.js';
-import { gameDTO, startGameDTO } from './game.dto.js';
+import { gameDTO, startGameDTO, moveDTO } from './game.dto.js';
 
 // Starts a new game record:
 export const startSession = async (req, res, next) => {
@@ -7,8 +7,8 @@ export const startSession = async (req, res, next) => {
         const userId = req.user.id;
         const gameData = req.body;
         // Validate with middleware
-        const session = await gameService.startGame(userId, gameData);
-    
+        const session = await gameService.startGame(userId, gameData.userDTO);
+        // Return status
         return res.status(201).json({
             success: true,
             data: new startGameDTO(session),
@@ -27,7 +27,7 @@ export const getGameSession = async (req, res, next) => {
         return res.status(200).json({
             success: true,
             message: "Successfully fetched game info",
-            data: new gameDTO(session),
+            data: new moveDTO(session),
         })
     } catch (err) {
         next(err);
@@ -56,7 +56,6 @@ export const getUserHistory = async (req, res, next) => {
     try {
         const userId = req.user.id;
         const history = await gameService.getPlayerHistory(userId);
-        
         // Map everything to DTOs for a clean response
         return res.status(200).json({
             success: true,
@@ -67,7 +66,23 @@ export const getUserHistory = async (req, res, next) => {
     }
 };
 
-// Creating a new game
-export const initializeSession = async (req, res, next) => {
+export const makeMove = async (req, res, next) => {
+    try {
+        // When making a move: front end sends { playerId, row, col }
+        const {row, col, playerId} = req.body;
+        const {id} = req.params;
+        // Calling service layer:
+        const updated = await gameService.makeMove(row, col, playerId, id);
+        return res.status(200).json({
+            success: true,
+            data: new moveDTO(updated)
+        })
+    }  catch (err) {
+        next(err);
+    }
+}
+
+export const abortGame = async (req, res, next) => {
     
-}   
+}
+
