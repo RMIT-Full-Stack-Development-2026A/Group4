@@ -18,7 +18,7 @@ export const startGame = async (userId, gameData) => {
         boardStyle: gameData.boardStyle,
         markers: gameData.markers,
         board: createBoard(gameData.boardSize),
-        currentPlayer: gameData.markers[0],
+        currentPlayer: gameData.currentPlayer,
         currentMarker: gameData.currentMarker,
         session_num: total + 1,
     });
@@ -84,6 +84,16 @@ export const makeMove = async ( row, col, playerId, id ) => {
         }
     }
 
+    // Check draw
+    if (!updatedBoard.flat().includes(null)) {
+        return await repo.updateSessionData(id, { 
+            board: updatedBoard, 
+            status: "FINISHED", 
+            winner: "Draw", 
+            endTime: Date.now() 
+        });
+    }
+
     // AI GAME:
     if (session.gameType !== "MULTIPLAYER") {
         // finding the ai and making the move
@@ -101,7 +111,7 @@ export const makeMove = async ( row, col, playerId, id ) => {
             return {
                 board: afterAiBoard,
                 status: "FINISHED",
-                winner: playerId,
+                winner: session.guest_name,
                 winningCells: aiWinningCells,
             };
         }
