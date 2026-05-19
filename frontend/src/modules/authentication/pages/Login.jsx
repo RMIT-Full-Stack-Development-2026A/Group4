@@ -73,10 +73,13 @@ const Login = () => {
 
           {/* Error */}
           <div className='text-center text-red-200 text-sm'>
-              {isLocked ? (
+              {loggedOutTime !== null ? (
                   `Account locked. Please try again in ${loggedOutTime} seconds...`
               ) : (
-                  loginAttempt > 0 ? `${errorMessage} (${loginAttempt} / 5 attempts used)` : `${errorMessage}`
+                  // Standard error or Deactivation error
+                  loginAttempt > 0 && !isLocked 
+                    ? `${errorMessage} (${loginAttempt} / 5 attempts used)` 
+                    : errorMessage
               )}
           </div>
 

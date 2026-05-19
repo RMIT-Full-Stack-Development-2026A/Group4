@@ -1,4 +1,7 @@
 export default function PlanDetails({ plan, user }) {
+
+    if (!plan) return null;
+
     return (
         <div className='mt-6 text-center flex flex-col gap-1 px-10'>
             <h1 className='text-3xl font-black uppercase tracking-tighter text-gray-800'>

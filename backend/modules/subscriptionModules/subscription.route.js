@@ -6,6 +6,7 @@ import { validateDeposit } from './subscription.middleware.js';
 const subsRouter = Router();
 
 subsRouter.use(authMiddleware);
+subsRouter.get('/plan', subsController.getPlanDetails);
 subsRouter.get('/history', subsController.getTransactionHistory);
 subsRouter.post('/deposit', subsController.depositMoney);
 subsRouter.post('/buy-wallet', subsController.buyPremiumWithWallet);
