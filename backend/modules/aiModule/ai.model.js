@@ -1,5 +1,5 @@
 import { validateSquare } from "../gameSessionModules/game.logic.js";
-import { detectFork, detectOpenLine, randomMove } from "./ai.service.js";
+import { detectFork, detectOpenLine, randomMove } from "./ai.logic.js";
 
 export class easyAi {
     constructor (name = "Michael") {
