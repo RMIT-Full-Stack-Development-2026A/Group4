@@ -85,21 +85,18 @@ export const makeMove = async ( row, col, playerId, id ) => {
     if (session.gameType !== "MULTIPLAYER") {
         // finding the ai and making the move
         const ai = getAiInstance(session.guest_name)
-        console.log(ai);
         const aiMove = ai.makeMove(updatedBoard, {row, col}, session.markers[0], session.markers[1]);
-        console.log(aiMove);
         // Applying the move
         const afterAiBoard = applyMove( aiMove.row, aiMove.col, updatedBoard, session.markers[1] );
-
         // Checking if a winner exists
-        const { winner: aiWinner, winningCells: aiWinningCells } = checkWinner(afterAiBoard, aiMove.row, aiMove.col, session.markers[1]);
-        if (aiWinner) {
-            await repo.updateSessionData(id, {board: afterAiBoard, status: "FINISHED", winner: guest_name, winningLine: aiWinningCells});
+        const { winner: aiWinner , winningCells: aiWinningCells } = checkWinner(afterAiBoard, aiMove.row, aiMove.col, session.markers[1]);
+        if ( aiWinner ) {
+            await repo.updateSessionData(id, { board: afterAiBoard, status: "FINISHED", winner: playerId, winningLine: aiWinningCells });
             return {
                 board: afterAiBoard,
                 status: "FINISHED",
-                winner: session.guest_name,
-                winningCells: aiWinningCells
+                winner: playerId,
+                winningCells: aiWinningCells,
             }
         }
         

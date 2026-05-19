@@ -19,7 +19,7 @@ const BoardDisplay = ({ board , winningCells = [] }) => {
               className={
                 ` w-10 h-10
                 border
-                ${ isWinningCell(c, r) ? 'border-green-400' : 'border-gray-500'}
+                ${ isWinningCell(r, c) ? 'border-green-400' : 'border-gray-500'}
                 flex items-center justify-center
                 text-sm font-bold
                 transition-colors duration-150 
