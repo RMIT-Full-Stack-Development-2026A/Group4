@@ -28,9 +28,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Connect to database:
-connectDb();
-
 // Middlewares:
 app.use(cors({
     origin: `${process.env.CLIENT_URL}`,
@@ -40,6 +37,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/uploads', express.static('uploads'));
+// Connect to database:
+connectDb();
 // Setting routes
 app.use('/', IndexRouter);
 app.use('/auth', AccountRouter);
