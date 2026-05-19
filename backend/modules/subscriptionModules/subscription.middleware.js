@@ -1,11 +1,13 @@
 import { invalidAmountError } from './subscription.error.js';
 
 export const validateDeposit = (req, res, next) => {
-    const { amount } = req.body;
+    const amount = Number(req.body.amount);
     
-    // Amount must be a positive number
-    if (!amount || typeof amount !== 'number' || amount <= 0) {
+    // Check if it's NaN, or zero/negative
+    if (!amount || isNaN(amount) || amount <= 0) {
         return next(new invalidAmountError());
     }
+
+    req.body.amount = amount;
     next();
 };

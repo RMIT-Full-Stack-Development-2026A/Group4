@@ -1,4 +1,4 @@
-import { Sword, LayoutDashboard, Gamepad, Edit, User, ClipboardCheck, History, ShieldAlert, Home } from "lucide-react";
+import { Sword, LayoutDashboard, Gamepad, Edit, User, ClipboardCheck, History, ShieldAlert, Home, Wallet } from "lucide-react";
 
 const NavConfig = {
     "PLAYER": [
@@ -19,7 +19,14 @@ const NavConfig = {
                 { to: "/profile/edit", text: "EDIT PROFILE", icon: Edit },
             ]
         },
-        { type: "link", text: "SUBSCRIPTION", to: "/subscription", icon: ClipboardCheck }
+        {
+            type: "section",
+            label: "STORE",
+            links: [
+                { to: "/subscription", text: "PREMIUM PLAN", icon: ClipboardCheck },
+                { to: "/deposit", text: "DEPOSIT WALLET", icon: Wallet }
+            ]
+        }
     ],
     "ADMIN": [
         { 

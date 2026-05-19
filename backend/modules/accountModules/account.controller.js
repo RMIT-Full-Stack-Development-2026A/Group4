@@ -1,4 +1,4 @@
-import { registerService, loginService } from './account.service.js';
+import { registerService, loginService, getMeService } from './account.service.js';
 import { missingCredentialsError } from './account.error.js';
 import jwt from 'jsonwebtoken';
 
@@ -77,9 +77,15 @@ export const logout = (req, res) => {
     res.status(200).json({ message: 'Logged out!' });
 };
 
-export const me = async (req, res) => {
-    res.status(200).json({
-        user: req.user,
-        message: 'Authorized'
-    });
+export const me = async (req, res, next) => {
+    try {
+        const userData = await getMeService(req.user.id);
+
+        res.status(200).json({
+            user: userData,
+            message: 'Authorized'
+        });
+    } catch (err) {
+        next(err);
+    }
 };

@@ -11,10 +11,12 @@ import Login from "../modules/authentication/pages/Login";
 import Signup from "../modules/authentication/pages/Signup";
 import GameLobby from "../modules/lobby/UI/GameLobby";
 import Profile from "../modules/profile/UI/Profile";
-// import SubscriptionPage from "../modules/subscription/pages/SubscriptionPage";
-import PaymentSuccess from "../modules/subscription/components/PaymentSuccess";
-import PaymentFailure from "../modules/subscription/components/PaymentFailure";
 import PlayerManagement from "../modules/admin/pages/PlayerManagement";
+import Subscription from "../modules/subscription/pages/Subscription";
+import StatusView from "../modules/subscription/components/StatusView";
+import IndexView from "../modules/subscription/components/IndexView";
+import MethodView from "../modules/subscription/components/MethodView";
+import DepositWallet from "../modules/subscription/pages/DepositWallet";
 import PlanDetails from "../modules/subscription/components/PlanDetails";
 import GameSession from "../modules/game/UI/ActiveGame";
 import ActiveGame from "../modules/game/UI/ActiveGame";
@@ -38,11 +40,14 @@ const router = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
       { 
         path: 'subscription', 
-        element: <PlanDetails />,
+        element: <Subscription />,
         children: [
-          // { path: },
-        ] 
+            { index: true, element: <IndexView /> },
+            { path: 'method', element: <MethodView /> }, 
+            { path: 'status', element: <StatusView /> }
+        ]
       },
+      { path: 'deposit', element: <DepositWallet /> },
       { path: 'admin', element: <PlayerManagement /> }
     ]
   },
