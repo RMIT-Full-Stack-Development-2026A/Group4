@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ArrowLeft, ArrowRight, Grid3x3 } from 'lucide-react'
 import { SelectionButton } from '../../../reusable/CustomButtons'
-import { boardStyles } from '../services/stylingLayouts'
+import { boardStyles } from '../services/styling_layouts'
 
 // Layout options:
 const LAYOUTS = [10, 15];

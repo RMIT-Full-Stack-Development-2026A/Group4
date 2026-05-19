@@ -17,12 +17,12 @@ export const createAccount = async (accountData) => {
 };
 
 export const updateAccount = async (userId, updateData) => {
-    return await Account.findByIdAndUpdate(userId, updateData, { new: true });
+    return await Account.findByIdAndUpdate(userId, updateData, { returnDocument: 'after' });
 };
 
 export const updateLoginAttempts = async (userId, attempts, lockTime) => {
     return await Account.findByIdAndUpdate(userId, { 
         failedAttempts: attempts, 
         lockUntil: lockTime 
-    }, { new: true });
+    }, { returnDocument: 'after' });
 };

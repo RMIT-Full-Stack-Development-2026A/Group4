@@ -13,7 +13,7 @@ const useLogin = () => {
       email: '',
       password: '',
     });
-    const [loggedOutTime, setLoggedOutTime] = useState(60);
+    const [loggedOutTime, setLoggedOutTime] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [loginAttempt, setLoginAttempt] = useState(0);
     const [isLocked, setIsLocked] = useState(false);
@@ -28,7 +28,7 @@ const useLogin = () => {
     // Countdown timer:
     useEffect(()=>{
       let timer;
-        if (isLocked && loggedOutTime > 0) {
+        if (isLocked && loggedOutTime !== null && loggedOutTime > 0) {
             timer = setInterval(() => {
                 setLoggedOutTime((prev) => prev - 1);
             }, 1000);
@@ -36,7 +36,7 @@ const useLogin = () => {
         if (loggedOutTime === 0) {
             setIsLocked(false);
             setLoginAttempt(0);
-            setLoggedOutTime(60); 
+            setLoggedOutTime(null); 
             setErrorMessage('');
         }
         return () => {clearInterval(timer)};
@@ -44,11 +44,17 @@ const useLogin = () => {
 
     // Handling changing input
     const handleChangingInput = (e) => {
-      const {name, value} = e.target;
-      setLoginInput((prev)=>({
-        ...prev,
-        [name]: value,
-      }))
+        const {name, value} = e.target;
+
+        // To let the user input another email
+        if (isLocked && errorMessage.includes("deactivated")) {
+            setIsLocked(false);
+        }
+
+        setLoginInput((prev)=>({
+            ...prev,
+            [name]: value,
+        }))
     };
 
     // Functions
@@ -59,28 +65,30 @@ const useLogin = () => {
         try {
             const data = await loginService(loginInput);
             updateUserInfo(data.user);
-            navigate('/lobby');
+            if (data.user.role === 'ADMIN') {
+                navigate('/admin');
+            } else {
+                navigate('/lobby');
+            }
         }
         catch (err) {
-            // Check if the user is already locked
+            setErrorMessage(err.message);
+            
             if (err.message.includes("Locked:")) {
+                setIsLocked(true);
+
                 const secondsMatch = err.message.match(/\d+/);
                 if (secondsMatch) {
-                    const seconds = parseInt(secondsMatch[0]);
-                    setLoggedOutTime(seconds);
-                    setIsLocked(true);
-                    setErrorMessage(''); 
+                    setLoggedOutTime(parseInt(secondsMatch[0]));
                 }
-            } 
-            // If it's a normal error (Invalid credentials, user not found, etc.)
-            else {
-                setErrorMessage(err.message);
+            } else {
                 setIsLocked(false);
+                setLoggedOutTime(null);
 
                 if (err.message.includes("not found")) {
                     setLoginAttempt(0);
                 } else {
-                    setLoginAttempt(prev => prev + 1);
+                    setLoginAttempt((prev) => prev + 1);
                 }
             }
         }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { AIModels } from '../services/aiModels'
+import { AIModels } from '../services/ai_models'
 import {useAuth} from '../../../context/UserContext'
 
 const SelectAi = ({ setPlayerInfo }) => {

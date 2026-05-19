@@ -1,8 +1,9 @@
 // Importing dependencies:
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/UserContext';
 import { 
+    getPlanService,
     startStripeService, 
     buyWithWalletService, 
     depositService,
@@ -15,20 +16,27 @@ export const useSubscription = () => {
     // Auth Context:
     const { user, updateUserInfo } = useAuth();
 
-    // States:
-    const [loading, setLoading] = useState(false);
+    // States and Hooks:
+    const [plan, setPlan] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
 
-    // Since we only have one plan, we hardcode it here instead of fetching
-    const plan = {
-        name: "Premium",
-        price: 10,
-        features: "Custom markers, Aesthetic board styles, Match replay system",
-        stripePriceId: import.meta.env.VITE_STRIPE_PREMIUM_PRICE_ID 
-    };
+    // get the premium plan detail from backend
+    useEffect(() => {
+        async function fetchPlan() {
+            try {
+                const data = await getPlanService();
+                setPlan(data);
+            } catch (err) {
+                setErrorMessage(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPlan();
+    }, []);
 
     // Functions:
-
     // Depositing money into local wallet
     const handleDeposit = async (amount) => {
         try {
@@ -79,7 +87,7 @@ export const useSubscription = () => {
             setLoading(true);
             setErrorMessage('');
             
-            const url = await startStripeService(plan.stripePriceId);
+            const url = await startStripeService();
             
             // Redirect the user to Stripe's secure page
             window.location.href = url;

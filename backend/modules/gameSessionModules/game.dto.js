@@ -11,8 +11,8 @@ export class gameDTO {
 
         this.status = game.status;
         this.winner = game.winner;
-
-        this.winLine = game.winningLine;
+        this.boardStyle = game.boardStyle;
+        this.winningLine = game.winningLine;
 
         this.start = game.startTime;
         this.end = game.endTime;
@@ -25,16 +25,31 @@ export class gameDTO {
 // DTO each time player makes a move:
 export class moveDTO {
     constructor (game) {
+        // Game id
         this.id = game._id,
+        // Player info
         this.host_name = game.host_name,
         this.guest_name = game.guest_name,
+        // Board info
         this.board = game.board,
+        this.boardStyle = game.boardStyle,
+        // Turn rotation
         this.currentPlayer = game.currentPlayer,
         this.currentMarker = game.currentMarker,
+        // Game condition
         this.winningLine = game.winningLine,
         this.isDraw = game.isDraw,
         this.status = game.status
         this.winner = game.winner
+    }
+}
+
+export class winningGameDto {
+    constructor (game) {
+        this.winner = game.playerId,
+        this.status = "FINISHED",
+        this.winningCells = game.winningLine,
+        this.board = game.board
     }
 }
 

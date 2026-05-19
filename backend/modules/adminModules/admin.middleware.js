@@ -7,7 +7,7 @@ import { adminUnauthorizedError,
 // Authorization:
 export const isAdmin = (req, res, next) => {
     // check the role attached by the verifyToken middleware
-    if (req.user && req.user.userRole === 'ADMIN') {
+    if (req.user && req.user.role === 'ADMIN') {
         return next();
     }
     return next(new adminUnauthorizedError);

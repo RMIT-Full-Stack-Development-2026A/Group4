@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AdminService from "../service/AdminService";
 
 const useAdmin = () => {
-    const [players, dispatch] = useReducer(PlayerActionsReducer, []);
+    const [players, setPlayers] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const useAdmin = () => {
         try {
             setLoading(true);
             const data = await AdminService.fetchAllPlayers();
-            dispatch({ type: "SET_PLAYERS", payload: data });
+            setPlayers(data);
         } catch (err) {
             alert(err.message);
         } finally {
@@ -21,18 +21,19 @@ const useAdmin = () => {
         }
     };
 
-     const toggleStatus = async (userId, newStatus) => {
+    const toggleStatus = async (userId, newStatus) => {
         try {
-            await AdminService.fetchAllPlayers(userId, newStatus);
+            await AdminService.updatePlayerStatus(userId, newStatus);
             
-            const prevPlayers = players
-            setPlayers(prevPlayers.map(player => {
-                if (player.id === action.payload.targetID) {
-                    return { ...player, isActive: action.payload.newStatus };
-                } else {
-                    return player;
-                }}
-            ));
+            setPlayers(prevPlayers => 
+                prevPlayers.map(player => {
+                    if (player.id === userId) {
+                        return { ...player, isActive: newStatus };
+                    } else {
+                        return player;
+                    }
+                })
+            );
         } catch (err) {
             alert(`Error: ${err.message}`);
         }
