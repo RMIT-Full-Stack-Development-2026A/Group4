@@ -1,15 +1,17 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import { GameProvider } from '../context/GameContext'
 
 
 const GameLayout = () => {
-  
   return (
-    <div>
+    <GameProvider>
+      <div>
         <main>
-            <Outlet />
+          <Outlet />
         </main>
-    </div>
+      </div>
+    </GameProvider>
   )
 }
 

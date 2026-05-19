@@ -18,9 +18,8 @@ export const boardStyles = [
         name: 'Wood',
         cell: 'border-amber-900 bg-amber-100 hover:bg-amber-200',
         board: 'border-amber-900 bg-amber-100',
-    },
-    
-]
+    }
+];
 
 export const markers = [
     { id: 'X',  label: 'X'  },

@@ -1,5 +1,6 @@
 //
-import { getAiInstance } from '../aiModule/ai.service.js';
+import { getAiInstance } from '../aiModule/ai.logic.js';
+import { winningGameDto } from './game.dto.js';
 import { gameNotFoundError, invalidMoveError, missingGameData, unableToMakeMoveError } from './game.error.js';
 import { applyMove, checkWinner, createBoard, validateSquare } from './game.logic.js';
 import * as repo from './game.repository.js';
@@ -14,6 +15,7 @@ export const startGame = async (userId, gameData) => {
         guest_name: gameData.guest_name,
         gameType: gameData.gameType,
         boardSize: gameData.boardSize,
+        boardStyle: gameData.boardStyle,
         markers: gameData.markers,
         board: createBoard(gameData.boardSize),
         currentPlayer: gameData.currentPlayer,
@@ -78,8 +80,8 @@ export const makeMove = async ( row, col, playerId, id ) => {
             board: updatedBoard,
             status: "FINISHED",
             winner: playerId,
-            winningCells
-        };
+            winningCells: WinningCells,
+        }
     }
 
     // AI GAME:
@@ -99,9 +101,9 @@ export const makeMove = async ( row, col, playerId, id ) => {
             return {
                 board: afterAiBoard,
                 status: "FINISHED",
-                winner: session.guest_name,
-                winningCells: aiWinningCells
-            }
+                winner: playerId,
+                winningCells: aiWinningCells,
+            };
         }
         
         // Updating session and switching turn

@@ -12,7 +12,7 @@ export const updateProfile = (userId, updateData) =>
     Profile.findOneAndUpdate(
         { user_id: userId },
         updateData,
-        {new: true}
+        { returnDocument: 'after' }
     );
 
 export const deleteProfile = (userId) => 

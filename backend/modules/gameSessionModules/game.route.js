@@ -7,17 +7,16 @@ const gameRouter = Router();
 
 gameRouter.use(authMiddleware);
 
-// Create new game instance
+// Create new game instance:
 gameRouter.post('/start',gameMiddleware.validCredentials ,gameController.startSession);
 // Controlling the flow of the game:
 gameRouter.get('/:id', gameController.getGameSession,);
 gameRouter.post('/:id/move', gameController.makeMove) // Making a move
-
-gameRouter.post('/:id/abort', gameController.abortGame) // Aborting the game
+// Aborting game: 
+gameRouter.post('/finish/abort/:id', gameController.abortGame) // Aborting the game
 // Getting player history:
 gameRouter.get('/history', gameController.getUserHistory);
-
-// Game is done
+// Game is done:
 gameRouter.patch('/finish/:id', gameController.endSession);
 
 export default gameRouter;
