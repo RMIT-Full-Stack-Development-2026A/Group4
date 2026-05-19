@@ -4,5 +4,6 @@ export class ProfileDTO {
         this.country = profile.country;
         this.avatarUrl = profile.avatarUrl;
         this.wallet_balance = profile.wallet_balance;
+        this.isPremium = profile.isPremium;
     }
 }

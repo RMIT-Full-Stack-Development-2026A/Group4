@@ -14,7 +14,6 @@ const Login = () => {
         loggedOutTime, handleChangingInput, submitLoginForm 
     } = useLogin();
 
-    // Returning JSX:
     return (
 
   <div className='min-h-screen flex items-center justify-center 
@@ -34,7 +33,7 @@ const Login = () => {
           <div className='flex flex-col gap-1'>
             <label className='text-sm text-white/80'>Email</label>
             <input
-              className='input-glass'
+              className='input-glass w-full '
               value={loginInput.email}
               type='email'
               name='email'

@@ -65,7 +65,7 @@ const PlayerInfo = ({ setPlayerInfo, setFirstPlayer }) => {
 
     return (
         <div className='flex shadow-lg p-5 flex-col gap-3'>
-            <h1 className='text-center text-3xl font-bold text-gray-900'>Enter Players' Information</h1>
+            <h1 className='text-center text-3xl font-bold text-gray-900'>Enter Player's Information</h1>
             {error && <p className='text-red-500 text-sm text-center'>{error}</p>}
             <div className='p-2 flex justify-center flex-col gap-10 items-center'>
                 <div className='rounded-lg p-4 flex-col flex gap-1'>
@@ -77,7 +77,7 @@ const PlayerInfo = ({ setPlayerInfo, setFirstPlayer }) => {
                         value={players.playerOneName}
                     />
                 </div>
-                <div className='rounded-lg flex p-4 gap-1'>
+                <div className='rounded-lg p-4 flex-col flex gap-1'>
                     <label>Player 2's Name</label>
                     <input
                         className='p-2 border-gray-700 border rounded-lg'
