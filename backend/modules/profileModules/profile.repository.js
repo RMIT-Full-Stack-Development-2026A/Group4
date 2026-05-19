@@ -27,3 +27,40 @@ export const getGameHistoryByUser = async (userId) => {
         ]
     }).sort({startTime: -1});
 }
+
+export const searchGameHistory = async (userId, query) => {
+    const {keyword} = query;
+
+    console.log("Search keyword", keyword);
+    console.log("query: ",query);
+    
+
+    const filter = {
+        host_id: userId
+    };
+
+    if(!keyword) {
+        return await GameSession.find(filter).sort({startTime: -1});
+    }  
+
+    const searchConditions = [];
+
+    //Search by guest_name (case-insensitive)
+    searchConditions.push({
+        guest_name: {$regex: keyword, $options: "i"}
+    });
+
+    //Search by session number
+    if(!isNaN(keyword)) {
+        searchConditions.push({
+            session_num: Number(keyword)
+        });
+    }
+
+    return await GameSession.find({
+        $and: [
+            filter,
+            {$or: searchConditions}
+        ]
+    }).sort({startTime: -1});
+}

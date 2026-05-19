@@ -6,6 +6,7 @@ import * as repo from './game.repository.js';
 
 // Starts the record in the database:
 export const startGame = async (userId, gameData) => {
+    
     const total = await repo.countTotalGames();
     return await repo.saveSession({
         host_id: userId,
@@ -72,7 +73,7 @@ export const makeMove = async ( row, col, playerId, id ) => {
     const { winner, winningCells } = checkWinner(updatedBoard, row, col, session.currentMarker);
     if (winner) {
         // Finish game:
-        await repo.updateSessionData(id, { board: updatedBoard, status: "FINISHED", winner: playerId, winningLine: winningCells })
+        await repo.updateSessionData(id, { board: updatedBoard, status: "FINISHED", winner: playerId, winningLine: winningCells, endTime: Date.now() })
         return {
             board: updatedBoard,
             status: "FINISHED",
@@ -85,18 +86,21 @@ export const makeMove = async ( row, col, playerId, id ) => {
     if (session.gameType !== "MULTIPLAYER") {
         // finding the ai and making the move
         const ai = getAiInstance(session.guest_name)
+        console.log(ai);
         const aiMove = ai.makeMove(updatedBoard, {row, col}, session.markers[0], session.markers[1]);
+        console.log(aiMove);
         // Applying the move
         const afterAiBoard = applyMove( aiMove.row, aiMove.col, updatedBoard, session.markers[1] );
+
         // Checking if a winner exists
-        const { winner: aiWinner , winningCells: aiWinningCells } = checkWinner(afterAiBoard, aiMove.row, aiMove.col, session.markers[1]);
-        if ( aiWinner ) {
-            await repo.updateSessionData(id, { board: afterAiBoard, status: "FINISHED", winner: playerId, winningLine: aiWinningCells });
+        const { winner: aiWinner, winningCells: aiWinningCells } = checkWinner(afterAiBoard, aiMove.row, aiMove.col, session.markers[1]);
+        if (aiWinner) {
+            await repo.updateSessionData(id, {board: afterAiBoard, status: "FINISHED", winner: guest_name, winningLine: aiWinningCells, endTime: Date.now()});
             return {
                 board: afterAiBoard,
                 status: "FINISHED",
-                winner: playerId,
-                winningCells: aiWinningCells,
+                winner: session.guest_name,
+                winningCells: aiWinningCells
             }
         }
         

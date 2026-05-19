@@ -7,7 +7,8 @@ export const AUTH_ENDPOINTS = {
 
 export const PROFILE_ENDPOINTS = {
     PROFILE: '/profile',
-    UPLOAD_AVATAR: '/profile/avatar'
+    UPLOAD_AVATAR: '/profile/avatar',
+    GAME_HISTORY: '/profile/games/search'
 };
 
 export const ADMIN_ENDPOINTS = {

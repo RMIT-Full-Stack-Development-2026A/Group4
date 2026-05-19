@@ -30,4 +30,5 @@ router.get('/games', authMiddleware, controller.getGameHistory);
 //GAME stats
 router.get('/stats', authMiddleware, controller.getGameStats);
 
+router.get('/games/search', authMiddleware, controller.searchGames);
 export default router;

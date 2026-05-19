@@ -93,3 +93,22 @@ export const getGameStats = async (req, res) => {
         });
     }
 };
+
+export const searchGames = async (req, res) => {
+    try {
+        const {keyword} = req.query;
+        console.log("Keyword from query: ", keyword);
+        
+        const data = await profileService.searchGameHistory(req.user.id, {keyword});
+
+        res.status(200).json({
+            success: true,
+            data
+        });
+    } catch (err){
+        res.status(400).json({
+            success: false,
+            message: err.message
+        });
+    }
+}
