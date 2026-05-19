@@ -31,10 +31,10 @@ export class mediumAi extends easyAi  {
     }
     makeMove (board, lastMove, playerMarker) {
         // Detecting 5 lines:
-        const blockFive = detectOpenLine(board, playerMarker, 5);
+        const blockFive = detectOpenLine(board, playerMarker, 4);
         if (blockFive) return blockFive
         // Detecting 4 lines:
-        const blockFour = detectOpenLine(board, playerMarker, 4);
+        const blockFour = detectOpenLine(board, playerMarker, 3, true);
         if (blockFour) return blockFour
         // Detecting fork formation:
         const forkFormation = detectFork(board, playerMarker);
@@ -51,6 +51,7 @@ export class hardAi extends mediumAi {
     makeMove (board, lastMove, playerMarker, aiMarker) {
         const winMove = detectOpenLine(board, aiMarker, 4);
         if (winMove) return winMove;
+
         return super.makeMove(board, lastMove, playerMarker)
     }
 }

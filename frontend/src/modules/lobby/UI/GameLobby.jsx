@@ -42,10 +42,11 @@ const GameLobby = () => {
     // If unchosen marker:
     if (!playerInfo.playerOneMarker || !playerInfo.playerTwoMarker) {
       setError('Please select markers for both players')
+      setStep(STEPS.PLAYERS);
       return
     }
 
-    const correctFirstPlayer = {
+    const FirstPlayer = firstPlayer || {
       name: playerInfo.playerOneName,
       marker: playerInfo.playerOneMarker
     };
@@ -53,7 +54,7 @@ const GameLobby = () => {
     setError(null)
     setLoading(true)
     try {
-      const data = await handleStartGame(userId, playerInfo, gameMode, boardConfig, correctFirstPlayer)
+      const data = await handleStartGame(userId, playerInfo, gameMode, boardConfig, FirstPlayer)
       navigate(`/game/${data.data.id}`)
     } catch (err) {
       setError('Failed to start game, please try again');
