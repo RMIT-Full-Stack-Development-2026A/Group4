@@ -1,37 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { getGameData } from '../service/gameServices';
-import BoardDisplay from '../component/BoardDisplay';
+import React from 'react'
+import { useNavigate} from 'react-router-dom'
+import Board from '../component/Board';
+import { useGame } from '../../../context/GameContext';
 
 const GameOver = () => {
-    const { id } = useParams();
-    const [gameData, setGameData] = useState(null);
-    useEffect(()=>{
-        const getData = async () => {
-            const data = await getGameData(id);
-            setGameData(data.data);
-            console.log(gameData);
-        }
-        getData();
-    }, [id])
-    console.log(gameData);
+    // Extracting from game context:
+    const { gameState,  currentStyle } = useGame();
+    // Navigating:
     const navigate = useNavigate();
-    if (!gameData) return <div>Loading game data</div>
+
+    if (!gameState) return <div>Loading game data</div>
     return (
         <div>
             <h1>Game Over!</h1>
             <div>
-                <p>Winner: {gameData.winner}</p>
-                <p>Status: {gameData.status}</p>
+                <p>Winner: {gameState.winner}</p>
+                <p>Status: {gameState.status}</p>
                 <div>
                     <h1>Players:</h1>
-                    <p>Player One: {gameData.host_name}</p>
-                    <p>Player Two: {gameData.guest_name}</p>
+                    <p>Player One: {gameState.host_name}</p>
+                    <p>Player Two: {gameState.guest_name}</p>
                 </div>
                 <div>
                     <h1>Board:</h1>
                     <div>
-                        <BoardDisplay board={gameData.board} winningCells={gameData.winningLine} />
+                        <Board board={gameState.board} styling={currentStyle} winningCells={gameState.winningCells} />
                     </div>
                 </div>
             </div>

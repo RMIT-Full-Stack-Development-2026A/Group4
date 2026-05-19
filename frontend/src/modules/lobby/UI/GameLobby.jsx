@@ -52,7 +52,8 @@ const GameLobby = () => {
             const data = await startGame(userId, gameUTO)
             navigate(`/game/${data.data.id}`)
         } catch (err) {
-            setError('Failed to start game, please try again')
+            setError('Failed to start game, please try again');
+            console.error(err);
         } finally {
             setLoading(false)
         }
