@@ -87,6 +87,19 @@ export const updateProfile = async (userId, data) => {
 
     //Password
     if(data.password){
+
+        //require current password
+        if(!data.oldPassword) {
+            throw new Error("Old password is required");
+        }
+
+        //verify old password
+        const isMatch = await bcrypt.compare(data.oldPassword, account.password);
+
+        if(!isMatch){
+            throw new Error("Incorrect old password");
+        }
+        
         if (
             data.password.length < 8 ||
             !/[A-Z]/.test(data.password) ||

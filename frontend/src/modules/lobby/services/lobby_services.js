@@ -1,6 +1,5 @@
 import { httpHelper } from "../../../utils/httpHelper"
 import { GAME_ENDPOINTS } from "../../../config/apiConfig"
-import { boardStyles } from "./stylingLayouts"
 // Step in setting up
 export const STEPS = { SETUP: 'setup', PLAYERS: 'players', MARKERS: 'markers' }
 
@@ -18,7 +17,7 @@ export const createGameUTO = ( playerOneName, playerTwoName, gameMode, boardLayo
         guest_name: playerTwoName,
         gameType: gameMode,
         boardSize: boardLayout,
-        boardStyles: boardStyles,
+        boardStyle: boardStyle,
         markers: markers,
         currentPlayer: firstPlayer.name,
         currentMarker: firstPlayer.marker,

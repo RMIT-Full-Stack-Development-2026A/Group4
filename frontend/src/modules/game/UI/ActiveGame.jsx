@@ -1,24 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getGameData, makeMove, abortGame } from '../service/gameServices'
+import { makeMove, abortGame } from '../service/gameServices'
 import Board from '../component/Board';
+import { useGame } from '../../../context/GameContext';
 
+// Component:
 const ActiveGame = () => {
     // params, states, navigate:
     const { id } = useParams();
     const navigate = useNavigate();
-    const [gameState, setGameState] = useState(null);
-    
-    // Fetching game state
-    useEffect(()=>{
-        const fetchData = async () => {
-            const data = await getGameData(id);
-            if (data.success) setGameState(data.data);
-        }
-        fetchData();
-    }, [id])
+    const { gameState, setGameState, currentStyle } = useGame()
 
-    // Handling move
+    // Handling move:
     const handleMove = async (row, col) => {
         const data = await makeMove(row, col, gameState.currentPlayer, id);
         if (data.success) setGameState(data.data);
@@ -31,10 +24,8 @@ const ActiveGame = () => {
     // Game abortion:
     const handleGameAbortion = async () => {
         const aborted = await abortGame(id);
-        if (!aborted) {
-            throw new Error("Error aborting this game");
-        }
-        navigate('/lobby')
+        if (aborted) throw new Error("Error aboring game!");
+        navigate('/lobby');
     }
 
     // Loading state
@@ -47,7 +38,7 @@ const ActiveGame = () => {
             <h1>{gameState.guest_name}</h1>
             <div>
                 <h1>Current Player: {gameState.currentPlayer} | {gameState.currentMarker}</h1>
-                <Board board={gameState.board} id ={id} makeMove={handleMove} playerId={gameState.currentPlayer} />
+                <Board styling={currentStyle} board={gameState.board} id={id} makeMove={handleMove} playerId={gameState.currentPlayer} interactive/>
             </div>
             <button onClick={()=>handleGameAbortion()}>Abort Game</button>
         </div>

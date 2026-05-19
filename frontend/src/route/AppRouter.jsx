@@ -21,6 +21,8 @@ import PlanDetails from "../modules/subscription/components/PlanDetails";
 import GameSession from "../modules/game/UI/ActiveGame";
 import ActiveGame from "../modules/game/UI/ActiveGame";
 import GameOver from "../modules/game/UI/GameOver";
+import ProfileEditPage from "../modules/profile/UI/ProfileEditPage";
+import ProfilePasswordPage from "../modules/profile/UI/ProfilePasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,9 @@ const router = createBrowserRouter([
     children: [
       { path: 'lobby', element: <GameLobby /> },
       { path: 'profile', element: <Profile /> },
+      { path: 'profile/edit', element: <ProfileEditPage />},
+      { path: 'profile/password', element: <ProfilePasswordPage />},
+      
       { 
         path: 'subscription', 
         element: <Subscription />,
