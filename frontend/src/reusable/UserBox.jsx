@@ -14,9 +14,6 @@ export default function UserBox({ username, avatarUrl }) {
                 <div className="truncate text-sm font-bold text-white uppercase">
                     {username}
                 </div>
-                <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider"> 
-                    Click to see Profile 
-                </div>
             </div>
 
         </Link>

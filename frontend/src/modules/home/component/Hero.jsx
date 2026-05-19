@@ -1,5 +1,5 @@
 import SignUpButton from "../../../reusable/SignUpButton"
-
+import gameImage from "../../../assets/logoAppImage.png"
 const Hero = () => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between
@@ -21,12 +21,21 @@ const Hero = () => {
               </div>
             </div>
 
-            {/*RIGHT*/}
+             {/* RIGHT */}
             <div className="mt-10 md:mt-0">
-              <div className="w-[300px] h-[300px] bg-white/20 backdrop-blur-md
-                    rounded-2xl flex items-center justify-center shadow-xl">
-                      <span className="text-white/70">GAME IMAGE</span>
-                    </div>
+              <div className="w-[300px] h-[300px] 
+                    bg-white/10 backdrop-blur-md 
+                    rounded-2xl flex items-center justify-center 
+                    shadow-xl overflow-hidden">
+
+                {/* IMAGE */}
+                <img 
+                  src={gameImage}
+                  alt="TicTacToe Game"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+
+              </div>
             </div>
           </div>
   )
