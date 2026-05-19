@@ -1,13 +1,17 @@
 // Importing dependencies:
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/UserContext';
 import { 
     startStripeService, 
     buyWithWalletService, 
-    depositService 
+    depositService,
+    verifyStripeService 
 } from '../service/subscriptionService';
 
 export const useSubscription = () => {
+    const navigate = useNavigate();
+
     // Auth Context:
     const { user, updateUserInfo } = useAuth();
 
@@ -32,11 +36,12 @@ export const useSubscription = () => {
             setErrorMessage('');
             
             const result = await depositService(amount);
-            
+            const updatedBalance = user.wallet_balance + result.amount;
+
             // Update the user's wallet balance
             updateUserInfo({
                 ...user,
-                wallet_balance: result.data.amount 
+                wallet_balance: updatedBalance
             });
             
             alert(`Successfully deposited $${amount}!`);
@@ -47,7 +52,7 @@ export const useSubscription = () => {
         }
     };
 
-    // Logic for purchasing premium with wallet (Requirement 5.1.1):
+    // Purchasing premium with wallet
     const handleWalletPurchase = async () => {
         try {
             setLoading(true);
@@ -61,16 +66,15 @@ export const useSubscription = () => {
                 isPremium: true
             });
             
-            alert("Welcome to the Premium Arena!");
+            navigate('/subscription/status');
         } catch (err) {
             setErrorMessage(err.message);
-        } finally {
             setLoading(false);
         }
     };
 
-    // Logic for starting a Stripe payment (Requirement 5.2.1):
-    const handleStripePurchase = async () => {
+    // Start a purchase session with Stripe
+    const startStripePurchase = async () => {
         try {
             setLoading(true);
             setErrorMessage('');
@@ -81,8 +85,22 @@ export const useSubscription = () => {
             window.location.href = url;
         } catch (err) {
             setErrorMessage(err.message);
-        } finally {
             setLoading(false);
+        }
+    };
+
+    // Verify the Stripe payment
+    const verifyStripePayment = async (sessionId) => {
+        try {
+            // Send the ID to the backend
+            await verifyStripeService(sessionId);
+            
+            // If successful, update the global state so sidebar changes instantly
+            updateUserInfo({ ...user, isPremium: true });
+            return true; // Signal success to the view
+        } catch (err) {
+            console.error("Verification failed:", err);
+            return false; // Signal failure to the view
         }
     };
 
@@ -93,6 +111,7 @@ export const useSubscription = () => {
         user,
         handleDeposit,
         handleWalletPurchase,
-        handleStripePurchase
+        startStripePurchase,
+        verifyStripePayment
     };
 };
