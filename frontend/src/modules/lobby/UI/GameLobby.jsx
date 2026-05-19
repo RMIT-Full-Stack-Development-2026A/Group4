@@ -29,7 +29,6 @@ const GameLobby = () => {
   useEffect(() => {
     if (gameMode && gameMode !== 'MULTIPLAYER') {
       setPlayerInfo(prev => ({ ...prev, playerOneName: user.username }))
-      setFirstPlayer({ name: user.username, marker: INITIAL_PLAYER_INFO.playerOneMarker })
     }
   }, [ gameMode ])
 
@@ -45,10 +44,16 @@ const GameLobby = () => {
       setError('Please select markers for both players')
       return
     }
+
+    const correctFirstPlayer = {
+      name: playerInfo.playerOneName,
+      marker: playerInfo.playerOneMarker
+    };
+
     setError(null)
     setLoading(true)
     try {
-      const data = await handleStartGame(userId, playerInfo, gameMode, boardConfig, firstPlayer)
+      const data = await handleStartGame(userId, playerInfo, gameMode, boardConfig, correctFirstPlayer)
       navigate(`/game/${data.data.id}`)
     } catch (err) {
       setError('Failed to start game, please try again');
