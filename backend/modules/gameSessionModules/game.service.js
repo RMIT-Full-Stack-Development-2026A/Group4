@@ -13,6 +13,7 @@ export const startGame = async (userId, gameData) => {
         guest_name: gameData.guest_name,
         gameType: gameData.gameType,
         boardSize: gameData.boardSize,
+        boardStyle: gameData.boardStyle,
         markers: gameData.markers,
         board: createBoard(gameData.boardSize),
         currentPlayer: gameData.currentPlayer,
@@ -77,7 +78,7 @@ export const makeMove = async ( row, col, playerId, id ) => {
             board: updatedBoard,
             status: "FINISHED",
             winner: playerId,
-            winningCells
+            winningCells,
         };
     }
 
@@ -97,7 +98,7 @@ export const makeMove = async ( row, col, playerId, id ) => {
                 status: "FINISHED",
                 winner: playerId,
                 winningCells: aiWinningCells,
-            }
+            };
         }
         
         // Updating session and switching turn

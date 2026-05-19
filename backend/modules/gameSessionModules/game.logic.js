@@ -40,7 +40,7 @@ export const checkWinner = ( board, row, col, marker ) => {
         if (cells.length >= 5) return { winner: true, winningCells: cells };
     }
     // Map out the directions and automatically check the board?
-    return {winner: false, winningCells: []}
+    return { winner: false, winningCells: [] }
 };
 
 // Validate square:
