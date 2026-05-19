@@ -1,3 +1,4 @@
+import checkPremiumExpiry from "../shared/checkPremiumExpiry.js";
 import { AdminRepository } from "./admin.repository.js";
 import { AdminDTO } from "./admin.dto.js";
 import { 
@@ -10,8 +11,11 @@ export const AdminService = {
 
     getAllPlayersList: async () => {
         const rawData = await AdminRepository.fetchAllPlayers();
-        // turn raw data to dto
-        const dtoList = rawData.map(data => new AdminDTO(data.acc, data.prof));
+        // turn raw data to dto (check premium expiry as well)
+        const dtoList = await Promise.all(rawData.map(async (data) => {
+            if (data.prof) await checkPremiumExpiry(data.prof);
+            return new AdminDTO(data.acc, data.prof);
+        }));
         return dtoList;
     },
 

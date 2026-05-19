@@ -6,6 +6,12 @@ export const getHistoryService = async () => {
     return res.data.data;
 };
 
+export const getPlanService = async () => {
+    const res = await httpHelper.get(SUBSCRIPTION_ENDPOINTS.GET_PLAN);
+    if (res.status !== 200) throw new Error(res.data.message || "Failed to load plan details");
+    return res.data.data;
+};
+
 export const depositService = async (amount) => {
     const res = await httpHelper.post(SUBSCRIPTION_ENDPOINTS.DEPOSIT, { amount });
     if (res.status !== 200) throw new Error(res.data.message || "Deposit failed");
@@ -18,12 +24,11 @@ export const buyWithWalletService = async () => {
     return res.data.data;
 };
 
-export const startStripeService = async (priceId) => {
+export const startStripeService = async () => {
 
     const baseUrl = window.location.origin;
     
     const payload = {
-        priceId,
         successUrl: `${baseUrl}/subscription/status?session_id={CHECKOUT_SESSION_ID}`,
         cancelUrl: `${baseUrl}/subscription/status?failure=true`
     };

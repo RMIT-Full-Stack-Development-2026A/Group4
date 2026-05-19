@@ -1,5 +1,10 @@
 import * as subsService from './subscription.service.js';
 
+export const getPlanDetails = (req, res) => {
+    const plan = subsService.getActivePlan();
+    res.status(200).json({ success: true, data: plan });
+};
+
 // Controller for depositing money into wallet
 export const depositMoney = async (req, res, next) => {
     try {

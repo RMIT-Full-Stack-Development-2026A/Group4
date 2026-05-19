@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import checkPremiumExpiry from '../shared/checkPremiumExpiry.js';
 import * as accRepo from './account.repository.js';
 import { createProfile, findProfileByUserId } from '../profileModules/profile.repository.js';
 import { TokenDTO } from './account.dto.js';
@@ -110,6 +111,7 @@ export const loginService = async ( email, password ) => {
 
         // Creating token DTO: 
         const userProfile = await findProfileByUserId(user._id);
+        await checkPremiumExpiry(userProfile)
         const payload = new TokenDTO(user, userProfile);
 
         // Creating token:
@@ -130,5 +132,6 @@ export const getMeService = async (userId) => {
     const user = await accRepo.findById(userId);
     const profile = await findProfileByUserId(userId);
 
+    await checkPremiumExpiry(profile)
     return new TokenDTO(user, profile);
 };

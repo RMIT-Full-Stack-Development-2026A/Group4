@@ -14,8 +14,7 @@ export const AdminRepository = {
         // Get the profile info
         const playerIds = accounts.map(acc => acc._id);
         const profiles = await Profile.find({ user_id: { $in: playerIds }})
-                                      .select('user_id isPremium') 
-                                      .lean();
+                                      .select('user_id isPremium');
 
         // Merge and return account and profile info to the Service
         return accounts.map(acc => {

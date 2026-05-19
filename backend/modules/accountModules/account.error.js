@@ -14,7 +14,7 @@ export class invalidCredentialsError extends AppError {
 }
 // User is deactivated => account status is deactivated
 export class userIsDeactivatedError extends AppError {
-    constructor ( message='This account is deactivated!' ) {
+    constructor ( message='Locked: This account is deactivated!' ) {
         super(403, message);
     }
 }
