@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { INITIAL_PLAYER_INFO } from '../services/lobbyservices';
+import { INITIAL_PLAYER_INFO } from '../services/lobby_services';
 
 const PlayerInfo = ({ setPlayerInfo, setFirstPlayer }) => {
     const [players, setPlayers] = useState(INITIAL_PLAYER_INFO)
