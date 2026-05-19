@@ -1,6 +1,6 @@
 import { httpHelper} from "../../../utils/httpHelper";
-import { GAME_ENDPOINTS } from "../../../config/apiConfig";
-import { boardStyles } from "../../lobby/services/stylingLayouts";
+import { GAME_ENDPOINTS } from "../../../config/ApiConfig";
+import { boardStyles } from "../../lobby/services/styling_layouts";
 
 export const getGameData = async (id) => {
     // fetching from backend
@@ -19,9 +19,9 @@ export const makeMove = async ( row, col, playerId, id ) => {
     return res.data
 }
 
+// Abboring a game:
 export const abortGame = async (id) => {
-    alert("You're aborting this game. Proceed?");
-    const res = await httpHelper.post(GAME_ENDPOINTS.ABORT_GAME(id));
+    const res = await httpHelper.post(GAME_ENDPOINTS.ABORT_GAME(id)); 
     if (res.status !== 200) {
         throw new Error("Error aborting game!");
     }

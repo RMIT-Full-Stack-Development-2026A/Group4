@@ -44,6 +44,15 @@ export class moveDTO {
     }
 }
 
+export class winningGameDto {
+    constructor (game) {
+        this.winner = game.playerId,
+        this.status = "FINISHED",
+        this.winningCells = game.winningLine,
+        this.board = game.board
+    }
+}
+
 // Enough information to start a game: 
 export class startGameDTO {
     constructor (game) {
