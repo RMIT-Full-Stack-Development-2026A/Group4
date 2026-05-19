@@ -18,7 +18,7 @@ export const startGame = async (userId, gameData) => {
         boardStyle: gameData.boardStyle,
         markers: gameData.markers,
         board: createBoard(gameData.boardSize),
-        currentPlayer: gameData.currentPlayer,
+        currentPlayer: gameData.markers[0],
         currentMarker: gameData.currentMarker,
         session_num: total + 1,
     });
@@ -80,7 +80,7 @@ export const makeMove = async ( row, col, playerId, id ) => {
             board: updatedBoard,
             status: "FINISHED",
             winner: playerId,
-            winningCells: WinningCells,
+            winningCells: winningCells,
         }
     }
 
@@ -97,7 +97,7 @@ export const makeMove = async ( row, col, playerId, id ) => {
         // Checking if a winner exists
         const { winner: aiWinner, winningCells: aiWinningCells } = checkWinner(afterAiBoard, aiMove.row, aiMove.col, session.markers[1]);
         if (aiWinner) {
-            await repo.updateSessionData(id, {board: afterAiBoard, status: "FINISHED", winner: guest_name, winningLine: aiWinningCells, endTime: Date.now()});
+            await repo.updateSessionData(id, {board: afterAiBoard, status: "FINISHED", winner: session.guest_name, winningLine: aiWinningCells, endTime: Date.now()});
             return {
                 board: afterAiBoard,
                 status: "FINISHED",
