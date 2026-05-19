@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { getProfileService, updateProfileService, uploadAvatarService } from "../service/profileService";
+import { getProfileService, updateProfileService, uploadAvatarService, searchGamesService } from "../service/profileService";
 
 export const useProfile = () => {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const [games, setGames] = useState([]);
+    const [gameLoading, setGameLoading] = useState(false);
+    const [gameError, setGameError] = useState(null);
 
     const fetchProfile = async () => {
         try {
@@ -44,12 +48,33 @@ export const useProfile = () => {
         }
     }
 
+    const searchGames = async (query) => {
+        try {
+            setGameLoading(true);
+
+            const res = await searchGamesService(query);
+
+            setGames(res);
+            setGameError(null);
+        } catch (err) {
+            setGameError(err.message);
+        } finally {
+            setGameLoading(false);
+        }
+};
+
+
+
     return {
         profile,
         loading,
         error,
         fetchProfile,
         updateProfile,
-        uploadAvatar
+        uploadAvatar,
+        games,
+        gameLoading,
+        gameError,
+        searchGames
     };
 };

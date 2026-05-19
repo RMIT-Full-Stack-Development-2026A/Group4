@@ -23,6 +23,7 @@ import ActiveGame from "../modules/game/UI/ActiveGame";
 import GameOver from "../modules/game/UI/GameOver";
 import ProfileEditPage from "../modules/profile/UI/ProfileEditPage";
 import ProfilePasswordPage from "../modules/profile/UI/ProfilePasswordPage";
+import GameHistory from "../modules/profile/UI/GameHistory";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
       { path: 'profile/edit', element: <ProfileEditPage />},
       { path: 'profile/password', element: <ProfilePasswordPage />},
+      { path: 'history', element: <GameHistory />},
       
       { 
         path: 'subscription', 

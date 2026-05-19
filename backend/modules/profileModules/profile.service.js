@@ -16,6 +16,7 @@ import {
 } from "./profile.error.js";
 
 import { errorCreatingNewUser } from '../accountModules/account.error.js';
+import { gameDTO } from '../gameSessionModules/game.dto.js';
 
 // Creating new profile: 
 export const createNewProfile = async ( accountId, country ) => {
@@ -99,7 +100,7 @@ export const updateProfile = async (userId, data) => {
         if(!isMatch){
             throw new Error("Incorrect old password");
         }
-        
+
         if (
             data.password.length < 8 ||
             !/[A-Z]/.test(data.password) ||
@@ -194,4 +195,17 @@ export const getGameStats = async (userId) => {
         loses,
         draws
     };
+};
+
+export const searchGameHistory = async (userId, query) => {
+    const profile = await profileRepo.findProfileByUserId(userId);
+
+    console.log("Service: ", query);
+    
+    if(!profile) {
+        throw new ProfileNotFoundError();
+    }
+
+    const games = await profileRepo.searchGameHistory(userId, query);
+    return games.map(game => new gameDTO(game));
 };

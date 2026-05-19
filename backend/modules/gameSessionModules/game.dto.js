@@ -6,7 +6,7 @@ export class gameDTO {
         this.host = game.host_name;
         this.guest = game.guest_name;
 
-        this.type = game.type;
+        this.type = game.gameType;
         this.size = game.boardSize;
 
         this.status = game.status;
