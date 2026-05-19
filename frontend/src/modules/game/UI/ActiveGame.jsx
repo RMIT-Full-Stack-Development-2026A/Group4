@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { makeMove, abortGame } from '../service/gameServices'
+import { makeMove, abortGame } from '../service/game_services'
 import Board from '../component/Board';
 import { useGame } from '../../../context/GameContext';
 
@@ -24,7 +24,7 @@ const ActiveGame = () => {
     // Game abortion:
     const handleGameAbortion = async () => {
         const aborted = await abortGame(id);
-        if (aborted) throw new Error("Error aboring game!");
+        if (!aborted) throw new Error("Error aboring game!");
         navigate('/lobby');
     }
 

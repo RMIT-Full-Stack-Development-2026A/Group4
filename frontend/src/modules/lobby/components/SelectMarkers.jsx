@@ -1,5 +1,5 @@
 import React from 'react'
-import { markers } from '../services/stylingLayouts'
+import { markers } from '../services/styling_layouts'
 
 const SelectMarkers = ({ playerInfo, setPlayerInfo, isAi = false }) => {
 

@@ -4,13 +4,12 @@ import { GameProvider } from '../context/GameContext'
 
 
 const GameLayout = () => {
-  
   return (
     <GameProvider>
       <div>
-          <main>
-              <Outlet />
-          </main>
+        <main>
+          <Outlet />
+        </main>
       </div>
     </GameProvider>
   )

@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import { useContext, createContext } from "react";
 import { useParams } from "react-router-dom";
-import { fetchGamePlayData } from "../modules/game/service/gameServices";
+import { fetchGamePlayData } from "../modules/game/service/game_services";
 
 // Creating context
 const GameContext = createContext(null);
-
-// Defining game hook:
-export const useGame = () => useContext(GameContext);
 
 // Provider function: 
 export const GameProvider = ({children}) => {
@@ -35,3 +32,6 @@ export const GameProvider = ({children}) => {
         </GameContext.Provider>
     )
 };  
+
+// Defining game hook:
+export const useGame = () => useContext(GameContext);
