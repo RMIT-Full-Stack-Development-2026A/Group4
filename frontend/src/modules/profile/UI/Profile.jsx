@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../../context/UserContext';
 import ProfileDisplay from '../components/ProfileDisplay';
-import {Camera, Edit, Lock} from 'lucide-react'
+import {Camera, Lock} from 'lucide-react'
 import { useProfile } from '../hook/useProfile';
 import { useNavigate } from 'react-router-dom';
 
