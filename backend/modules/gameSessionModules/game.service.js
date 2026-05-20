@@ -7,8 +7,28 @@ import * as repo from './game.repository.js';
 
 // Starts the record in the database:
 export const startGame = async (userId, gameData) => {
-    
     const total = await repo.countTotalGames();
+    let board = createBoard(gameData.boardSize);
+    
+    let currentPlayer = gameData.currentPlayer;
+    let currentMarker = gameData.currentMarker;
+
+    // If it's an AI game and the Bot is chosen to start
+    if (gameData.gameType === 'AI' && currentPlayer === gameData.guest_name) {
+        const ai = getAiInstance(gameData.guest_name);
+        
+        // AI makes its first move (we pass center coordinates as a hint for the first move)
+        const center = Math.floor(gameData.boardSize / 2);
+        const aiMove = ai.makeMove(board, { row: center, col: center }, gameData.markers[0], gameData.markers[1]);
+        
+        // Apply the AI's move to the board
+        board = applyMove(aiMove.row, aiMove.col, board, gameData.markers[1]);
+        
+        // Now switch the turn back to the Human (host) before saving
+        currentPlayer = gameData.host_name;
+        currentMarker = gameData.markers[0];
+    }
+
     return await repo.saveSession({
         host_id: userId,
         host_name: gameData.host_name,
@@ -17,9 +37,9 @@ export const startGame = async (userId, gameData) => {
         boardSize: gameData.boardSize,
         boardStyle: gameData.boardStyle,
         markers: gameData.markers,
-        board: createBoard(gameData.boardSize),
-        currentPlayer: gameData.currentPlayer,
-        currentMarker: gameData.currentMarker,
+        board: board,
+        currentPlayer: currentPlayer,
+        currentMarker: currentMarker,
         session_num: total + 1,
     });
 };
@@ -90,7 +110,8 @@ export const makeMove = async ( row, col, playerId, id ) => {
             board: updatedBoard, 
             status: "FINISHED", 
             winner: "Draw", 
-            endTime: Date.now() 
+            endTime: Date.now(),
+            markers: session.markers  
         });
     }
 
