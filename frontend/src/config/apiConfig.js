@@ -4,13 +4,14 @@ export const AUTH_ENDPOINTS = {
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
     LOGOUT: '/auth/logout',
-    ME: '/auth/me'
+    ME: '/auth/me',
+    CHANGE_PASSWORD: '/auth/change-password',
 };
 
 export const PROFILE_ENDPOINTS = {
     PROFILE: '/profile',
     UPLOAD_AVATAR: '/profile/avatar',
-    GAME_HISTORY: '/profile/games/search'
+    GAME_HISTORY: '/profile/games/search',
 };
 
 export const ADMIN_ENDPOINTS = {

@@ -18,16 +18,6 @@ export const updateProfile = (userId, updateData) =>
 export const deleteProfile = (userId) => 
     Profile.findOneAndDelete({user_id: userId});
 
-//Still need to implement to fetch game history 
-export const getGameHistoryByUser = async (userId) => {
-    return await GameSession.find({
-        $or: [
-            {host_id: userId},
-            {guest_id: userId}
-        ]
-    }).sort({startTime: -1});
-}
-
 export const searchGameHistory = async (userId, query) => {
     const {
         keyword,
@@ -39,29 +29,27 @@ export const searchGameHistory = async (userId, query) => {
     } = query;
 
     console.log("Search keyword", keyword);
-    console.log("Repo query: ", query);
-    
 
     const conditions = [];
 
-    // 🔥 ALWAYS filter by user
+    // Always filter by user
     conditions.push({
         host_id: userId
     });
 
-    // 🔍 SEARCH
+    // Search
     if (keyword && keyword.trim() !== "") {
         conditions.push({
             guest_name: { $regex: keyword, $options: "i" }
         });
     }
 
-    // 🎮 TYPE
+    // Type
     if (type && type !== "ALL") {
         conditions.push({ gameType: type });
     }
 
-    // 📅 DATE
+    // Date
     if (startDate || endDate) {
         const dateFilter = {};
 
@@ -77,7 +65,7 @@ export const searchGameHistory = async (userId, query) => {
         });
     }
 
-    // 🔄 SORT
+    // Sort
     const sortOption =
         sort === "oldest"
             ? { startTime: 1 }
@@ -85,7 +73,7 @@ export const searchGameHistory = async (userId, query) => {
 
         console.log("FINAL QUERY:", JSON.stringify(conditions, null, 2));
 
-    // 🔥 FINAL QUERY
+    // Final query
     const games = await GameSession.find({
         $and: conditions
     }).sort(sortOption);
