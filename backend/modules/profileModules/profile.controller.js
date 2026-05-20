@@ -59,52 +59,17 @@ export const uploadAvatar = async (req, res) => {
     }
 };
 
-//GAME implementation will be added here in the future
-//Get game history
-export const getGameHistory = async (req, res) => {
-    try{
-        const data = await profileService.getGameHistory(req.user.id);
-
-        res.status(200).json({
-            success: true,
-            data
-        });
-    } catch (err){
-        res.status(400).json({
-            success: false,
-            message: err.message
-        });
-    }
-};
-
-//Get stats
-export const getGameStats = async (req, res) => {
-    try{
-        const data = await profileService.getGameStats(req.user.id);
-
-        res.status(200).json({
-            success: true,
-            data
-        });
-    } catch (err){
-        res.status(400).json({
-            success: false,
-            message: err.message
-        });
-    }
-};
-
 export const searchGames = async (req, res) => {
     try {
-        const {keyword} = req.query;
-        console.log("Keyword from query: ", keyword);
+        console.log("Keyword from query: ", req.query);
         
-        const data = await profileService.searchGameHistory(req.user.id, {keyword});
+        const data = await profileService.searchGameHistory(req.user.id, req.query);
 
         res.status(200).json({
             success: true,
             data
         });
+        
     } catch (err){
         res.status(400).json({
             success: false,
