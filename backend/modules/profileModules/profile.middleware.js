@@ -19,17 +19,6 @@ export const validateProfileUpdate = (req, res, next) => {
         }
     }
 
-    //Password
-    if(password) {
-       if (
-            password.length < 8 ||
-            !/[A-Z]/.test(password) ||
-            !/[0-9]/.test(password)
-        ) {
-            return res.status(400).json({message: 'Weak password'});
-        }
-    }
-
     //Country
     if(country && typeof country !== 'string') {
         return res.status(400).json({message: 'Country must be a string'});

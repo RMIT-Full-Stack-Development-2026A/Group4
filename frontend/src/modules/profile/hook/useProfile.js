@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getProfileService, updateProfileService, uploadAvatarService, searchGamesService } from "../service/profileService";
+import { getProfileService, updateProfileService, uploadAvatarService, changePasswordService, searchGamesService } from "../service/profileService";
 
 export const useProfile = () => {
     const [profile, setProfile] = useState(null);
@@ -48,6 +48,21 @@ export const useProfile = () => {
         }
     }
 
+    const changePassword = async (payload) => {
+        try{
+            setLoading(true);
+
+            const res = await changePasswordService(payload);
+
+            setError(null);
+            return res;
+        } catch (err){
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    }
     const searchGames = async (query) => {
         try {
             setGameLoading(true);
@@ -75,6 +90,7 @@ export const useProfile = () => {
         games,
         gameLoading,
         gameError,
-        searchGames
+        searchGames,
+        changePassword
     };
 };
