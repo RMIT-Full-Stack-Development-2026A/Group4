@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Board = ({ board, winningCells = [], styling, makeMove, playerId, id, interactive = false }) => {
+const Board = ({ board, winningCells = [], styling, makeMove, playerId, id, interactive = false, markers = [] }) => {
   const style = Array.isArray(styling) ? styling[0] : styling;
 
   const isWinningCell = (r, c) =>
@@ -13,7 +13,7 @@ const Board = ({ board, winningCells = [], styling, makeMove, playerId, id, inte
 
   const getMarkerColor = (cell) => {
     if (!cell) return ''
-    return cell === board[0][0] ? 'text-blue-500' : 'text-red-500'
+    return cell === markers[0] ? 'text-blue-500' : 'text-red-500';
   }
 
   return (

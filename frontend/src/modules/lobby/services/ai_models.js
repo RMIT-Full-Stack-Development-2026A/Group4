@@ -17,7 +17,7 @@ export const AIModels = [
         name: "John",
         id: 3,
         difficulty: "HARD",
-        description: "Attacks and defend - goodluck",
+        description: "Attacks and defend - Good luck!",
         avatar: '💀',
     }
 ]

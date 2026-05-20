@@ -27,7 +27,7 @@ export const getGameSession = async (req, res, next) => {
         return res.status(200).json({
             success: true,
             message: "Successfully fetched game info",
-            data: new moveDTO(session),
+            data: new gameDTO(session),
         })
     } catch (err) {
         next(err);

@@ -24,7 +24,12 @@ const GameOver = () => {
                 <div>
                     <h1>Board:</h1>
                     <div>
-                        <Board board={gameState.board} styling={currentStyle} winningCells={gameState.winningCells} />
+                        <Board 
+                            board={gameState.board} 
+                            styling={currentStyle} 
+                            winningCells={gameState.winningCells} 
+                            markers={gameState.markers}
+                        />
                     </div>
                 </div>
             </div>
