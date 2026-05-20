@@ -1,5 +1,5 @@
-import { validateSquare } from "../gameSessionModules/game.logic.js";
-import { detectFork, detectOpenLine, randomMove } from "./ai.logic.js";
+import { applyMove, validateSquare } from "../gameSessionModules/game.logic.js";
+import { detectFork, detectOpenLine, getSmartMoves, mcts, randomMove } from "./ai.logic.js";
 
 export class easyAi {
     constructor (name = "Michael") {
@@ -49,9 +49,43 @@ export class hardAi extends mediumAi {
         super(name)   
     }
     makeMove (board, lastMove, playerMarker, aiMarker) {
+
         const winMove = detectOpenLine(board, aiMarker, 4);
         if (winMove) return winMove;
 
-        return super.makeMove(board, lastMove, playerMarker)
+        //block opponent win
+        const blockMove = detectOpenLine(board, playerMarker, 4);
+        if(blockMove) return blockMove;
+
+        //block strong threat (open 3)
+        const dangerMove = detectOpenLine(board, playerMarker, 3, true);
+        if(dangerMove) return dangerMove;
+
+        //block opponent fork
+        const blockFork = detectFork(board, playerMarker);
+        if(blockFork) return blockFork;
+
+        //smart moves
+        const smartMoves = getSmartMoves(board, aiMarker, playerMarker);
+
+        let bestMove = null;
+        let bestScore = -Infinity;
+
+        for(const move of smartMoves) {
+            const newBoard = applyMove(move.row, move.col, board, aiMarker);
+
+            //combine heuristic + mcts
+            const mctsScore = mcts(newBoard, aiMarker, playerMarker, 150);
+
+            const totalScore = move.score + mctsScore;
+
+            if(totalScore > bestScore) { 
+                bestScore = totalScore;
+                bestMove = move;
+            }
+        }
+
+        if(bestMove) return bestMove;
+        return randomMove(board);
     }
 }
