@@ -76,9 +76,23 @@ const Profile = () => {
 
         </div>
 
-        <button onClick={() => navigate("/profile/password")}
-        className='bg-white text-blue-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:scale-105 transition'>
-          <Lock size={16} /> Change Password
+        <button
+          onClick={() => navigate("/profile/password")}
+          className="
+            mt-4 w-full
+            bg-gradient-to-r from-red-500 to-indigo-500
+            text-white
+            px-5 py-3
+            rounded-xl
+            flex items-center justify-center gap-3
+            font-semibold
+            shadow-md
+            hover:shadow-lg hover:scale-[1.02]
+            transition-all duration-300
+          "
+        >
+          <Lock size={18} />
+          Change Password
         </button>
 
       </div>

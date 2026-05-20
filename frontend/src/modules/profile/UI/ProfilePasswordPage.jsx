@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
 const ProfilePasswordPage = () => {
-    const {updateProfile} = useProfile();
+    const {changePassword} = useProfile();
+
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -26,8 +27,10 @@ const ProfilePasswordPage = () => {
         }
 
         try{
-            await updateProfile({oldPassword: form.oldPassword, 
-                                password: form.password});
+            await changePassword({oldPassword: form.oldPassword, 
+                                  newPassword: form.password,
+                                  confirmPassword: form.confirmPassword
+                                });
 
             setSuccess(true);
             setError("");

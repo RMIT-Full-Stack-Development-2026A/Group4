@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 
 //Repo
 import * as accountRepo from "../accountModules/account.repository.js";
@@ -86,34 +85,6 @@ export const updateProfile = async (userId, data) => {
         accountUpdate.email = data.email;
     }
 
-    //Password
-    if(data.password){
-
-        //require current password
-        if(!data.oldPassword) {
-            throw new Error("Old password is required");
-        }
-
-        //verify old password
-        const isMatch = await bcrypt.compare(data.oldPassword, account.password);
-
-        if(!isMatch){
-            throw new Error("Incorrect old password");
-        }
-
-        if (
-            data.password.length < 8 ||
-            !/[A-Z]/.test(data.password) ||
-            !/[0-9]/.test(data.password) ||
-            !/[!@#$%^&*]/.test(data.password)
-        ) {
-            throw new Error('Weak password');
-        }
-
-        const hashed = await bcrypt.hash(data.password, 10);
-        accountUpdate.password = hashed;
-    }
-
     //Country
     if(data.country) {
         profileUpdate.country = data.country;
@@ -156,46 +127,6 @@ export const uploadAvatar = async (userId, avatarUrl) => {
 
     return await getProfile(userId);
 }
-
-//GAME implementation will be added here in the future
-export const getGameHistory = async (userId) => {
-    const profile = await profileRepo.findProfileByUserId(userId);
-    
-    if(!profile){
-        throw new ProfileNotFoundError();
-    }
-
-    const games = await profileRepo.getGameHistoryByUser(userId);
-
-    return games;
-}
-
-export const getGameStats = async (userId) => {
-    const games = await profileRepo.getGameHistoryByUser(userId);
-
-    let wins = 0;
-    let loses = 0;
-    let draws = 0;
-
-    games.forEach(game => {
-        if(game.winner === 'Draw'){
-            draws++;
-        } else if ( (game.winner === 'X' && game.host_id.toString() === userId) ||
-                  (game.winner === 'O' && game.guest_id?.toString() === userId)
-        ) {
-            wins++;
-        } else{
-            loses++;
-        }
-    });
-
-    return {
-        total: games.length,
-        wins,
-        loses,
-        draws
-    };
-};
 
 export const searchGameHistory = async (userId, query) => {
     const profile = await profileRepo.findProfileByUserId(userId);

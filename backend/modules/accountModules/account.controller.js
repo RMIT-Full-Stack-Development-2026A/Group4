@@ -1,4 +1,4 @@
-import { registerService, loginService, getMeService } from './account.service.js';
+import { registerService, loginService, getMeService, changePasswordService } from './account.service.js';
 import jwt from 'jsonwebtoken';
 
 export const register = async (req, res, next) => {
@@ -81,5 +81,30 @@ export const me = async (req, res, next) => {
         });
     } catch (err) {
         next(err);
+    }
+};
+
+export const changePassword = async (req, res) => {
+    try{
+        const {oldPassword, newPassword, confirmPassword} = req.body;
+
+        if(!oldPassword || !newPassword || !confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            });
+        }
+
+        await changePasswordService(req.user.id, oldPassword, newPassword, confirmPassword);
+
+        return res.status(200).json({
+            success: true,
+            message: "Password changed successfully"
+        });
+    } catch (err){
+        return res.status(400).json({
+            success: false,
+            message: err.message || "Failed to change password"
+        });
     }
 };

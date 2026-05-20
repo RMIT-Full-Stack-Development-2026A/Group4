@@ -24,11 +24,5 @@ router.put('/', authMiddleware, validateProfileUpdate, controller.updateProfile)
 //UPLOAD avatar
 router.put('/avatar', authMiddleware, upload.single('avatar'), validateAvatar, resizeAvatar, controller.uploadAvatar);
 
-//GAME HISTORY - To be implemented
-router.get('/games', authMiddleware, controller.getGameHistory);
-
-//GAME stats
-router.get('/stats', authMiddleware, controller.getGameStats);
-
 router.get('/games/search', authMiddleware, controller.searchGames);
 export default router;
