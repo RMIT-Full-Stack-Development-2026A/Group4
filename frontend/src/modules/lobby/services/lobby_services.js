@@ -2,7 +2,12 @@ import { httpHelper } from "../../../utils/httpHelper"
 import { GAME_ENDPOINTS } from "../../../config/ApiConfig"
 
 // Step in setting up
-export const STEPS = { SETUP: 'setup', PLAYERS: 'players', MARKERS: 'markers' }
+export const STEPS = { 
+    SETUP: 'setup', 
+    PLAYERS: 'players', 
+    STARTER: 'starter',
+    MARKERS: 'markers' 
+}
 
 // Player information
 export const INITIAL_PLAYER_INFO = {

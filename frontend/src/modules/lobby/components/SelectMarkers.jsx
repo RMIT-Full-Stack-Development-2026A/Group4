@@ -21,7 +21,7 @@ const SelectMarkers = ({ playerInfo, setPlayerInfo, isAi = false }) => {
 
     return (
         <div className='flex flex-col gap-8 p-4'>
-            <h1 className='text-center text-2xl font-bold'>Choose Your Markers</h1>
+            <h1 className='text-center text-3xl font-bold text-gray-800'>Choose Your Markers</h1>
 
             {/* Player One — always shown */}
             <div className='flex flex-col gap-3'>

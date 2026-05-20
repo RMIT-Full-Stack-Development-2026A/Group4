@@ -1,27 +1,34 @@
-import React, {useState} from 'react'
-import { AIModels } from '../services/ai_models'
-import {useAuth} from '../../../context/UserContext'
+import { AIModels } from '../services/ai_models';
 
-const SelectAi = ({ setPlayerInfo }) => {
-  const [selectedAi, setSelectedAI] = useState(AIModels[0]);
-  const initializeAi = (ai) => {
-    setSelectedAI(ai);
-    setPlayerInfo((prev)=>({...prev, playerTwoName: ai.name}))
-  }
-  return (
-    <div className={'p-4 m-4 flex flex-col gap-5'} >
-      <h1 className='text-center font-bold'>Choose the AI model you want to go against!</h1>
-      <div className='flex justify-between '>
-        {AIModels.map(( ai )=>(
-            <button key={ai.id} onClick={ ()=>{ initializeAi(ai) } } className={`flex p-4 rounded-lg cursor-pointer shadow-2xl flex-col justify-between align-middle ${selectedAi === ai ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
-              <h3 className='font-bold text-xl'>{ai.avatar} {ai.name}</h3>
-              <p className='font-semibold'>Difficulty: {ai.difficulty}</p>
-              <p className='font-normal'>{ai.description}</p>
-            </button>
-        ))}
-      </div>
-    </div>
-  )
-}
+const SelectAi = ({ playerInfo, setPlayerInfo }) => {
+    const selectedAiName = playerInfo.playerTwoName;
 
-export default SelectAi
+    const handleAiClick = (ai) => {
+        setPlayerInfo(prev => ({ ...prev, playerTwoName: ai.name }));
+    };
+
+    return (
+        <div className='p-4 flex flex-col gap-8'>
+            <h1 className='text-center text-3xl font-bold text-gray-800'>Choose Opponent</h1>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                {AIModels.map((ai) => (
+                    <button
+                        key={ai.id}
+                        onClick={() => handleAiClick(ai)}
+                        className={`flex p-6 rounded-2xl cursor-pointer transition-all duration-300 flex-col gap-2 text-left border-2
+                            ${selectedAiName === ai.name 
+                                ? 'bg-gray-900 text-white border-gray-900 shadow-xl scale-105' 
+                                : 'bg-white text-black border-gray-100 hover:border-gray-300 shadow-sm'}`}
+                    >
+                        <span className="text-4xl">{ai.avatar}</span>
+                        <h3 className='font-black text-xl uppercase'>{ai.name}</h3>
+                        <p className='text-xs font-bold'>{ai.difficulty}</p>
+                        <p className='text-sm mt-2 text-gray-400'>{ai.description}</p>
+                    </button>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default SelectAi;

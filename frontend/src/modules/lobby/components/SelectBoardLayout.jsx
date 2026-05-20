@@ -42,7 +42,11 @@ const SelectBoardLayout = ({ setBoardConfig }) => {
 
                 {/* board preview */}
                 <div
-                    style={{ gridTemplateColumns: `repeat(${currentLayout}, 1fr)`, width: '55%' }}
+                    style={{ 
+                        gridTemplateColumns: `repeat(${currentLayout}, 1fr)`, 
+                        width: 'min(70vw, 400px)',
+                        height: 'min(70vw, 400px)'
+                    }}
                     className={`grid max-h-[50vh] md:max-h-[70vh] aspect-square gap-0.5 ${currentStyle.board}`}
                 >
                     {cells.map((_, index) => (
@@ -59,7 +63,7 @@ const SelectBoardLayout = ({ setBoardConfig }) => {
             </div>
 
             {/* layout toggle */}
-            <div className='flex gap-5 flex-col justify-center items-center md:flex-row'>
+            <div className='flex gap-5 flex-col md:flex-row justify-center items-center mt-10 w-full'>
                 <SelectionButton
                     label='10x10'
                     isActive={currentLayout === 10}

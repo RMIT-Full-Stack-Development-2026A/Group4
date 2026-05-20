@@ -6,16 +6,16 @@ export const randomMove = (board) => {
     const empty = [];
     // Pushing all available squares
     board.forEach((row, r)=>{
-        row.forEach((col, c)=>{
-            if (cell === null) {empty.push({ row: r, col: c })}
+        row.forEach((cellMark, c)=>{
+            if (cellMark === null) {empty.push({ row: r, col: c })}
         })
     })
     // Choosing a random row, col and returning:
-    return empty[Math.floor(Math.random * empty.length)]
+    return empty[Math.floor(Math.random() * empty.length)]
 }
 
 // Detecting open line:
-export const detectOpenLine = (board, marker, length) => {
+export const detectOpenLine = (board, marker, length, requireBothEnds = false) => {
     const size = board.length
     for (let r = 0; r < size; r++) {
         for (let c = 0; c < size; c++) {
@@ -45,9 +45,13 @@ export const detectOpenLine = (board, marker, length) => {
                 const frontOpen = inBounds(afterRow, afterCol, size) && board[afterRow][afterCol] === null
                 const backOpen = inBounds(beforeRow, beforeCol, size) && board[beforeRow][beforeCol] === null
 
-                if (frontOpen && backOpen) {
-                    // return the blocking move — fill one open end
-                    return { row: afterRow, col: afterCol }
+                // if both ends are required, make sure both are open
+                // otherwise block whichever end is available
+                if (requireBothEnds) {
+                    if (frontOpen && backOpen) return { row: afterRow, col: afterCol };
+                } else {
+                    if (frontOpen) return { row: afterRow, col: afterCol };
+                    if (backOpen) return { row: beforeRow, col: beforeCol };
                 }
             }
         }
@@ -70,11 +74,17 @@ export const detectFork = (board, marker) => {
             // check if this creates an open 3
             for (const [dr, dc] of DIRECTIONS) {
                 let count = 1
+                // check forward
                 let nr = r + dr, nc = c + dc
                 while (inBounds(nr, nc, size) && simBoard[nr][nc] === marker) { count++; nr += dr; nc += dc }
+                const end1Open = inBounds(nr, nc, size) && simBoard[nr][nc] === null;
+
+                // check backward
                 nr = r - dr; nc = c - dc
                 while (inBounds(nr, nc, size) && simBoard[nr][nc] === marker) { count++; nr -= dr; nc -= dc }
-                if (count >= 3) {
+                const end2Open = inBounds(nr, nc, size) && simBoard[nr][nc] === null;
+
+                if (count >= 3 && end1Open && end2Open) {
                     const key = `${r},${c}`
                     threatCells[key] = (threatCells[key] || 0) + 1
                 }

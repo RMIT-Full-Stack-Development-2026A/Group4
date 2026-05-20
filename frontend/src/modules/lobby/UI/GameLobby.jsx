@@ -7,6 +7,7 @@ import GameMode from '../components/GameMode'
 import PlayerInfo from '../components/PlayerInfo'
 import SelectAi from '../components/SelectAi'
 import SelectMarkers from '../components/SelectMarkers'
+import SelectStarter from '../components/SelectStarter'
 import { BlackButton } from '../../../reusable/CustomButtons'
 // Importing logic-dependent information:
 import { STEPS, INITIAL_PLAYER_INFO, handleStartGame } from '../services/lobby_services'
@@ -27,88 +28,133 @@ const GameLobby = () => {
 
   // Setting the first player once game mode is chosen
   useEffect(() => {
-    if (gameMode && gameMode !== 'MULTIPLAYER') {
-      setPlayerInfo(prev => ({ ...prev, playerOneName: user.username }))
+    if (gameMode) {
+      setPlayerInfo(prev => ({ 
+          ...prev, 
+          playerOneName: user.username,
+          playerTwoName: gameMode === 'AI' ? (prev.playerTwoName || 'Michael') : prev.playerTwoName 
+      }));
     }
-  }, [ gameMode ])
+  }, [ gameMode, user.username ]);
 
   // Initializing game:
   const initializeGame = async () => {
-    // If missing information
-    if (!playerInfo.playerOneName || !playerInfo.playerTwoName) {
-      setError('Please enter player details')
-      return
-    }
-    // If unchosen marker:
-    if (!playerInfo.playerOneMarker || !playerInfo.playerTwoMarker) {
-      setError('Please select markers for both players')
-      return
+    // Validation for names
+    const p1Name = playerInfo.playerOneName || user.username;
+    const p2Name = playerInfo.playerTwoName; 
+
+    if (!p1Name || !p2Name) {
+      setError('Please enter player details');
+      return;
     }
 
-    const correctFirstPlayer = {
-      name: playerInfo.playerOneName,
-      marker: playerInfo.playerOneMarker
+    // Validation for markers
+    if (!playerInfo.playerOneMarker || !playerInfo.playerTwoMarker) {
+      setError('Please select markers for both players');
+      return;
+    }
+
+    // Determine starter and grab their current marker
+    // Default to Player 1 if for some reason firstPlayer wasn't set.
+    const isP1Starting = !firstPlayer || firstPlayer.name === p1Name;
+    
+    const finalStarter = {
+      name: isP1Starting ? p1Name : p2Name,
+      marker: isP1Starting ? playerInfo.playerOneMarker : playerInfo.playerTwoMarker
     };
 
-    setError(null)
-    setLoading(true)
+    setError(null);
+    setLoading(true);
     try {
-      const data = await handleStartGame(userId, playerInfo, gameMode, boardConfig, correctFirstPlayer)
-      navigate(`/game/${data.data.id}`)
+      const gameUTO = {
+          ...playerInfo,
+          playerOneName: p1Name,
+          playerTwoName: p2Name
+      };
+
+      const data = await handleStartGame(userId, gameUTO, gameMode, boardConfig, finalStarter);
+      navigate(`/game/${data.data.id}`);
     } catch (err) {
       setError('Failed to start game, please try again');
       console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div>
+    <div className="max-w-6xl py-10 px-4 flex flex-col gap-10">
       {step === STEPS.SETUP && (
         <>
           <GameMode setGameMode={setGameMode} />
           <SelectBoardLayout setBoardConfig={setBoardConfig} />
-          <BlackButton
-            disabled={!gameMode}
-            label='Next'
-            onClick={() => setStep(STEPS.PLAYERS)}
-          />
+          <div className='flex justify-center'>
+            <BlackButton
+              disabled={!gameMode}
+              label='Next'
+              onClick={() => setStep(STEPS.PLAYERS)}
+              className="w-64" 
+            />
+          </div>
         </>
       )}
 
-            {step === STEPS.PLAYERS && (
-                <>
-                    { gameMode === 'MULTIPLAYER'
-                        ? <PlayerInfo setFirstPlayer={setFirstPlayer} setPlayerInfo={setPlayerInfo} />
-                        : <SelectAi playerInfo={playerInfo} setPlayerInfo={setPlayerInfo} setGameMode={setGameMode} />
-                    }
-                    <div className='flex gap-4'>
-                        <BlackButton label='Back' onClick={() => setStep(STEPS.SETUP)} />
-                        <BlackButton label='Next' onClick={() => setStep(STEPS.MARKERS)} />
-                    </div>
-                </>
-            )}
+      {step === STEPS.PLAYERS && (
+          <>
+              { gameMode === 'MULTIPLAYER'
+                  ? <PlayerInfo playerInfo={playerInfo} setPlayerInfo={setPlayerInfo} />
+                  : <SelectAi playerInfo={playerInfo} setPlayerInfo={setPlayerInfo} />
+              }
+              <div className='flex gap-4 mt-8 justify-center'>
+                  <BlackButton label='Back' onClick={() => setStep(STEPS.SETUP)} />
+                  <BlackButton 
+                    disabled={!playerInfo.playerOneName || !playerInfo.playerTwoName}
+                    label='Next' 
+                    onClick={() => setStep(STEPS.STARTER)} 
+                  />
+              </div>
+          </>
+      )}
 
-            {step === STEPS.MARKERS && (
-                <>
-                    {gameMode === 'MULTIPLAYER'
-                        ? <SelectMarkers playerInfo={playerInfo} setPlayerInfo={setPlayerInfo} />
-                        : <SelectMarkers isAi={gameMode !== "MULTIPLAYER"} playerInfo={playerInfo} setPlayerInfo={setPlayerInfo} />
-                    }
-                    {error && <p className='text-red-500 text-sm text-center'>{error}</p>}
-                    <div className='flex gap-4'>
-                        <BlackButton label='Back' onClick={() => setStep(STEPS.PLAYERS)} />
-                        <BlackButton
-                            label={loading ? 'Starting...' : 'Start Game'}
-                            disabled={loading}
-                            onClick={initializeGame}
-                        />
-                    </div>
-                </>
-            )}
-        </div>
-    )
+      {step === STEPS.STARTER && (
+          <div className="animate-in fade-in duration-500">
+              <SelectStarter 
+                  playerOneName={playerInfo.playerOneName}
+                  playerTwoName={playerInfo.playerTwoName}
+                  firstPlayer={firstPlayer}
+                  setFirstPlayer={setFirstPlayer}
+                  isAi={gameMode === 'AI'} 
+              />
+              <div className='flex gap-4 mt-12 justify-center'>
+                  <BlackButton 
+                      label='Back' 
+                      onClick={() => setStep(STEPS.PLAYERS)} 
+                  />
+                  <BlackButton 
+                      disabled={!firstPlayer}
+                      label='Next' 
+                      onClick={() => setStep(STEPS.MARKERS)} 
+                  />
+              </div>
+          </div>
+      )}
+
+      {step === STEPS.MARKERS && (
+          <>
+              <SelectMarkers isAi={gameMode === 'AI'} playerInfo={playerInfo} setPlayerInfo={setPlayerInfo} />
+              {error && <p className='text-red-500 text-sm text-center mb-4'>{error}</p>}
+              <div className='flex gap-4 justify-center'>
+                  <BlackButton label='Back' onClick={() => setStep(STEPS.STARTER)} />
+                  <BlackButton
+                      label={loading ? 'Starting...' : 'Start Game'}
+                      disabled={loading}
+                      onClick={initializeGame}
+                  />
+              </div>
+          </>
+      )}
+    </div>
+  )
 }
 
 export default GameLobby
