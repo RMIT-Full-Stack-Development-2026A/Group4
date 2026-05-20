@@ -30,7 +30,7 @@ export class missingCredentialsError extends AppError {
     }
 }
 export class matchingPasswordError extends AppError {
-    constructor (message = 'Passwords must match') {
+    constructor (message = 'Passwords must match!') {
         super(401, message);
     }
 }
@@ -40,26 +40,26 @@ export class errorCreatingNewUser extends AppError {
     }   
 }
 export class userAlreadyExistsError extends AppError {
-    constructor ( message = "Error! User already exists!" ) {
+    constructor ( message = "User already exists!" ) {
         super(409, message)
     }
 }
 
 export class weakPasswordError extends AppError {
-    constructor(message = "Weak Password: Must have 8+ characters, include 1 uppercase, 1 number, and 1 special character.") {
+    constructor(message = "Weak Password! Must have 8+ characters, include 1 uppercase, 1 number, and 1 special character ($#@!). Example: TicTac!2026") {
         super(400, message);
     }
 }
 
 export class invalidEmailError extends AppError {
     constructor() {
-        super(400, "Invalid Email format. Example: user@example.com");
+        super(400, "Invalid Email format! Must contain exactly one '@' and a '.' after the '@', be under 255 characters, and contain no spaces or prohibited characters \"( ) ; :\". Example: user@example.com");
     }
 }
 
 export class invalidUsernameError extends AppError {
     constructor() {
-        const msg = "Invalid Username. Can only contain English alphabets, numbers, underscores and hyphens (no spaces)";
+        const msg = "Invalid Username! Only English alphabets, numbers, underscores (_), and hyphens (-) allowed. Example: player_1-win";
         super(400, msg);
     }
 }

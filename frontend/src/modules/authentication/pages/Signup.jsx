@@ -16,9 +16,12 @@ const Signup = () => {
     <div className='min-h-screen flex items-center justify-center
          bg-linear-to-br from-red-600 to-pink-500 px-4'>
 
-            <form className='backdrop-blur-xl bg-white/20 border border-white/20
-                            shadow-2xl rounded-3xl p-8 w-full max-w-md text-white flex flex-col gap-4' 
-                  onSubmit={handleSignupSubmission}>
+            <form 
+                noValidate 
+                className='backdrop-blur-xl bg-white/20 border border-white/20
+                shadow-2xl rounded-3xl p-8 w-full max-w-md text-white flex flex-col gap-4' 
+                onSubmit={handleSignupSubmission}
+            >
                     <h1 className='text-3xl text-center font-bold mb-2'>
                         Create Account
                     </h1>
@@ -29,7 +32,6 @@ const Signup = () => {
                         <input 
                         className='input-glass'
                         onChange={handleChangingInput}
-                        required
                         type='text'
                         name='username'
                         value={signUpInput.username}/>
@@ -42,8 +44,7 @@ const Signup = () => {
                         className='input-glass'
                         onChange={handleChangingInput}
                         name='email'
-                        type='email'
-                        required
+                        type='text'
                         value={signUpInput.email}
                         />
                     </div>
@@ -56,7 +57,6 @@ const Signup = () => {
                         onChange={handleChangingInput}
                         name='password'
                         type='password'
-                        required
                         value={signUpInput.password}
                         />
                     </div>
@@ -69,7 +69,6 @@ const Signup = () => {
                         onChange={handleChangingInput}
                         name='confirmPassword'
                         type='password'
-                        required
                         value={signUpInput.confirmPassword}
                         />
                     </div>
@@ -79,7 +78,6 @@ const Signup = () => {
                         <select
                         className='input-glass text-white'
                         onChange={handleChangingInput}
-                        required
                         name='country'
                         >
                             <option value="" className='text-black'>Select a country</option>

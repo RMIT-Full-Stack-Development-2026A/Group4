@@ -1,5 +1,4 @@
 import { registerService, loginService, getMeService } from './account.service.js';
-import { missingCredentialsError } from './account.error.js';
 import jwt from 'jsonwebtoken';
 
 export const register = async (req, res, next) => {
@@ -7,12 +6,7 @@ export const register = async (req, res, next) => {
     try {
         // Extracting information from the request body:
         const { username, email, password, confirmPassword, country } = req.body;
-        
-        // Perform basic check: 
-        if (!username || !email || !password || !confirmPassword || !country) {
-            throw new missingCredentialsError();
-        }
-
+    
         // Calling the service layer
         const result = await registerService(username, email, password, confirmPassword, country);
 

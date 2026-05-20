@@ -5,14 +5,12 @@ export const ErrorHandler = (err, req, res, next) => {
     
     // log the error with a message
     const message = err.message || "An unexpected error occurred on the server";
-    console.error(`[SERVER ERROR] ${err.name}: ${message}`);
+    console.error(`[ERROR] - ${err.name}: ${message}`);
 
     // send the error JSON to the frontend
     return res.status(statusCode).json({
         success: false,
         status: statusCode,
         message: message,
-        // include the stack trace (in development mode)
-        stack: process.env.NODE_ENV === 'development' ? err.stack : {}
     });
 };

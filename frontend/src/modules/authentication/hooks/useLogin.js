@@ -85,10 +85,10 @@ const useLogin = () => {
                 setIsLocked(false);
                 setLoggedOutTime(null);
 
-                if (err.message.includes("not found")) {
-                    setLoginAttempt(0);
-                } else {
+                if (err.message.includes("credentials")) {
                     setLoginAttempt((prev) => prev + 1);
+                } else {
+                    setLoginAttempt(0)
                 }
             }
         }
