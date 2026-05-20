@@ -33,13 +33,16 @@ export const uploadAvatarService = async (file) => {
 }
 
 export const searchGamesService = async (query) => {
-    const keyword = query?.keyword ?? "";
 
-    const res = await httpHelper.get(`/profile/games/search?keyword=${encodeURIComponent(keyword)}`);
+    console.log("RAW QUERY:", query);
+
+    const res = await httpHelper.get("/profile/games/search", {
+        params: query // 🔥 DO NOT TRANSFORM IT
+    });
 
     if(res.status !== 200){
         throw new Error(res.data.message);
     }
 
     return res.data.data;
-}
+};

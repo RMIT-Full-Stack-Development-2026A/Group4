@@ -36,8 +36,16 @@ class HttpHelper {
         };
     }
 
-    async get(endpoint, headers={}) {
-        return await this.request(endpoint, 'GET', null, headers)
+    async get(endpoint, options={}) {
+        let url = `${this.apiUrl}${endpoint}`;
+
+        //handle query params
+        if(options.params){
+            const queryString = new URLSearchParams(options.params).toString();
+            url += `?${queryString}`;
+        }
+
+        return await this.request(url.replace(this.apiUrl, ''), 'GET', null, options.headers);
     }
     
     async post(endpoint, body, headers={}) {
