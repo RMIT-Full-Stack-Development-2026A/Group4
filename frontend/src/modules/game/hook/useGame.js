@@ -1,14 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { makeMove, abortGame } from '../service/game_services';
-import { useGame } from '../../../context/GameContext';
+import { fetchGamePlayData, makeMove, abortGame } from '../service/game_services';
 
-export const useActiveGame = () => {
+export const useGame = () => {
     // params, states, navigate:
     const { id } = useParams();
     const navigate = useNavigate();
+    const [gameState, setGameState] = useState(null);
+    const [currentStyle, setCurrentStyle] = useState(null);
     const [isProcessing, setIsProcessing] = useState(false);
-    const { gameState, setGameState, currentStyle } = useGame();
+
+    // fetch game data
+    useEffect(() => {
+        const loadGame = async () => {
+            if (!id) return;
+            try {
+                // Reset states to prevent seeing the previous game's board
+                setGameState(null);
+                setCurrentStyle(null);
+
+                const data = await fetchGamePlayData(id);
+                setGameState(data.data);
+                setCurrentStyle(data.style);
+            } catch (err) {
+                console.error("Load Error:", err);
+            }
+        };
+        loadGame();
+    }, [id]);
 
     // Handling move:
     const handleMove = async (row, col) => {
@@ -50,5 +69,13 @@ export const useActiveGame = () => {
         }
     };
 
-    return { gameState, currentStyle, isProcessing, handleMove, handleAbort, id };
+     return { 
+        gameState, 
+        setGameState, 
+        currentStyle, 
+        isProcessing, 
+        handleMove, 
+        handleAbort, 
+        id 
+    };
 };

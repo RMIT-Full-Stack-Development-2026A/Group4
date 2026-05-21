@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/UserContext";
 import Logo from "../../reusable/Logo";
 import SideBarNav from "./SideBarNav";
@@ -24,12 +24,13 @@ export default function SideBar() {
                 </div>
             </div>
 
-            <div className="shrink-0">
+            <Link to="/profile" className="mt-auto block bg-[#0a1b4d] hover:bg-[#0e2466] transition-colors">
                 <UserBox 
                     username={user?.username} 
                     avatarUrl={user?.avatarUrl} 
+                    className="border-none" // Keeps it flat and flush with the sidebar edges
                 />
-            </div>
+            </Link>
         </aside>
     );
 };

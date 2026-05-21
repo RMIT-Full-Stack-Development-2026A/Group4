@@ -4,7 +4,6 @@ import AdminService from "../modules/admin/service/AdminService";
 // Layout
 import RootLayout from "../layout/RootLayout";
 import AppLayout from "../layout/AppLayout";
-import GameLayout from '../layout/GameLayout'
 // Components
 import Home from "../modules/home/page/Home";
 import Login from "../modules/authentication/pages/Login";
@@ -55,17 +54,12 @@ const router = createBrowserRouter([
         ]
       },
       { path: 'deposit', element: <DepositWallet /> },
-      { path: 'admin', element: <PlayerManagement /> }
+      { path: 'admin', element: <PlayerManagement /> },
+
+      { path: 'game/:id', element: <ActiveGame /> },
+      { path: 'game/finish/:id', element: <GameOver /> }
     ]
   },
-
-  {
-    element: <GameLayout />,
-    children: [
-      { path: '/game/:id', element: <ActiveGame /> },
-      {path: '/game/finish/:id', element: <GameOver />}
-    ]
-  }
 ]);
 
 export default router
