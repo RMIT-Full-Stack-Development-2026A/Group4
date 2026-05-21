@@ -1,7 +1,7 @@
 import { useLobby } from "../../../context/GameLobbyContext";
 
 const PlayerInfo = () => {
-    const { playerInfo, handleInputChange } = useLobby();
+    const { playerInfo, handlePlayerInputChange } = useLobby();
 
     return (
         <div className='flex shadow-lg p-8 flex-col gap-6 bg-white rounded-2xl'>
@@ -11,7 +11,7 @@ const PlayerInfo = () => {
                     <label className="text-xs font-bold text-gray-400 uppercase">Player 1 Name</label>
                     <input
                         className='p-3 border-2 border-gray-100 rounded-xl focus:border-black outline-none transition-all'
-                        onChange={handleInputChange}
+                        onChange={handlePlayerInputChange}
                         name='playerOneName'
                         value={playerInfo.playerOneName}
                         placeholder="e.g. S412345"
@@ -21,7 +21,7 @@ const PlayerInfo = () => {
                     <label className="text-xs font-bold text-gray-400 uppercase">Player 2 Name</label>
                     <input
                         className='p-3 border-2 border-gray-100 rounded-xl focus:border-black outline-none transition-all'
-                        onChange={handleInputChange}
+                        onChange={handlePlayerInputChange}
                         name='playerTwoName'
                         value={playerInfo.playerTwoName}
                         placeholder="e.g. FriendName"

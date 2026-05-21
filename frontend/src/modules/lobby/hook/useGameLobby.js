@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/UserContext';
 import { STEPS, INITIAL_PLAYER_INFO, handleStartGame } from '../services/lobby_services';
-
+import { boardStyles } from '../../../config/styling_layouts';
 export const useGameLobby = () => {
     // Importing hooks and information
     const navigate = useNavigate();
