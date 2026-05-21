@@ -5,8 +5,8 @@ import { useLobby } from '../../../context/GameLobbyContext'
 const SelectBoardLayout = () => {
     const { boardConfig, styleIndex, navigateStyle, selectLayout } = useLobby();
 
-    const currentStyle = boardStyles[styleIndex] // The current style chosen
-    const cells = Array(boardConfig.layout * boardConfig.layout).fill(null); // Creating the array
+    const currentStyle = boardStyles[styleIndex] // The current chosen style 
+    const cells = Array(boardConfig.layout * boardConfig.layout).fill(null); // Creating the board representation
 
     return (
         <div className='min-h-screen shadow-[0px_0px_6px_1px_rgba(0,0,0,0.1)] p-2 flex flex-col justify-evenly'>
