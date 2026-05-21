@@ -135,3 +135,40 @@ export const getMeService = async (userId) => {
     await checkPremiumExpiry(profile)
     return new TokenDTO(user, profile);
 };
+
+export const changePasswordService = async (userId, oldPassword, newPassword, confirmPassword) => {
+    const user = await accRepo.findById(userId);
+
+    if(!user) {
+        throw new userNotFoundError();
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.hashedPassword);
+    console.log("INPUT:", oldPassword);
+    console.log("MATCH:", isMatch);
+    
+    if(!isMatch){
+        throw new Error("Incorrect old password");
+    }
+
+    if(newPassword !== confirmPassword){
+        throw new Error("Password do not match");
+    }
+
+    if(
+        newPassword.length < 8 ||
+        !/[A-Z]/.test(newPassword) ||
+        !/[0-9]/.test(newPassword) ||
+        !/[!@#$%^&*]/.test(newPassword)
+    ) {
+        throw new Error("Weak password");
+    }
+
+    const hashed = await bcrypt.hash(newPassword, 10);
+
+    await accRepo.updateAccount(userId, {
+        hashedPassword: hashed
+    });
+
+    return true;
+}

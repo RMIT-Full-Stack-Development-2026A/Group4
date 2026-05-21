@@ -18,49 +18,89 @@ export const updateProfile = (userId, updateData) =>
 export const deleteProfile = (userId) => 
     Profile.findOneAndDelete({user_id: userId});
 
-//Still need to implement to fetch game history 
-export const getGameHistoryByUser = async (userId) => {
-    return await GameSession.find({
-        $or: [
-            {host_id: userId},
-            {guest_id: userId}
-        ]
-    }).sort({startTime: -1});
-}
-
 export const searchGameHistory = async (userId, query) => {
-    const {keyword} = query;
+    const {
+        keyword,
+        result,
+        type,
+        startDate,
+        endDate,
+        sort
+    } = query;
 
     console.log("Search keyword", keyword);
-    console.log("query: ",query);
-    
 
-    const filter = {
+    const conditions = [];
+
+    // Always filter by user
+    conditions.push({
         host_id: userId
-    };
-
-    if(!keyword) {
-        return await GameSession.find(filter).sort({startTime: -1});
-    }  
-
-    const searchConditions = [];
-
-    //Search by guest_name (case-insensitive)
-    searchConditions.push({
-        guest_name: {$regex: keyword, $options: "i"}
     });
 
-    //Search by session number
-    if(!isNaN(keyword)) {
-        searchConditions.push({
-            session_num: Number(keyword)
+    // Search
+    if (keyword && keyword.trim() !== "") {
+        conditions.push({
+            guest_name: { $regex: keyword, $options: "i" }
         });
     }
 
-    return await GameSession.find({
-        $and: [
-            filter,
-            {$or: searchConditions}
-        ]
-    }).sort({startTime: -1});
-}
+    // Type
+    if (type && type !== "ALL") {
+        conditions.push({ gameType: type });
+    }
+
+    // Date
+    if (startDate || endDate) {
+        const dateFilter = {};
+
+        if (startDate) dateFilter.$gte = new Date(startDate);
+        if (endDate){
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999);
+            dateFilter.$lte = end;
+        } 
+
+        conditions.push({
+            startTime: dateFilter
+        });
+    }
+
+    // Sort
+    const sortOption =
+        sort === "oldest"
+            ? { startTime: 1 }
+            : { startTime: -1 };
+
+        console.log("FINAL QUERY:", JSON.stringify(conditions, null, 2));
+
+    // Final query
+    const games = await GameSession.find({
+        $and: conditions
+    }).sort(sortOption);
+
+
+    const filteredGames = games.filter(g => {
+    const playerName = g.host_name;
+
+    if (result === "WIN") {
+        return g.winner === playerName;
+    }
+
+    if (result === "LOSE") {
+        return g.winner !== playerName && g.winner !== "Draw";
+    }
+
+    if (result === "DRAW") {
+        return g.winner === "Draw";
+    }
+
+    if (result === "ABORTED") {
+        return g.status === "ABORTED";
+    }
+
+    return true;
+});
+
+    return filteredGames;
+    
+};
