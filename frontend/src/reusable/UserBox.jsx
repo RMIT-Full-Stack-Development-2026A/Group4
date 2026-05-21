@@ -15,9 +15,6 @@ export default function UserBox({ username, avatarUrl }) {
                     {username}
                 </div>
 
-                <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider"> 
-                    Click to see Profile 
-                </div>
             </div>
 
             
