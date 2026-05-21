@@ -1,12 +1,11 @@
-const PlayerInfo = ({ playerInfo, setPlayerInfo }) => {
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setPlayerInfo((prev) => ({ ...prev, [name]: value }));
-    };
+import { useLobby } from "../../../context/GameLobbyContext";
+
+const PlayerInfo = () => {
+    const { playerInfo, handleInputChange } = useLobby();
 
     return (
         <div className='flex shadow-lg p-8 flex-col gap-6 bg-white rounded-2xl'>
-            <h1 className='text-center text-3xl font-black text-gray-900 uppercase'>Enter Players</h1>
+            <h1 className='text-center text-3xl font-bold text-gray-800'>Enter Players</h1>
             <div className='flex flex-col md:flex-row gap-6 justify-center items-center'>
                 <div className='flex flex-col gap-2 w-full'>
                     <label className="text-xs font-bold text-gray-400 uppercase">Player 1 Name</label>

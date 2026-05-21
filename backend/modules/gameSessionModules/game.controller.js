@@ -89,6 +89,7 @@ export const abortGame = async (req, res, next) => {
         const aborted = await gameService.abortGame(id);
         return res.status(200).json({
             success: true,
+            data: aborted
         })
     }
     catch (err) {

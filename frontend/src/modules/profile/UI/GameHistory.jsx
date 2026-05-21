@@ -1,23 +1,9 @@
 import { useEffect, useState } from "react";
-import { useProfile } from "../hook/useProfile";
-
+import { useGameHistory } from "../hook/useGameHistory";
+import StatusBadge from "../../../reusable/StatusBadge";
 
 const GameHistory = () => {
-  const { games, searchGames, gameLoading, gameError } = useProfile();
-
-  const [keyword, setKeyword] = useState("");
-
-  useEffect(() => {
-  const delay = setTimeout(() => {
-    if (keyword.trim() === "") {
-      searchGames({keyword: ""}); // load all games
-    } else {
-      searchGames({ keyword });
-    }
-  }, 400);
-
-  return () => clearTimeout(delay);
-}, [keyword]);
+  const { games, keyword, setKeyword, loading, error } = useGameHistory();
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -35,25 +21,23 @@ const GameHistory = () => {
       />
 
       {/* LOADING */}
-      {gameLoading && (
+      {loading && (
         <div className="text-gray-400 animate-pulse">Loading...</div>
       )}
 
       {/* ERROR */}
-      {gameError && (
-        <div className="text-red-500">{gameError}</div>
+      {error && (
+        <div className="text-red-500">{error}</div>
       )}
 
       {/* LIST */}
       <div className="flex flex-col gap-3">
 
         {games.map((g) => {
-          const result =
-            g.winner === "Draw"
-              ? "Draw"
-              : g.winner === g.host
-              ? "Win"
-              : "Lose";
+          let result = "draw";
+          if (g.status === "ABORTED") result = "aborted";
+          else if (g.winner === g.host_name) result = "win";
+          else if (g.winner !== "Draw") result = "lose";
 
           return (
             <div
@@ -62,7 +46,7 @@ const GameHistory = () => {
             >
 
               {/* LEFT */}
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/3">
                 <span className="font-bold text-lg">{g.guest}</span>
                 <span className="text-sm text-gray-500">
                   {g.type === "MULTIPLAYER" ? "Local" : g.type}
@@ -70,31 +54,22 @@ const GameHistory = () => {
               </div>
 
               {/* RESULT */}
-              <div
-                className={`px-3 py-1 rounded-full text-sm font-semibold
-                  ${
-                    result === "Win"
-                      ? "bg-green-100 text-green-600"
-                      : result === "Lose"
-                      ? "bg-red-100 text-red-600"
-                      : "bg-gray-200 text-gray-600"
-                  }`}
-              >
-                {result}
+              <div className="flex-1 flex justify-center">
+                <StatusBadge type={result} />
               </div>
 
               {/* TIME */}
-              <div className="text-right text-sm text-gray-500">
-                <div>
+              <div className="w-1/3 text-right text-sm text-gray-500">
+                <p>
                   <span className="font-medium text-gray-700">Start At:</span>{" "}
                   {new Date(g.start).toLocaleString()}
-                </div>
-                <div>
+                </p>
+                <p>
                   <span className="font-medium text-gray-700">End At:</span>{" "}
                   {g.end
                     ? new Date(g.end).toLocaleString()
                     : "In Progress"}
-                </div>
+                </p>
               </div>
 
             </div>

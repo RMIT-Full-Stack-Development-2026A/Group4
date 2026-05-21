@@ -69,7 +69,7 @@ export const finishGame = async (gameId, resultData) => {
 };
 
 export const abortGame = async (id) => {
-    return await repo.updateSessionData(id, {status: "ABORTED"});
+    return await repo.updateSessionData(id, {status: "ABORTED", endTime: Date.now()});
 }
 
 // Fetching history for the profile page:
