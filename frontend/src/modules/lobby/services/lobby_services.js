@@ -1,5 +1,5 @@
 import { httpHelper } from "../../../utils/httpHelper"
-import { GAME_ENDPOINTS } from "../../../config/ApiConfig"
+import { GAME_ENDPOINTS } from "../../../config/apiConfig"
 
 // Step in setting up
 export const STEPS = { 
