@@ -7,7 +7,7 @@ import { Wallet } from 'lucide-react';
 export default function DepositWallet() {
     const navigate = useNavigate();
     const { user, loading, errorMessage, handleDeposit } = useSubscription();
-    console.log(user)
+    
     // Local state for the input box
     const [amount, setAmount] = useState('');
 

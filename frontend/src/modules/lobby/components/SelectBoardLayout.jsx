@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Grid3x3 } from 'lucide-react'
 import { SelectionButton } from '../../../reusable/CustomButtons'
 import { boardStyles } from '../../../config/styling_layouts'
 import { useLobby } from '../../../context/GameLobbyContext'
+
 const SelectBoardLayout = () => {
     const { boardConfig, styleIndex, navigateStyle, selectLayout } = useLobby();
 

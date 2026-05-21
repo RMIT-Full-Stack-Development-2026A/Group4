@@ -12,7 +12,7 @@ export const GameProvider = ({children}) => {
     const [currentStyle, setCurrentStyle] = useState(null);
 
     useEffect(()=>{
-        const fetch = async () => {
+        const fetchGame = async () => {
             // Resetting state and style
             setGameState(null);
             setCurrentStyle(null)
@@ -22,7 +22,7 @@ export const GameProvider = ({children}) => {
             setGameState(data.data); 
             setCurrentStyle(data.style); 
         }
-        fetch();
+        fetchGame();
     }, [id]) // Changes when ID changes
 
     return (

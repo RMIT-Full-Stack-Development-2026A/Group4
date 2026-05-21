@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getProfileService, updateProfileService, uploadAvatarService, changePasswordService, searchGamesService } from "../service/profileService";
+import { useAuth } from "../../../context/UserContext";
 
 export const useProfile = () => {
+    const { user } = useAuth(); 
     const [profile, setProfile] = useState(null);
+    const [preview, setPreview] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (user) fetchProfile();
+    }, [user]);
 
     const fetchProfile = async () => {
         try {
@@ -31,42 +38,24 @@ export const useProfile = () => {
     };
 
     const uploadAvatar = async (file) => {
+        if (!file) return;
+
+        // Visual Preview
+        setPreview(URL.createObjectURL(file));
+
         try {
             setLoading(true);
-
             const res = await uploadAvatarService(file);
-
             setProfile(res.data);
-        } catch (err){
+        } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
-    const searchGames = async (query) => {
-        try {
-            setGameLoading(true);
-
-            const res = await searchGamesService(query);
-
-            setGames(res);
-            setGameError(null);
-        } catch (err) {
-            setGameError(err.message);
-        } finally {
-            setGameLoading(false);
-        }
-};
-
-
-
-    return {
-        profile,
-        loading,
-        error,
-        fetchProfile,
-        updateProfile,
-        uploadAvatar,
+    return { 
+        user, profile, preview, loading, error, 
+        updateProfile, uploadAvatar
     };
 };

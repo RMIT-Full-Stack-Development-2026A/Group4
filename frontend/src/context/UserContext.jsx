@@ -1,53 +1,22 @@
-import { useContext, useState, createContext, useEffect } from "react";
-import { httpHelper } from "../utils/httpHelper";
-import { AUTH_ENDPOINTS } from "../config/apiConfig";
-// Context needs to handle 3 things:
-// State: Storing the user object as a loading boolean
-// Persistence: checking cookie when the app first loads
-// Actions: login and logout function
-// Defining context
+import { useContext, createContext } from "react";
+import { useAuthLogic } from "../modules/authentication/hooks/useAuthLogic";
+
 const AuthContext = createContext(null);
 
-// Context provider:
 export const AuthProvider = ({ children }) => {
-    // Defining states: 
-    const [ user, setUser ] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const auth = useAuthLogic();
 
-    // Checking cookie:
-    useEffect(()=>{
-        // Defining function:
-        const verifyUser = async () => {
-            try {
-                const response = await httpHelper.get(AUTH_ENDPOINTS.ME);
-
-                if (response.status === 200) {
-                    setUser(response.data.user);
-                }
-            }
-            catch (err) {
-                console.log(err);
-                setUser(null);
-            }
-            finally {
-                setLoading(false);
-            }
-        }
-        // Call function
-        verifyUser();
-    }, []);
-
-    // Updating user info:
-    const updateUserInfo = (userData) => {
-        setUser(userData)
-    } 
-    // Returning JSX: 
     return (
-        <AuthContext.Provider value={{ user, updateUserInfo, loading }} >
-            {!loading ? children: <div>loading...</div>}
+        <AuthContext.Provider value={auth}>
+            {!auth.loading ? (
+                children
+            ) : (
+                <div className="flex h-screen items-center justify-center font-bold animate-pulse text-gray-400 uppercase tracking-widest">
+                    Authenticating Session...
+                </div>
+            )}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export const useAuth = () => useContext(AuthContext);
-

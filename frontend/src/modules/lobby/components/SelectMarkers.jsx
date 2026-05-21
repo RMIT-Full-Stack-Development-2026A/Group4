@@ -1,5 +1,6 @@
 import { markers } from '../../../config/styling_layouts'
 import { useLobby } from '../../../context/GameLobbyContext';
+
 const SelectMarkers = ({ isAi = false }) => {
 
     const { playerInfo, handleMarkerSelect } = useLobby();
