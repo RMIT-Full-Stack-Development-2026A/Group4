@@ -82,7 +82,7 @@ const LobbyView = () => {
   );
 };
 
-// Wraps the view in the Provider
+// Wraps the view in the context provider
 const GameLobby = () => (
     <LobbyProvider>
         <LobbyView />

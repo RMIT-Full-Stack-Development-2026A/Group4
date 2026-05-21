@@ -1,5 +1,6 @@
 import { AIModels } from '../../../config/ai_models';
 import { useLobby } from '../../../context/GameLobbyContext';
+
 const SelectAi = () => {
     const { playerInfo, handleAiClick } = useLobby();
     const selectedAiName = playerInfo.playerTwoName;

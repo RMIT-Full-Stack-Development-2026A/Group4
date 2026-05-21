@@ -6,13 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 const ProfileEditPage = () => {
-    const {user} = useAuth();
-    const {profile, fetchProfile, loading, error} = useProfile();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if(user) fetchProfile();
-    }, [user]);
+    const { profile, loading, error } = useProfile();
     
     if (loading || !profile) {
     return <p className="text-center mt-10">Loading...</p>;

@@ -6,26 +6,8 @@ import { useProfile } from '../hook/useProfile';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  
-  const [preview, setPreview] = useState(null);
-
-  const { user } = useAuth(); 
-  const { profile, fetchProfile, loading, error, uploadAvatar } = useProfile();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if(user) fetchProfile();
-  }, [user]);
-
-  const handleUpload = (file) => {
-    if(!file) return;
-
-    //preview
-    setPreview(URL.createObjectURL(file));
-
-    //send to backend
-    uploadAvatar(file);
-  };
+  const navigate = useNavigate()
+  const { user, profile, preview, loading, error, uploadAvatar } = useProfile();
 
   return (
     <div className="flex justify-center mt-10">
@@ -55,7 +37,7 @@ const Profile = () => {
               <input
                 type="file"
                 className="hidden"
-                onChange={(e) => handleUpload(e.target.files[0])}
+                onChange={(e) => uploadAvatar(e.target.files[0])}
               />
             </label>
           </div>
