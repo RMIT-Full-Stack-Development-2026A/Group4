@@ -1,4 +1,4 @@
-import SignUpButton from "../../../reusable/SignUpButton"
+import SignUpButton from "../../../reusable/SignupButton";
 import gameImage from "../../../assets/logoAppImage.png"
 const Hero = () => {
   return (

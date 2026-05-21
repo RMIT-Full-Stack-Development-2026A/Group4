@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/UserContext';
-import { signupService } from '../service/authService';
+import { signupService } from '../service/AuthService';
 import { validateSignup } from '../../../utils/validation';
 
 const useSignup = () => {

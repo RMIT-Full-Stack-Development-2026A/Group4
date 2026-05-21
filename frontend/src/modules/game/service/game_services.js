@@ -1,5 +1,5 @@
 import { httpHelper} from "../../../utils/httpHelper";
-import { GAME_ENDPOINTS } from "../../../config/ApiConfig";
+import { GAME_ENDPOINTS } from "../../../config/apiConfig";
 import { boardStyles } from "../../../config/styling_layouts";
 
 export const getGameData = async (id) => {
