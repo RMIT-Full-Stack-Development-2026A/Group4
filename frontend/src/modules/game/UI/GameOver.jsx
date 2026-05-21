@@ -1,7 +1,6 @@
-import React from 'react'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Board from '../component/Board';
-import { useGame } from '../../../context/GameContext';
+import { useGame } from '../hook/useGame';
 
 const GameOver = () => {
     // Extracting from game context:

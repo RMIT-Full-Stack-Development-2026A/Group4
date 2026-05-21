@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 const Board = ({ board, winningCells = [], styling, makeMove, playerId, id, interactive = false, markers = [] }) => {
   const style = styling;
