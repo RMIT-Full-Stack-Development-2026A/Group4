@@ -94,7 +94,7 @@ const GameHistory = () => {
       {games.map((g, index) => {
         let result = "draw";
         if (g.status === "ABORTED") result = "aborted";
-        else if (g.winner === g.host_name) result = "win";
+        else if (g.winner === g.host) result = "win";
         else if (g.winner !== "Draw") result = "lose";
 
         return (
