@@ -1,5 +1,4 @@
 // Importing dependencies:
-import React from 'react'
 import {Sword} from 'lucide-react'
 
 // Start game button

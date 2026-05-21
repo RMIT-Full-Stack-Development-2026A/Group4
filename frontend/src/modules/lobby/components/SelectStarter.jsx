@@ -1,8 +1,13 @@
 import { SelectionButton } from "../../../reusable/CustomButtons";
 import { User, Bot, Swords } from 'lucide-react'
+import { useLobby } from "../../../context/GameLobbyContext";
 
-const SelectStarter = ({ playerOneName, playerTwoName, firstPlayer, setFirstPlayer, isAi }) => {
-    
+const SelectStarter = ({ isAi = false }) => {
+    const { playerInfo, firstPlayer, setFirstPlayer } = useLobby();
+
+    const playerOneName = playerInfo.playerOneName;
+    const playerTwoName = playerInfo.playerTwoName;
+
     return (
         <div className="flex flex-col gap-8 p-5 items-center">
             <h1 className='text-center text-3xl font-bold text-gray-800'>Click on which player you want to go first!</h1>

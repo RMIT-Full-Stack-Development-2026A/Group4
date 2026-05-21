@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Board = ({ board, winningCells = [], styling, makeMove, playerId, id, interactive = false, markers = [] }) => {
-  const style = Array.isArray(styling) ? styling[0] : styling;
+  const style = styling;
 
   const isWinningCell = (r, c) =>
     winningCells.some(cell => cell.row === r && cell.col === c);

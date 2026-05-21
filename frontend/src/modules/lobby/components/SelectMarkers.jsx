@@ -1,20 +1,8 @@
-import React from 'react'
-import { markers } from '../services/styling_layouts'
+import { markers } from '../../../config/styling_layouts'
+import { useLobby } from '../../../context/GameLobbyContext';
+const SelectMarkers = ({ isAi = false }) => {
 
-const SelectMarkers = ({ playerInfo, setPlayerInfo, isAi = false }) => {
-
-    const handleMarkerSelect = (player, markerId) => {
-        if (isAi) {
-            const aiMarker = markers.find(m => m.id !== markerId)
-            setPlayerInfo(prev => ({
-                ...prev,
-                playerOneMarker: markerId,
-                playerTwoMarker: aiMarker.id
-            }))
-        } else {
-            setPlayerInfo(prev => ({ ...prev, [player]: markerId }))
-        }
-    }
+    const { playerInfo, handleMarkerSelect } = useLobby();
 
     const playerOneMarker = playerInfo.playerOneMarker
     const playerTwoMarker = playerInfo.playerTwoMarker

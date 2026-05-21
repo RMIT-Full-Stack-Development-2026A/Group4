@@ -6,10 +6,6 @@ export const useProfile = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const [games, setGames] = useState([]);
-    const [gameLoading, setGameLoading] = useState(false);
-    const [gameError, setGameError] = useState(null);
-
     const fetchProfile = async () => {
         try {
             setLoading(true);
@@ -48,23 +44,6 @@ export const useProfile = () => {
         }
     }
 
-    const searchGames = async (query) => {
-        try {
-            setGameLoading(true);
-
-            const res = await searchGamesService(query);
-
-            setGames(res);
-            setGameError(null);
-        } catch (err) {
-            setGameError(err.message);
-        } finally {
-            setGameLoading(false);
-        }
-};
-
-
-
     return {
         profile,
         loading,
@@ -72,9 +51,5 @@ export const useProfile = () => {
         fetchProfile,
         updateProfile,
         uploadAvatar,
-        games,
-        gameLoading,
-        gameError,
-        searchGames
     };
 };

@@ -1,51 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import { useProfile } from "../hook/useProfile"
+import { usePasswordUpdate } from "../hook/usePasswordUpdate";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
 const ProfilePasswordPage = () => {
-    const {updateProfile} = useProfile();
     const navigate = useNavigate();
-
-    const [form, setForm] = useState({
-        oldPassword: "",
-        password : "",
-        confirmPassword : ""
-    });
-
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        //validate
-        if(form.password !== form.confirmPassword) {
-            setError("Password do not match");
-            return;
-        }
-
-        try{
-            await updateProfile({oldPassword: form.oldPassword, 
-                                password: form.password});
-
-            setSuccess(true);
-            setError("");
-
-            setTimeout(() => {
-                navigate("/profile");
-            }, 1500);
-        } catch (err){
-            setError(err.message || "Failed to update password");
-        }
-    };
+    const { form, error, success, handleSubmit, updateField } = usePasswordUpdate();
 
     return (
     <div className="flex justify-center mt-10">
       <div className="w-[600px] bg-white shadow-xl rounded-2xl overflow-hidden">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-500 to-pink-500 p-6 text-white flex items-center gap-4">
+        <div className="bg-linear-to-r from-red-500 to-pink-500 p-6 text-white flex items-center gap-4">
           
           <button
             onClick={() => navigate("/profile")}
@@ -79,10 +46,7 @@ const ProfilePasswordPage = () => {
                 placeholder="Current Password"
                 className="p-3 border rounded-lg"
                 value={form.oldPassword}
-                onChange={(e) => {
-                    setForm({ ...form, oldPassword: e.target.value });
-                    setError("");
-                }}
+                onChange={(e) => updateField('oldPassword', e.target.value)}
             />
 
             <input
@@ -90,10 +54,7 @@ const ProfilePasswordPage = () => {
               placeholder="New Password"
               className="p-3 border rounded-lg"
               value={form.password}
-              onChange={(e) => {
-                setForm({ ...form, password: e.target.value })
-                setError("");
-              }}
+              onChange={(e) => updateField('password', e.target.value)}
             />
 
             <input
@@ -101,17 +62,13 @@ const ProfilePasswordPage = () => {
               placeholder="Confirm Password"
               className="p-3 border rounded-lg"
               value={form.confirmPassword}
-              onChange={(e) => {
-                setForm({ ...form, confirmPassword: e.target.value });
-                setError("");
-              }}
+              onChange={(e) => updateField('confirmPassword', e.target.value)}
             />
 
             <button
                 disabled={success}
                 className={`p-3 rounded-lg text-white ${
-                    success ? "bg-gray-400" : "bg-red-500 hover:bg-red-600"
-                }`}
+                    success ? "bg-gray-400" : "bg-red-500 hover:bg-red-600"}`}
                 >
                 {success ? "Updated!" : "Update Password"}
             </button>

@@ -1,11 +1,8 @@
-import { AIModels } from '../services/ai_models';
-
-const SelectAi = ({ playerInfo, setPlayerInfo }) => {
+import { AIModels } from '../../../config/ai_models';
+import { useLobby } from '../../../context/GameLobbyContext';
+const SelectAi = () => {
+    const { playerInfo, handleAiClick } = useLobby();
     const selectedAiName = playerInfo.playerTwoName;
-
-    const handleAiClick = (ai) => {
-        setPlayerInfo(prev => ({ ...prev, playerTwoName: ai.name }));
-    };
 
     return (
         <div className='p-4 flex flex-col gap-8'>
