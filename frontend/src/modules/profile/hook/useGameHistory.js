@@ -5,25 +5,29 @@ export const useGameHistory = () => {
     const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [keyword, setKeyword] = useState("");
 
+    // Teammate's filters moved here for clean architecture
+    const [filters, setFilters] = useState({
+        keyword: "",
+        result: "ALL",
+        type: "ALL",
+        startDate: "",
+        endDate: "",
+        sort: "newest"
+    });
+
+    // Debounced effect for ALL filters
     useEffect(() => {
         const delay = setTimeout(() => {
-            if (keyword.trim() === "") {
-                searchGames(""); 
-            } else {
-                searchGames(keyword);
-            }
+            fetchHistory();
         }, 400);
-
         return () => clearTimeout(delay);
-    }, [keyword]);
+    }, [filters]);
 
-    const searchGames = async (searchQuery) => {
+    const fetchHistory = async () => {
         try {
             setLoading(true);
-            // Pass the keyword to the service
-            const data = await searchGamesService({ keyword: searchQuery });
+            const data = await searchGamesService(filters);
             setGames(data);
             setError(null);
         } catch (err) {
@@ -33,5 +37,10 @@ export const useGameHistory = () => {
         }
     };
 
-    return { games, loading, error, keyword, setKeyword };
+    // Helper to update specific filter fields
+    const updateFilter = (field, value) => {
+        setFilters(prev => ({ ...prev, [field]: value }));
+    };
+
+    return { games, loading, error, filters, updateFilter };
 };

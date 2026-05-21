@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useProfile } from "./useProfile";
+import { changePasswordService } from "../service/profileService";
 
 export const usePasswordUpdate = () => {
-    const { updateProfile } = useProfile();
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -14,8 +13,9 @@ export const usePasswordUpdate = () => {
 
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const changePassword = async (e) => {
         e.preventDefault();
 
         // validate
@@ -25,25 +25,32 @@ export const usePasswordUpdate = () => {
         }
 
         try {
-            const successResult = await updateProfile({
+            setLoading(true);
+            setError("");
+
+            await changePasswordService({
                 oldPassword: form.oldPassword,
-                password: form.password
+                newPassword: form.password,
+                confirmPassword: form.confirmPassword
             });
 
-            if (successResult) {
-                setSuccess(true);
-                setError("");
-                setTimeout(() => navigate("/profile"), 1500);
-            }
+            setSuccess(true);
+
+            setTimeout(() => {
+                navigate("/profile");
+            }, 1500);
+
         } catch (err) {
             setError(err.message || "Failed to update password");
+        } finally {
+            setLoading(false);
         }
     };
 
     const updateField = (field, value) => {
         setForm(prev => ({ ...prev, [field]: value }));
-        setError(""); // Clear error when typing
+        setError("");
     };
 
-    return { form, error, success, handleSubmit, updateField };
+    return { form, error, success, loading, changePassword, updateField };
 };

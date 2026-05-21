@@ -1,5 +1,5 @@
 import { httpHelper } from "../../../utils/httpHelper";
-import { PROFILE_ENDPOINTS } from "../../../config/apiConfig";
+import { PROFILE_ENDPOINTS, AUTH_ENDPOINTS } from "../../../config/apiConfig";
 
 export const getProfileService = async () => {
     const res = await httpHelper.get(PROFILE_ENDPOINTS.PROFILE);
@@ -32,14 +32,31 @@ export const uploadAvatarService = async (file) => {
     return res.data;
 }
 
-export const searchGamesService = async (query) => {
-    const keyword = query?.keyword ?? "";
+export const changePasswordService = async (payload) => {
 
-    const res = await httpHelper.get(`/profile/games/search?keyword=${encodeURIComponent(keyword)}`);
+    const res = await httpHelper.put(
+        AUTH_ENDPOINTS.CHANGE_PASSWORD,
+        payload
+    );
+
+    if (res.status !== 200) {
+        throw new Error(res.data.message);
+    }
+
+    return res.data;
+};
+
+export const searchGamesService = async (query) => {
+
+    console.log("RAW QUERY:", query);
+
+    const res = await httpHelper.get(PROFILE_ENDPOINTS.GAME_HISTORY, {
+        params: query
+    });
 
     if(res.status !== 200){
         throw new Error(res.data.message);
     }
 
     return res.data.data;
-}
+};

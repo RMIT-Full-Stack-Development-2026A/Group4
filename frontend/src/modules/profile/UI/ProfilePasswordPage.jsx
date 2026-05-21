@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { usePasswordUpdate } from "../hook/usePasswordUpdate";
-import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
 const ProfilePasswordPage = () => {
     const navigate = useNavigate();
-    const { form, error, success, handleSubmit, updateField } = usePasswordUpdate();
+    const { form, error, success, loading, changePassword, updateField } = usePasswordUpdate();
 
     return (
     <div className="flex justify-center mt-10">
@@ -39,7 +38,7 @@ const ProfilePasswordPage = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={changePassword} className="flex flex-col gap-4">
 
             <input
                 type="password"
@@ -70,7 +69,7 @@ const ProfilePasswordPage = () => {
                 className={`p-3 rounded-lg text-white ${
                     success ? "bg-gray-400" : "bg-red-500 hover:bg-red-600"}`}
                 >
-                {success ? "Updated!" : "Update Password"}
+                {loading ? "Updating..." : success ? "Updated!" : "Update Password"}
             </button>
 
           </form>
