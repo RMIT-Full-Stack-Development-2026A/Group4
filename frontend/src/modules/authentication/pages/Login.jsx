@@ -37,7 +37,6 @@ const Login = () => {
               value={loginInput.email}
               type='email'
               name='email'
-              required
               onChange={handleChangingInput}
             />
           </div>
@@ -50,7 +49,6 @@ const Login = () => {
               value={loginInput.password}
               name='password'
               type='password'
-              required
               onChange={handleChangingInput}
             />
           </div>

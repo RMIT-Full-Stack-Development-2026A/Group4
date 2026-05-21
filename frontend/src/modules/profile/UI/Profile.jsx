@@ -44,6 +44,7 @@ const Profile = () => {
                   profile?.profile?.avatarUrl ||
                   "https://i.pravatar.cc/150"
                 }
+                onError={(e) => { e.target.src = "https://i.pravatar.cc/150" }} 
                 className="w-full h-full object-cover"
               />
             </div>
