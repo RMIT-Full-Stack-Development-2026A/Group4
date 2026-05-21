@@ -30,7 +30,7 @@ const port = process.env.PORT || 3000;
 
 // Middlewares:
 app.use(cors({
-    origin: `${process.env.CLIENT_URL}`,
+    origin: "https://group4-loir.onrender.com",
     credentials: true,
 }));
 app.use(express.json());
