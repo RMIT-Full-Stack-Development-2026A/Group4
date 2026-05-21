@@ -7,14 +7,14 @@
 
 - **Course**: COSC2769 / COSC2808 – Full Stack Development
 - **Software Requirements Specification**
-- **Due Date**: 18:00 on 6th May 2026
+- **Due Date**: 18:00 on 22th May 2026
 
 ## 👥 Team Members
 
 | No. | Name                  | Student ID   | GitHub Username     | Main Responsibility                  |
 |-----|-----------------------|--------------|---------------------|--------------------------------------|
 | 1   | Du Lam Quan           | s4099918    | quan-du      | Architecture & Auth Lead             |
-| 2   | Hung La Tran          | s4123461    | @yourusername       | Game & UI/UX Lead                    |
+| 2   | Hung La Tran          | s4123461    | superP3ter       | Game & UI/UX Lead                    |
 | 3   | Son Nguyen Hoang      | s3990627    | HoangSon0810        | Online & Deployment Lead             |
 
 ## 🛠 Tech Stack
@@ -51,5 +51,4 @@
 - **Move Recording & Replay System** (with algebraic notation)
 - **Responsive UI** + Reusable Component Packages (Ultimo)
 
-## 📁 Repository Structure
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/UserContext';
-import { loginService } from '../service/authService';
+import { loginService } from '../service/AuthService';
 
 const useLogin = () => {
     // Auth Context:
