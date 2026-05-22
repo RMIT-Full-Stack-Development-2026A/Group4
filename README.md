@@ -44,8 +44,8 @@ There were 3 total members within the team, therefore total contribution score i
 
 | No. | Name | Student ID | Role | Main Responsibility | Contribution Score |
 |---|---|---|---|---|---|
-| 1 | Lam Quan Du | s4099918 | Tech Lead | Authentication, Game | 5 |
-| 2 | Hung La Tran | s4123461 | Code Maintainer / Project Manager | Subscription, Admin, Refactoring | 5 |
+| 1 | Lam Quan Du | s4099918 | Project Manager | Authentication, Game | 5 |
+| 2 | Hung La Tran | s4123461 | Code Maintainer / Tech Lead | Subscription, Admin, Refactoring | 5 |
 | 3 | Nguyen Hoang Son | s3990627 | System Architect / UI Design | Profile, Lobby | 5 |
 
 ---
