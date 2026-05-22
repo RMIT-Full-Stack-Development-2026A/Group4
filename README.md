@@ -149,16 +149,6 @@ The backend API runs on: **http://localhost:5000**
 
 ---
 
-## 👥 Contribution Table
-
-| # | Member Name      | Student ID | Role                     | Assigned Tasks                                                                       | Contribution Score |
-|---|------------------|------------|--------------------------|--------------------------------------------------------------------------------------|--------------------|
-| 1 | Lam Quan Du      | s4099918   | Tech Lead                | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic        | 5 / 15             |
-| 2 | Hung La Tran     | s4123461   | Code Maintainer / Tester | UI mockup, architecture implementation, subscription, account management, game logic | 5 / 15             |
-| 3 | Nguyen Hoang Son | s3990627   | Architect / Developer    | UI mockup, user & account profile management, game history and filtering             | 5 / 15             |
-
----
-
 ## 🛠 Tech Stack
 
 ### Frontend
