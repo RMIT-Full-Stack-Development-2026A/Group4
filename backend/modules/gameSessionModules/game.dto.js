@@ -1,8 +1,10 @@
 // DTO for game session data
 export class gameDTO {
     constructor (game) {
-        // Game id
+        // Game id and session num
         this.id = game._id;
+        this.session_num = game.session_num;
+
         // Players info
         this.host = game.host_name;
         this.guest = game.guest_name;

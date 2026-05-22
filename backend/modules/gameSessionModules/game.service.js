@@ -72,11 +72,6 @@ export const abortGame = async (id) => {
     return await repo.updateSessionData(id, {status: "ABORTED", endTime: Date.now()});
 }
 
-// Fetching history for the profile page:
-export const getPlayerHistory = async (userId) => {
-    return await repo.getHistoryByUser(userId);
-};
-
 // Making a move:
 export const makeMove = async ( row, col, playerId, id ) => {
     // Fetching game info from repo

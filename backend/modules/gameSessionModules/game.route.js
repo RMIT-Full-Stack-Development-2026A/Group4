@@ -14,8 +14,6 @@ gameRouter.get('/:id', gameController.getGameSession,);
 gameRouter.post('/:id/move', gameController.makeMove) // Making a move
 // Aborting game: 
 gameRouter.post('/finish/abort/:id', gameController.abortGame) // Aborting the game
-// Getting player history:
-gameRouter.get('/history', gameController.getUserHistory);
 // Game is done:
 gameRouter.patch('/finish/:id', gameController.endSession);
 

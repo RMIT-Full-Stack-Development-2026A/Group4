@@ -51,21 +51,7 @@ export const endSession = async (req, res, next) => {
     }
 };
 
-// Gets history for the current user:
-export const getUserHistory = async (req, res, next) => {
-    try {
-        const userId = req.user.id;
-        const history = await gameService.getPlayerHistory(userId);
-        // Map everything to DTOs for a clean response
-        return res.status(200).json({
-            success: true,
-            data: history.map(game => new gameDTO(game))
-        });
-    } catch (err) {
-        next(err);
-    }
-};
-
+// record a move in the game
 export const makeMove = async (req, res, next) => {
     try {
         // When making a move: front end sends { playerId, row, col }

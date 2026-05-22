@@ -114,9 +114,11 @@ const GameHistory = () => {
                 {g.guest?.charAt(0)}
               </div>
 
+              {/* Player 2 Info */}
               <div>
-                <div className="font-bold text-lg text-gray-800">
-                  {g.guest}
+                <div className="flex items-baseline gap-2 font-bold text-gray-800">
+                  <span className="text-sm text-gray-400 font-black">#{g.session_num}</span>
+                  <span>{g.guest}</span>
                 </div>
                 <div className="text-sm text-gray-500">
                   {g.type === "MULTIPLAYER" ? "Local Match" : "AI Match"}
