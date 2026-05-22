@@ -40,13 +40,14 @@ The application is deployed on Render and accessible online at:
 ---
 
 ## 👥 Team Members
+
 There were 3 total members within the team, therefore total contribution score is 15.
 
-| No. | Name | Student ID | Role | Main Responsibility | Contribution Score | Assigned Tasks  |
-|---|---|---|---|---|
-| 1 | Lam Quan Du | s4099918 | Tech Lead | Authentication, Game | 5 | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic  |
-| 2 | Hung La Tran | s4123461 | Code Maintainer / Tester | Subscription, Admin, Refactoring | 5 |  UI mockup, architecture implementation, subscription, account management, game logic | 
-| 3 | Nguyen Hoang Son | s3990627 | Architect / Developer | Profile, Lobby | 5 | UI mockup, user & account profile management, game history and filtering| 
+| No. | Name | Student ID | Role | Main Responsibility | Contribution Score | Assigned Tasks |
+|---|---|---|---|---|---|---|
+| 1 | Lam Quan Du | s4099918 | Tech Lead | Authentication, Game | 5 | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic |
+| 2 | Hung La Tran | s4123461 | Code Maintainer / Tester | Subscription, Admin, Refactoring | 5 | UI mockup, architecture implementation, subscription, account management, game logic |
+| 3 | Nguyen Hoang Son | s3990627 | Architect / Developer | Profile, Lobby | 5 | UI mockup, user & account profile management, game history and filtering |
 
 ---
 
@@ -150,11 +151,11 @@ The backend API runs on: **http://localhost:5000**
 
 ## 👥 Contribution Table
 
-| # | Member Name      | Student ID | Assigned Tasks                                                                       | Contribution Score |
-|---|------------------|------------|--------------------------------------------------------------------------------------|--------------------|
-| 1 | Lam Quan Du      | s4099918   | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic        | 5              |
-| 2 | Nguyen Hoang Son | s3990627   | UI mockup, user & account profile management, game history and filtering             | 5              |
-| 3 | Hung La Tran     | s4123461   | UI mockup, architecture implementation, subscription, account management, game logic | 5             |
+| # | Member Name      | Student ID | Role                     | Assigned Tasks                                                                       | Contribution Score |
+|---|------------------|------------|--------------------------|--------------------------------------------------------------------------------------|--------------------|
+| 1 | Lam Quan Du      | s4099918   | Tech Lead                | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic        | 5 / 15             |
+| 2 | Hung La Tran     | s4123461   | Code Maintainer / Tester | UI mockup, architecture implementation, subscription, account management, game logic | 5 / 15             |
+| 3 | Nguyen Hoang Son | s3990627   | Architect / Developer    | UI mockup, user & account profile management, game history and filtering             | 5 / 15             |
 
 ---
 
@@ -233,6 +234,7 @@ The system is organized using a modular monolith structure where each module man
 - Match History Tracking
 - Search Match History
 - Filter Match History
+- Sort Match History by Date
 
 ---
 
@@ -252,6 +254,15 @@ The system is organized using a modular monolith structure where each module man
 - 10x10 and 15x15 boards
 - Multiple board themes
 - Multiple player markers
+- Match result recording
+- Algebraic board notation support
+
+---
+
+### ✅ Replay System
+- Move recording system
+- Match replay interface
+- Algebraic notation replay visualization
 
 ---
 
@@ -319,6 +330,7 @@ project-root/
 The system demonstrates:
 - Local multiplayer gameplay
 - AI gameplay modes
+- Match replay system
 - Premium subscription workflow
 - Admin management dashboard
 - Responsive UI across devices
