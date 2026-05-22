@@ -100,19 +100,14 @@ export const makeMove = async ( row, col, playerId, id ) => {
             board: updatedBoard,
             status: "FINISHED",
             winner: playerId,
-            winningCells: winningCells,
+            winningLine: winningCells,
         }
     }
 
     // Check draw
     if (!updatedBoard.flat().includes(null)) {
-        return await repo.updateSessionData(id, { 
-            board: updatedBoard, 
-            status: "FINISHED", 
-            winner: "Draw", 
-            endTime: Date.now(),
-            markers: session.markers  
-        });
+        await repo.updateSessionData(id, { board: updatedBoard, status: "FINISHED", winner: "Draw", endTime: Date.now() });
+        return { board: updatedBoard, status: "FINISHED", winner: "Draw" };
     }
 
     // AI GAME:
@@ -133,7 +128,7 @@ export const makeMove = async ( row, col, playerId, id ) => {
                 board: afterAiBoard,
                 status: "FINISHED",
                 winner: session.guest_name,
-                winningCells: aiWinningCells,
+                winningLine: aiWinningCells,
             };
         }
         

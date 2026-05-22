@@ -58,7 +58,7 @@ const GameOver = () => {
                 <Board 
                 board={gameState.board} 
                 styling={currentStyle} 
-                winningCells={gameState.winningCells} 
+                winningCells={gameState.winningLine} 
                 markers={gameState.markers}
                 />
             </div>

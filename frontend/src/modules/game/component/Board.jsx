@@ -30,7 +30,7 @@ const Board = ({ board, winningCells = [], styling, makeMove, playerId, id, inte
                 text-sm font-bold
                 transition-colors duration-150
                 ${style?.cell ?? 'border-gray-300 bg-white hover:bg-gray-100'}
-                ${isWinningCell(r, c) ? 'border-green-400' : ''}
+                ${isWinningCell(r, c) ? 'outline-4 -outline-offset-4 outline-green-600 z-10' : ''}
                 ${getCellStyle(cell)}
                 ${getMarkerColor(cell)}
               `}
