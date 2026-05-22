@@ -40,11 +40,10 @@ The application is deployed on Render and accessible online at:
 ---
 
 ## 👥 Team Members
-
 There were 3 total members within the team, therefore total contribution score is 15.
 
-| No. | Name | Student ID | Role | Main Responsibility | Contribution Score 
-|---|---|---|---|---|---|---|
+| No. | Name | Student ID | Role | Main Responsibility | Contribution Score |
+|---|---|---|---|---|---|
 | 1 | Lam Quan Du | s4099918 | Tech Lead | Authentication, Game | 5 |
 | 2 | Hung La Tran | s4123461 | Code Maintainer / Project Manager | Subscription, Admin, Refactoring | 5 |
 | 3 | Nguyen Hoang Son | s3990627 | System Architect / UI Design | Profile, Lobby | 5 |
