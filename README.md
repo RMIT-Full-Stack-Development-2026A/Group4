@@ -41,11 +41,11 @@ The application is deployed on Render and accessible online at:
 
 ## 👥 Team Members
 
-| No. | Name | Student ID | GitHub Username | Main Responsibility |
+| No. | Name | Student ID | Role | Main Responsibility |
 |---|---|---|---|---|
-| 1 | Lam Quan Du | s4099918 | quan-du | Architecture & Authentication Lead |
-| 2 | Hung La Tran | s4123461 | SuperP3ter | Gameplay & UI/UX Lead |
-| 3 | Nguyen Hoang Son | s3990627 | HoangSon0810 | Online Multiplayer & Deployment Lead |
+| 1 | Lam Quan Du | s4099918 | Tech Lead | Authentication, Game |
+| 2 | Hung La Tran | s4123461 | Code Maintainer / Tester | Subscription, Admin, Refactoring |
+| 3 | Nguyen Hoang Son | s3990627 | Architect / Developer | Profile, Lobby |
 
 ---
 
