@@ -46,7 +46,16 @@ export const useGame = () => {
                 }));
 
                 if (data.data.status === "FINISHED") {
-                    navigate(`/game/finish/${id}`);
+                    // Update the state first so the UI shows the final board
+                    setGameState(prev => ({
+                        ...prev,
+                        ...data.data
+                    }));
+
+                    // Wait 2 seconds so the user can see the winning line
+                    setTimeout(() => {
+                        navigate(`/game/finish/${id}`);
+                    }, 2000);
                 }
             }
         } catch (err) {

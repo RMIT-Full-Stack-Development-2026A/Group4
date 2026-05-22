@@ -8,8 +8,9 @@ const gameSessionSchema = new mongoose.Schema({
     host_name: { type: String, required: true },
     guest_name: { type: String, required: true }, // "AI Bot" or Player 2 Name
     
+    session_num: { type: Number, required: true },
+
     gameType: { type: String, enum: ['MULTIPLAYER', 'AI'], required: true },
-    
     boardSize: { type: Number, enum: [10, 15], default: 10 },
     boardStyle: { type: String  },
     status: { type: String, enum: [ 'ACTIVE', 'FINISHED', 'ABORTED' ], default: 'ACTIVE' },
@@ -25,7 +26,7 @@ const gameSessionSchema = new mongoose.Schema({
     board: {type: [[String]], required: true},
     markers: { type: [String], required: true },
 
-    // First player and marker:
+    // the current turn's player and marker:
     currentPlayer: {type: String, required: true},
     currentMarker: {type: String, required: true},
 });

@@ -61,6 +61,7 @@ const ActiveGame = () => {
                     playerId={gameState.currentPlayer} 
                     interactive={!isProcessing}
                     markers={gameState.markers}
+                    winningCells={gameState.winningLine}
                 />
             </div>
             
