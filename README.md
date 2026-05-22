@@ -6,7 +6,7 @@ Developed for the RMIT Full Stack Development course, the project follows layere
 
 ---
 
-# 📋 Project Information
+## 📋 Project Information
 
 | Item | Details |
 |---|---|
@@ -19,50 +19,178 @@ Developed for the RMIT Full Stack Development course, the project follows layere
 
 ---
 
-# 👥 Team Members
+## 🔗 GitHub Repository
 
-| No. | Name | Student ID | GitHub Username | Main Responsibility |
-|---|---|---|---|---|
-| 1 | Du Lam Quan | s4099918 | quan-du | Architecture & Authentication Lead |
-| 2 | Hung La Tran | s4123461 | SuperP3ter | Gameplay & UI/UX Lead |
-| 3 | Son Nguyen Hoang | s3990627 | HoangSon0810 | Online Multiplayer & Deployment Lead |
+**[https://github.com/RMIT-Full-Stack-Development-2026A/Group4](https://github.com/RMIT-Full-Stack-Development-2026A/Group4)**
 
 ---
 
-# 🛠 Tech Stack
+## 🌐 Live Deployment
 
-## Frontend
+The application is deployed on Render and accessible online at:
+
+**https://group4-loir.onrender.com**
+
+| Service | Platform |
+|---|---|
+| Frontend | Render |
+| Backend | Render |
+| Database | MongoDB Atlas |
+
+---
+
+## 👥 Team Members
+
+| No. | Name | Student ID | GitHub Username | Main Responsibility |
+|---|---|---|---|---|
+| 1 | Lam Quan Du | s4099918 | quan-du | Architecture & Authentication Lead |
+| 2 | Hung La Tran | s4123461 | SuperP3ter | Gameplay & UI/UX Lead |
+| 3 | Nguyen Hoang Son | s3990627 | HoangSon0810 | Online Multiplayer & Deployment Lead |
+
+---
+
+## 🔐 Login Credentials for Testing
+
+### Player Account
+| Field    | Value            |
+|----------|------------------|
+| Username | `kobe`           |
+| Email    | `kobe@gmail.com` |
+| Password | `O1o32003!?`     |
+
+### Admin Account
+| Field    | Value                 |
+|----------|-----------------------|
+| Username | `superpeter`          |
+| Email    | `xuanphoi3@gmail.com` |
+| Password | `SuperP3ter!!`        |
+
+---
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later recommended)
+- npm (bundled with Node.js)
+- MongoDB Atlas or Local MongoDB
+
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/RMIT-Full-Stack-Development-2026A/Group4.git
+cd Group4
+```
+
+---
+
+### 2. Install Dependencies
+
+**Frontend:**
+```bash
+cd frontend
+npm install
+```
+
+**Backend:**
+```bash
+cd backend
+npm install
+```
+
+---
+
+### 3. Configure Environment Variables
+
+Create `.env` files for both frontend and backend.
+
+**Backend — create `backend/.env`:**
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+CLIENT_URL=http://localhost:5173
+```
+
+**Frontend — create `frontend/.env`:**
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+---
+
+### 4. Run the Development Servers
+
+Open **two separate terminals**:
+
+**Terminal 1 – Backend:**
+```bash
+cd backend
+node index.js
+```
+
+**Terminal 2 – Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+
+---
+
+### 5. Open in Browser
+
+Navigate to: **http://localhost:5173**
+
+The backend API runs on: **http://localhost:5000**
+
+---
+
+## 👥 Contribution Table
+
+| # | Member Name      | Student ID | Assigned Tasks                                                                       | Contribution Score |
+|---|------------------|------------|--------------------------------------------------------------------------------------|--------------------|
+| 1 | Lam Quan Du      | s4099918   | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic        | 5 / 15             |
+| 2 | Nguyen Hoang Son | s3990627   | UI mockup, user & account profile management, game history and filtering             | 5 / 15             |
+| 3 | Hung La Tran     | s4123461   | UI mockup, architecture implementation, subscription, account management, game logic | 5 / 15             |
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
 - React + Vite
 - Tailwind CSS
 - Responsive Design (Desktop / Tablet / Mobile)
 - React Router
 - Axios
 
-## Backend
+### Backend
 - Node.js
 - Express.js
 - MongoDB + Mongoose
 - JWT (JWS Authentication)
 
-## Architecture & Design
+### Architecture & Design
 - N-Tier Layered Architecture
 - Modular Monolith Backend Structure
 - Repository Pattern
 - DTO-based Response Handling
 - Reusable Component-Based Frontend Design
 
-## Deployment
+### Deployment
 - Frontend deployed on Render
 - Backend deployed on Render
 - MongoDB Atlas Database
 
 ---
 
-# 🏗 System Architecture
+## 🏗 System Architecture
 
 The project follows the architecture requirements defined in the SRS specification.
 
-## Backend Architecture
+### Backend Architecture
 - Route Layer
 - Controller Layer
 - Service Layer
@@ -71,7 +199,7 @@ The project follows the architecture requirements defined in the SRS specificati
 - Authentication & Authorization Middleware
 - DTO Mapping Layer
 
-## Frontend Architecture
+### Frontend Architecture
 - Pages
 - Components
 - Hooks
@@ -84,9 +212,9 @@ The system is organized using a modular monolith structure where each module man
 
 ---
 
-# ✨ Features Implemented
+## ✨ Features Implemented
 
-## ✅ Authentication & Authorization
+### ✅ Authentication & Authorization
 - User Registration
 - Login with JWT Authentication
 - Password Hashing using bcrypt
@@ -98,7 +226,7 @@ The system is organized using a modular monolith structure where each module man
 
 ---
 
-## ✅ Profile Management
+### ✅ Profile Management
 - Update Username, Email, Password, and Country
 - Avatar Upload
 - Match History Tracking
@@ -108,19 +236,19 @@ The system is organized using a modular monolith structure where each module man
 
 ---
 
-## ✅ TicTacToe Gameplay
+### ✅ TicTacToe Gameplay
 
-### Local Multiplayer
+#### Local Multiplayer
 - 2-player local gameplay
 - Configurable first player
 - Abort game functionality
 
-### Single Player vs AI
+#### Single Player vs AI
 - Easy AI
 - Medium AI
 - Hard AI
 
-### Gameplay Features
+#### Gameplay Features
 - 10x10 and 15x15 boards
 - Multiple board themes
 - Multiple player markers
@@ -129,14 +257,14 @@ The system is organized using a modular monolith structure where each module man
 
 ---
 
-## ✅ Replay System
+### ✅ Replay System
 - Move recording system
 - Match replay interface
 - Algebraic notation replay visualization
 
 ---
 
-## ✅ Premium Subscription
+### ✅ Premium Subscription
 - Local wallet simulation
 - Premium subscription purchase
 - Simulated Stripe/Payment workflow
@@ -145,7 +273,7 @@ The system is organized using a modular monolith structure where each module man
 
 ---
 
-## ✅ Admin Dashboard
+### ✅ Admin Dashboard
 - View all registered users
 - View premium status
 - Activate / deactivate player accounts
@@ -155,7 +283,7 @@ The system is organized using a modular monolith structure where each module man
 
 ---
 
-# ⚠️ Current Project Status
+## ⚠️ Current Project Status
 
 The project has successfully implemented the majority of features required by the Software Requirements Specification.
 
@@ -168,9 +296,9 @@ All core gameplay systems, authentication, profile management, admin functionali
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
-```bash
+```
 project-root/
 │
 ├── frontend/
@@ -195,81 +323,7 @@ project-root/
 
 ---
 
-# 🚀 Installation & Setup
-
-## Prerequisites
-- Node.js
-- npm
-- MongoDB Atlas or Local MongoDB
-
----
-
-## 1. Clone Repository
-
-```bash
-git clone <repository-url>
-cd TicTacToang
-```
-
----
-
-## 2. Install Dependencies
-
-### Frontend
-```bash
-cd frontend
-npm install
-```
-
-### Backend
-```bash
-cd backend
-npm install
-```
-
----
-
-## 3. Configure Environment Variables
-
-Create `.env` files for both frontend and backend.
-
-### Backend `.env`
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
-CLIENT_URL=http://localhost:5173
-```
-
----
-
-## 4. Run Development Servers
-
-### Backend
-```bash
-node .\index.js
-```
-
-### Frontend
-```bash
-npm run dev
-```
-
----
-
-# 🌐 Deployment
-
-The application is deployed on Render and accessible online.
-
-| Service | Platform |
-|---|---|
-| Frontend | Render |
-| Backend | Render |
-| Database | MongoDB Atlas |
-
----
-
-# 📸 Demonstration Features
+## 📸 Demonstration Features
 
 The system demonstrates:
 - Local multiplayer gameplay
@@ -281,7 +335,7 @@ The system demonstrates:
 
 ---
 
-# 📖 Software Engineering Practices
+## 📖 Software Engineering Practices
 
 The project follows:
 - Agile/Scrum-inspired workflow
@@ -293,6 +347,6 @@ The project follows:
 
 ---
 
-# 📌 Notes
+## 📌 Notes
 
-This project was developed for educational purposes as part of the RMIT University Full Stack Development course.
+This project was developed for educational purposes as part of the RMIT University Full Stack Development course (COSC2769 / COSC2808).
