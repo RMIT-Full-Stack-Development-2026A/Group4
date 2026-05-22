@@ -232,7 +232,6 @@ The system is organized using a modular monolith structure where each module man
 - Match History Tracking
 - Search Match History
 - Filter Match History
-- Sort Match History by Date
 
 ---
 
@@ -252,15 +251,6 @@ The system is organized using a modular monolith structure where each module man
 - 10x10 and 15x15 boards
 - Multiple board themes
 - Multiple player markers
-- Match result recording
-- Algebraic board notation support
-
----
-
-### ✅ Replay System
-- Move recording system
-- Match replay interface
-- Algebraic notation replay visualization
 
 ---
 
@@ -328,7 +318,6 @@ project-root/
 The system demonstrates:
 - Local multiplayer gameplay
 - AI gameplay modes
-- Match replay system
 - Premium subscription workflow
 - Admin management dashboard
 - Responsive UI across devices
