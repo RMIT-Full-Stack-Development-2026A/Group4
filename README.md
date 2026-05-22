@@ -151,9 +151,9 @@ The backend API runs on: **http://localhost:5000**
 
 | # | Member Name      | Student ID | Assigned Tasks                                                                       | Contribution Score |
 |---|------------------|------------|--------------------------------------------------------------------------------------|--------------------|
-| 1 | Lam Quan Du      | s4099918   | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic        | 5 / 15             |
-| 2 | Nguyen Hoang Son | s3990627   | UI mockup, user & account profile management, game history and filtering             | 5 / 15             |
-| 3 | Hung La Tran     | s4123461   | UI mockup, architecture implementation, subscription, account management, game logic | 5 / 15             |
+| 1 | Lam Quan Du      | s4099918   | UI mockup, authentication logic, gameplay logic, lobby UI, subscription logic        | 5              |
+| 2 | Nguyen Hoang Son | s3990627   | UI mockup, user & account profile management, game history and filtering             | 5              |
+| 3 | Hung La Tran     | s4123461   | UI mockup, architecture implementation, subscription, account management, game logic | 5             |
 
 ---
 
